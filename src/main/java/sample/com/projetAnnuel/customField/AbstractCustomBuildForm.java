@@ -132,7 +132,6 @@ public abstract class AbstractCustomBuildForm extends Application {
 
 	public void buildTop(BorderPane center) {
 		GridPane grid = new GridPane();
-		int row = 0;
 		grid.setAlignment(Pos.CENTER);
 		grid.setHgap(10);
 		grid.setVgap(10);

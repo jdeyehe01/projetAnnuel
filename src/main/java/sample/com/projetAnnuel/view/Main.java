@@ -15,14 +15,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-//        AccueilView a = new AccueilView();
-//        a.start(primaryStage);
-        
-      
-//        a.stop();
-        
-        CreateEventFormView evntForm = new CreateEventFormView();
-        evntForm.start(primaryStage);
+        AccueilView home = new AccueilView();
+        home.start(primaryStage);
+//        CreateEventFormView evntForm = new CreateEventFormView();
+//        evntForm.start(primaryStage);
 }
 
 
