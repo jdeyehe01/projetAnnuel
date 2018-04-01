@@ -1,7 +1,8 @@
 package sample.com.projetAnnuel.model;
-import sample.com.projetAnnuel.annotation.PropertyLabel;
+import java.util.ArrayList;
+import java.util.Date;
 
-import java.util.*;
+import sample.com.projetAnnuel.annotation.PropertyLabel;
 
 public class Evenement {
 
@@ -12,7 +13,7 @@ public class Evenement {
 	@PropertyLabel(value = "Nom")
 	private String nom;
 
-	@PropertyLabel(value = "Date de début")
+	@PropertyLabel(value = "Date de debut")
 	private Date dateDebut;
 
 	@PropertyLabel(value = "Adresse")
@@ -24,7 +25,7 @@ public class Evenement {
 	@PropertyLabel(value = "Ville")
 	private String ville;
 
-	@PropertyLabel(value = "Heure de début")
+	@PropertyLabel(value = "Heure de debut")
 	private String heure;
 
 	@PropertyLabel(value = "Description")

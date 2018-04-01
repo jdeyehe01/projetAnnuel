@@ -1,8 +1,8 @@
 package sample.com.projetAnnuel.model;
 
-import sample.com.projetAnnuel.annotation.PropertyLabel;
+import java.util.ArrayList;
 
-import java.util.*;
+import sample.com.projetAnnuel.annotation.PropertyLabel;
 
 public class Utilisateur extends Personne {
 

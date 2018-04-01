@@ -22,7 +22,7 @@ public class Personne {
 	@PropertyLabel(value = "Code postal de la ville")
 	private int codePostal;
 
-	@PropertyLabel(value = "Nom de la ville ")
+//	@PropertyLabel(value = "Nom de la ville ")
 	private String ville;
 
 	public String getVille() {
