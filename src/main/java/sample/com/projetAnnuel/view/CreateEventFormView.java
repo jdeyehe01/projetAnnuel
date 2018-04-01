@@ -40,6 +40,10 @@ public class CreateEventFormView extends AbstractCustomBuildForm {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		super.buildScreen(stage, "Creation evenement");
+		
+		String title = "Nouveau Evenement" ;
+		String des = "Dans cette rubrique, veuillez entrer les differentes informations de votre evenement";
+		
+		super.buildScreen(stage, "Creation evenement" , Evenement.class , title , des);
 	}
 }

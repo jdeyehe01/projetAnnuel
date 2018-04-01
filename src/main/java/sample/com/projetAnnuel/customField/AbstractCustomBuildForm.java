@@ -27,14 +27,14 @@ import sample.com.projetAnnuel.model.Evenement;
 public abstract class AbstractCustomBuildForm extends Application {
 
 
-	public void buildScreen(Stage stage , String viewName) {
+	public void buildScreen(Stage stage , String viewName , Class<?> c , String titleScreen , String descriptionScreen) {
 
 		stage.setFullScreen(true);
 		stage.setTitle("Before Show - "+ viewName);
 		Group root = new Group();
 		BorderPane border = new BorderPane();
 
-		this.build(border);
+		this.build(border , c , titleScreen , descriptionScreen);
 
 		root.getChildren().add(border);
 		Scene scene = new Scene(root,stage.getMaxHeight(),stage.getMaxHeight(), Color.LIGHTBLUE);
@@ -46,8 +46,8 @@ public abstract class AbstractCustomBuildForm extends Application {
 	}
 
 
-	public void build(BorderPane b) {
-		this.buildForm(b);
+	public void build(BorderPane b , Class<?> c , String titleScreen , String descriptionScreen) {
+		this.buildForm(b,c,titleScreen,descriptionScreen);
 		this.buildTop(b);
 		this.buildBottom(b);
 	}
@@ -71,7 +71,7 @@ public abstract class AbstractCustomBuildForm extends Application {
 		bottom.setBottom(grid);
 	}
 
-	public void buildForm(BorderPane rigth) {
+	public void buildForm(BorderPane rigth , Class<?> c , String titleScreen , String descriptionScreen) {
 		GridPane grid = new GridPane();
 		int row = 0;
 		grid.setAlignment(Pos.CENTER);
@@ -82,12 +82,9 @@ public abstract class AbstractCustomBuildForm extends Application {
 		TextField tf = null;
 		Font font = Font.font("lobster",45);
 
-		String title = "Nouveau evenement";
-		String des = "Dans cette rubrique, veuillez entrer les differentes informations de votre evenement";
-
-		Label labelTitle = new Label(title);
+		Label labelTitle = new Label(titleScreen);
 		labelTitle.setAlignment(Pos.CENTER);
-		Label labelDesc = new Label(des);
+		Label labelDesc = new Label(descriptionScreen);
 
 		labelTitle.setFont(font);
 		font = Font.font("lobster", 25);
@@ -101,7 +98,7 @@ public abstract class AbstractCustomBuildForm extends Application {
 
 		Controller controller = new Controller();
 
-		ArrayList<Field> fields = controller.getFields(Evenement.class);
+		ArrayList<Field> fields = controller.getFields(c);
 
 		for(Field f : fields) {
 			PropertyLabel propertyLabel =  f.getAnnotation(PropertyLabel.class);
