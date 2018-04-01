@@ -10,46 +10,59 @@ import sample.com.projetAnnuel.annotation.PropertyLabel;
 
 
 public class Main extends Application {
-    private int cpt = 0;
-    private int dec;
-    @Override
-    public void start(Stage primaryStage) throws Exception{
+	private int cpt = 0;
+	private int dec;
+	@Override
+	public void start(Stage primaryStage) throws Exception{
 
-        AccueilView home = new AccueilView();
-        home.start(primaryStage);
-//        CreateEventFormView evntForm = new CreateEventFormView();
-//        evntForm.start(primaryStage);
-}
+		//		AccueilView home = new AccueilView();
+		//		home.start(primaryStage);
+
+		//		CreateEventFormView evntForm = new CreateEventFormView();
+		//		evntForm.start(primaryStage);
+
+		//    	PersonneViewForm personne = new PersonneViewForm();
+		//    	personne.start(primaryStage);
+
+		//    	CreateBudget budget = new CreateBudget();
+		//    	budget.start(primaryStage);
+
+		//		AuthentificationView authent = new AuthentificationView();
+		//		authent.start(primaryStage);
+		
+		CreateImageView image = new CreateImageView();
+		image.start(primaryStage);
+	}
 
 
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+	public static void main(String[] args) {
+		launch(args);
+	}
 
 
 
 
-    private void buildFom(Field[] fields ,Group root){
+	private void buildFom(Field[] fields ,Group root){
 
-//        Field[] fields = User.class.getDeclaredFields();
+		//        Field[] fields = User.class.getDeclaredFields();
 
-        for(Field f : fields){
-            if(f.isAnnotationPresent(PropertyLabel.class)){
-                PropertyLabel plabel = f.getDeclaredAnnotation(PropertyLabel.class);
-                System.out.println(plabel.value());
+		for(Field f : fields){
+			if(f.isAnnotationPresent(PropertyLabel.class)){
+				PropertyLabel plabel = f.getDeclaredAnnotation(PropertyLabel.class);
+				System.out.println(plabel.value());
 
-                Label label = new Label(plabel.value());
-                label.setLayoutX(100 + dec);
-                label.setLayoutY(100 + dec);
+				Label label = new Label(plabel.value());
+				label.setLayoutX(100 + dec);
+				label.setLayoutY(100 + dec);
 
-                root.getChildren().add(label);
+				root.getChildren().add(label);
 
-                dec += 30;
+				dec += 30;
 
-            }else{
-                System.out.println("L'annotation n'est pas presente");
-            }
-        }
-    }
+			}else{
+				System.out.println("L'annotation n'est pas presente");
+			}
+		}
+	}
 }

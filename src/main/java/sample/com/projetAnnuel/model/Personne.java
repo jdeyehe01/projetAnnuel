@@ -7,7 +7,7 @@ public class Personne {
 	@PropertyLabel(value = "Nom")
 	private String nom;
 
-	@PropertyLabel(value = "Prénom")
+	@PropertyLabel(value = "Prenom")
 	private String prenom;
 
 	@PropertyLabel(value = "Age")
