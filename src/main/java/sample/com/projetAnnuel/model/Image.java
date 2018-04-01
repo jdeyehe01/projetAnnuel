@@ -1,8 +1,8 @@
 package sample.com.projetAnnuel.model;
 
-import sample.com.projetAnnuel.annotation.PropertyLabel;
-
 import java.util.Date;
+
+import sample.com.projetAnnuel.annotation.PropertyLabel;
 
 public class Image {
 

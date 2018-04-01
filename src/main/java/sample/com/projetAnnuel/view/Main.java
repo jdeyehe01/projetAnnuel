@@ -1,22 +1,12 @@
 package sample.com.projetAnnuel.view;
 
+import java.lang.reflect.Field;
+
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import sample.com.projetAnnuel.annotation.PropertyLabel;
-import sample.com.projetAnnuel.model.User;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 
 
 public class Main extends Application {
@@ -25,8 +15,14 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        AccueilView a = new AccueilView();
-        a.start(primaryStage);
+//        AccueilView a = new AccueilView();
+//        a.start(primaryStage);
+        
+      
+//        a.stop();
+        
+        CreateEventFormView evntForm = new CreateEventFormView();
+        evntForm.start(primaryStage);
 }
 
 
