@@ -10,4 +10,8 @@ UserController.newUser = function(login,password) {
   });
 };
 
+UserController.getAllUser = function() {
+  return User.findAll();
+};
+
 module.exports = UserController

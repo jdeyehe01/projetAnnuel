@@ -1,15 +1,21 @@
+
+//Invité
 module.exports = function (sequelize, DataTypes) {
-    const User = sequelize.define('User', {
+    const Guest  = sequelize.define('Guest', {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        login: {
+        fname: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        password: {
+        lname: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        email: {
             type: DataTypes.STRING,
             allowNull: false
         }
@@ -18,13 +24,14 @@ module.exports = function (sequelize, DataTypes) {
         underscored: true,
         freezeTableName: true
     });
-    User.associate = _associate;
-    return User;
+    Guest.associate = _associate;
+    return Guest;
 };
 
 function _associate(models) {
-  models.User.hasMany(models.Conference, {
+  models.Guest.belongsToMany(models.Conference, {
     as: 'conferences',
-    constraints: false
+    through: 'GuestConference',
+    foreignKey: 'guest_id'
   });
 }

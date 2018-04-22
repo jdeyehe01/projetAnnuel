@@ -12,9 +12,9 @@ ModelIndex.getModel = function (modelName) {
     return this[modelName];
 };
 
-const sequelize = new Sequelize('id5274367_beforeshow', 'id5274367_admin', 'ProjetAnnuelESGI18', {
-  hostname: 'https://databases.000webhost.com/',
-  host: 'localhost',
+const sequelize = new Sequelize('sebastiendelbeportfolio_projetannuelesgi', '135915', 'Proute09', {
+  hostname: 'ftp-sebastiendelbeportfolio.alwaysdata.net',
+  host: 'mysql-sebastiendelbeportfolio.alwaysdata.net',
   dialect: 'mysql',
   port: 3306,
   operatorsAliases: Op
