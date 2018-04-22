@@ -1,0 +1,27 @@
+{
+  "name": "clientlourd",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdeyehe01/projetAnnuel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdeyehe01/projetAnnuel/issues"
+  },
+  "homepage": "https://github.com/jdeyehe01/projetAnnuel#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.3",
+    "mysql2": "^1.5.3",
+    "npm": "^5.8.0",
+    "sequelize": "^4.37.6"
+  }
+}
