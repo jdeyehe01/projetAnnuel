@@ -48,22 +48,20 @@
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Nouvel Invité</h1>
-        <h3 class="mb-5  text-center ">
-          <em>Dans cette rubrique veuillez entrer les différentes informations de vos invités.</em>
-        </h3>
+        <h1 class="mb-1  text-center ">Connection</h1>
+
 
         <div class="width:50%" >
-          <form  action="http://localhost:8080/guest/" method="post">
+          <form  action="http://localhost:8080/user/" method="post">
               <div class="col-lg-8">
                     <div class="form-group">
                       <div>
-                        <label for="lname">Nom de l'invité :</label>
-                        <input class="form-control" type="text" placeholder="Enter le nom" name="lname" id="lname">
+                        <label for="login">login :</label>
+                        <input class="form-control" type="text" placeholder="Enter le nom" name="pw" id="pw">
                       </div>
                      <div>
-                      <label for="fname">Prénom :</label>
-                      <input class="form-control" type="text" placeholder="Enter le prénom"  name="fname" id="fname">
+                      <label for="login">mot de passe :</label>
+                      <input class="form-control" type="text" placeholder="Enter le prénom"  name="login" id="login">
                       </div>
                      <div>
                       <label for="email">Adresse mail : </label>
@@ -72,8 +70,8 @@
                      <div>
 
                     <div class="form-group">
-                      <input type="submit" value="Enregistrer">
-                      <a href="index.html"><button>Retour</button>
+                      <input type="submit" value="Connexion">
+                  
                     </div>
               </div>
             </div>

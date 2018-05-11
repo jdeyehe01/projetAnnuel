@@ -48,7 +48,7 @@
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Nouveau évènement</h1>
+        <h1 class="mb-1  text-center ">Nouvelle conférence</h1>
         <h3 class="mb-5  text-center ">
           <em>Dans cette rubrique veuillez entrer les différentes informations de votre conference.</em>
         </h3>
@@ -57,9 +57,8 @@
           <form  action="http://localhost:8080/conference/" method="post">
               <div class="col-lg-8">
                     <div class="form-group">
-                    <!--  <form action="http://localhost:8080/conference/" method="post"> -->
                       <div>
-                        <label for="nameConf" >Nom de l'évènement :</label>
+                        <label for="nameConf" >Nom de la conference :</label>
                         <input class="form-control" type="text" placeholder="Entrer le nom" name="nameConf" id="nameConf">
                       </div>
                      <div>
@@ -91,18 +90,15 @@
                     </div>
               </div>
             </div>
-            <div class="col-lg-8">
-              <div>
-                <p>liste des invités : </p>
-
-              </div>
-            </div>
+           
             <div class="form-group">
               <input type="submit" value="Enregistrer">
-            <button href="index.html" >Retour</button>
+           
             </div>
 
           </form>
+
+          <button onclick="window.location.href='index.html" >Retour</button>
         </div>
       </div>
     </header>
