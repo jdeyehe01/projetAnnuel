@@ -21,7 +21,6 @@ TaskController.getAllTaskForConference = function(idConference) {
   })
 };
 
-
 TaskController.deleteTask = function(idTask){
   return Task.destroy({
     where: {
