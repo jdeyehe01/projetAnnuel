@@ -6,28 +6,17 @@ const BudgetController = function() {};
 
 BudgetController.newBudget = function(title,amount) {
   return Budget.create({
-    title: name,
-    amount : address
+    title: title,
+    amount : amount
   });
 };
 
-BudgetController.getBudgetForConference = function(conferenceId) {
+BudgetController.getAllBudgetForConference = function(idConference) {
 
-const options = {
-include: [{
-    model: Budget,
-    as: 'budgets',
-  }],
-  where : {
-    id: conferenceId
-  }
-};
-
-
-return Conference.find(options)
-  .then((budgets)=>{
-
-    return budgets.budgets;
+  return Budget.findAll({
+    where : {
+      conference_id : idConference
+    }
   })
 };
 
@@ -59,5 +48,27 @@ BudgetController.addConference = function(idBudget , idConference){
   })
 };
 
+
+BudgetController.updateBudget = function(idBudget,title,amount){
+  return  Budget.findById(idBudget)
+    .then((budget) => {
+        return budget.updateAttributes({
+        title: title,
+        amount: amount
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    })
+}
+
+BudgetController.getBudgetById = function(idConference,idBudget){
+  return Budget.find({
+    where : {
+      id: idBudget,
+      conference_id : idConference
+    }
+  })
+}
 
 module.exports = BudgetController;
