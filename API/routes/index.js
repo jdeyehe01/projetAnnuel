@@ -6,6 +6,7 @@ RouteManager.attach = function(app) {
   app.use('/guest' , require('./guest'));
   app.use('/locate' , require('./locate'));
   app.use('/budget', require('./budget'));
+  app.use('/task' , require('./task'));
 
 };
 

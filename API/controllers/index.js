@@ -3,5 +3,6 @@ module.exports = {
   ConferenceController: require('./conference'),
   GuestController: require('./guest'),
   LocateController: require('./locate'),
-  BudgetController: require('./budget')
+  BudgetController: require('./budget'),
+  TaskController: require('./task')
 }
