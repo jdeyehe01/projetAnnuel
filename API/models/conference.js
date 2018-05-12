@@ -13,18 +13,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.DATE,
             allowNull: false
         },
-        adresse: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        codePostal: {
-            type: DataTypes.INTEGER,
-            allowNull: false
-        },
-        ville: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
         heureDebut: {
             type: DataTypes.STRING,
             allowNull: false
@@ -52,6 +40,24 @@ function _associate(models) {
       as: 'guests',
       through: 'GuestConference',
       foreignKey: 'conference_id'
+    });
+
+    models.Conference.belongsToMany(models.Locate , {
+      as: 'locates',
+      through: 'ConferenceLocate',
+      foreignKey: 'conference_id'
+    });
+
+    models.Conference.hasMany(models.Budget, {
+      as: 'budgets'
+    });
+
+    models.Conference.hasMany(models.Task, {
+      as: 'tasks'
+    });
+
+    models.Conference.hasMany(models.Presentation, {
+      as: 'presentations'
     });
 
 }

@@ -13,7 +13,7 @@ locateRouter.post('/', function(req, res) {
   const name = req.body.name;
   const address = req.body.address;
   const city = req.body.city;
-  const cityCode =parseInt(req.body.cityCode);
+  const cityCode = parseInt(req.body.cityCode);
 
 
   if(name === undefined || address === undefined || city === undefined || cityCode === undefined ) {
@@ -49,7 +49,7 @@ locateRouter.post('/', function(req, res) {
 });
 
 
-locateRouter.get('/getAllLocate/:idLocate' , function(req,res){
+locateRouter.get('/getLocateById/:idLocate' , function(req,res){
   const locateId = parseInt(req.params.idLocate);
   if(locateId === undefined  || locateId <= 0 ){
     res.status(400).end();
@@ -66,7 +66,7 @@ LocateController.getAllLocate(locateId)
   });
 
 
-  locateRouter.delete('/deleteLocate/:idLocate' , function(req,res){
+  locateRouter.delete('/deleteLocateById/:idLocate' , function(req,res){
 
     const idLocate = parseInt(req.params.idLocate);
     if(idLocate === undefined || idLocate <= 0 ){
@@ -94,6 +94,7 @@ LocateController.getAllLocate(locateId)
     }
 
     LocateController.addConference(idLocate , idConference);
+    res.status(201).end();
   });
 
 module.exports = locateRouter;

@@ -6,7 +6,7 @@ const LocateController = function() { };
 
 LocateController.newLocate = function(name,address,cityCode,city) {
   return Locate.create({
-    name: name
+    name: name,
     address : address,
     cityCode: cityCode,
     city: city

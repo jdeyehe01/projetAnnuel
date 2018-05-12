@@ -10,18 +10,15 @@ conferenceRouter.use(bodyParser.json());
 conferenceRouter.post('/', function(req, res) {
   const name = req.body.name;
   const dateDebut = req.body.dateDebut;
-  const adresse = req.body.adresse;
-  const codePostal = req.body.codePostal;
-  const ville = req.body.ville;
   const heureDebut = req.body.heureDebut;
   const description = req.body.description;
 
 
-  if(name === undefined || dateDebut === undefined || adresse === undefined || codePostal === undefined || ville === undefined || description === undefined) {
+  if(name === undefined || dateDebut === undefined || description === undefined) {
     res.status(400).end();
     return;
   }
-  ConferenceController.newConference(name,dateDebut,adresse,codePostal,ville,heureDebut,description)
+  ConferenceController.newConference(name,dateDebut,heureDebut,description)
   .then((conference) => {
     res.status(201).json(conference);
   })
