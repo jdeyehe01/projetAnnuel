@@ -6,13 +6,10 @@ const Guest = ModelIndex.Guest;
 
 const ConferenceController = function() { };
 
-ConferenceController.newConference = function(name,dateDebut,adresse,codePostal,ville,heureDebut,description) {
+ConferenceController.newConference = function(name,dateDebut,heureDebut,description) {
   return Conference.create({
     name: name,
     dateDebut: dateDebut,
-    adresse: adresse,
-    codePostal: codePostal,
-    ville: ville,
     heureDebut: heureDebut,
     description: description
   });
@@ -85,6 +82,12 @@ return Conference.destroy({
   return conf;
 });
 
+}
+
+ConferenceController.findLast = function(){
+  return Conference.findOne({
+      order: [ [ 'created_at', 'DESC' ]]
+  });
 }
 
 module.exports = ConferenceController;

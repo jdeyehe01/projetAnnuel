@@ -47,5 +47,17 @@ GuestController.deleteGuest = function(idGuest){
   })
 }
 
+GuestController.addConference = function(idGuest , idConference){
+
+  return Guest.findById(idGuest)
+  .then((guest)=>{
+    return Conference.findById(idConference)
+    .then((conference) => {
+      return guest.addConference(conference);
+    })
+  })
+};
+
+
 
 module.exports = GuestController;
