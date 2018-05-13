@@ -40,6 +40,11 @@ taskRouter.post('/', function(req, res) {
       'wait' : false
       });
 
+      ConferenceController.findLast()
+      .then((conference) => {
+        TaskController.addConference(task.id , conference.id);
+      });
+
       res.sendFile(path.join(__dirname,'../../view/Invite.html'));
 
   })

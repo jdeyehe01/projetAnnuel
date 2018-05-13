@@ -7,7 +7,6 @@ const notifier = require('node-notifier');
 const locateRouter = express.Router();
 const path = require("path");
 
-
 locateRouter.use(bodyParser.json());
 locateRouter.use(bodyParser.urlencoded({ extended: true }));
 locateRouter.use(express.static(path.join(__dirname + '../../../style')));
@@ -28,7 +27,6 @@ locateRouter.post('/', function(req, res) {
     });
 
     res.status(400).end();
-    res.sendFile(path.join(__dirname,'../../view/locate.html'));
 
 
   }
@@ -36,7 +34,6 @@ locateRouter.post('/', function(req, res) {
   LocateController.newLocate(name,address,cityCode,city)
   .then((locate) => {
 
-    //res.status(201).json(locate);
     notifier.notify({
       'title': 'Information',
       'message': 'Lieu enregistre',
@@ -44,6 +41,12 @@ locateRouter.post('/', function(req, res) {
       'wait' : false
       });
 
+      ConferenceController.findLast()
+      .then((conference) => {
+        LocateController.addConference(locate.id,conference.id);
+      });
+
+      res.sendFile(path.join(__dirname,'../../view/task.html'));
 
   })
   .catch((err) => {

@@ -84,4 +84,10 @@ return Conference.destroy({
 
 }
 
+ConferenceController.findLast = function(){
+  return Conference.findOne({
+      order: [ [ 'created_at', 'DESC' ]]
+  });
+}
+
 module.exports = ConferenceController;

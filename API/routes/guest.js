@@ -35,7 +35,13 @@ guestRouter.post('/', function(req, res) {
       'wait' : true
     });
 
-    res.redirect('/guestIndex');
+    ConferenceController.findLast()
+    .then((conference) =>{
+      GuestController.addConference(guest.id ,conference.id);
+    });
+
+
+    res.sendFile(path.join(__dirname,'../../view/index.html'));
   })
   .catch((err) => {
     res.status(500).end();
@@ -78,8 +84,4 @@ ConferenceController.getAllConferenceByGuest(guestId)
     })
   });
 
-
-guestRouter.get('/guestIndex' , function(req,res) {
-  res.send('Jean');
-})
 module.exports = guestRouter;

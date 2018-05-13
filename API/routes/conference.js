@@ -7,7 +7,6 @@ const notifier = require('node-notifier');
 const path = require("path");
 
 const conferenceRouter = express.Router();
-
 conferenceRouter.use(bodyParser.json());
 conferenceRouter.use(bodyParser.urlencoded({ extended: true }));
 conferenceRouter.use(express.static(path.join(__dirname + '../../../style')));
@@ -20,7 +19,6 @@ conferenceRouter.post('/', function(req, res) {
   const heureDebut = req.body.time;
   const description = req.body.description;
 
-console.log(name,dateDebut,heureDebut,description);
   if(name === undefined || dateDebut === undefined || description === undefined || heureDebut === undefined) {
     res.status(400).end();
 
@@ -41,7 +39,6 @@ console.log(name,dateDebut,heureDebut,description);
       'sound' : false,
       'wait' : false
     });
-    console.log(path.join(__dirname + '../../../css'));
     res.sendFile(path.join(__dirname,'../../view/presentation.html'));
 
   })
@@ -113,9 +110,4 @@ conferenceRouter.delete('/deleteConference/:idConf' , function(req,res){
   });
 
 });
-
-
-
-
-
 module.exports = conferenceRouter;

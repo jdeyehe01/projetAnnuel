@@ -26,6 +26,7 @@ presentationRouter.post('/', function(req, res) {
       'wait' : true
     });
 
+
     res.status(400).end();
     return;
 
@@ -41,7 +42,14 @@ presentationRouter.post('/', function(req, res) {
       'wait' : false
       });
 
-      res.sendFile(path.join(__dirname,'../../view/task.html'));
+    ConferenceController.findLast()
+    .then((conference)=>{
+
+        PresentationController.addConference(conference.id,presentation.id);
+    });
+
+
+      res.sendFile(path.join(__dirname,'../../view/locate.html'));
 
   })
   .catch((err) => {
