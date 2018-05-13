@@ -1,11 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const controllers = require('../controllers');
+const notifier = require('node-notifier');
 const GuestController = controllers.GuestController;
 const ConferenceController = controllers.ConferenceController;
-
+const path = require("path");
 const guestRouter = express.Router();
 guestRouter.use(bodyParser.json());
+guestRouter.use(bodyParser.urlencoded({ extended: true }));
+guestRouter.use(express.static(path.join(__dirname + '../../../style')));
+
 
 guestRouter.post('/', function(req, res) {
   const fname = req.body.fname;
@@ -13,11 +17,25 @@ guestRouter.post('/', function(req, res) {
   const email = req.body.email;
   if(fname === undefined || lname === undefined || email === undefined ) {
     res.status(400).end();
+    notifier.notify({
+      'title' : 'Champs incorrecte',
+      'message' : 'Veuillez remplir tous les champs svp',
+      'sound' : false,
+      'wait' : true
+    });
     return;
   }
   GuestController.newGuest(lname,fname,email)
   .then((guest) => {
-    res.status(201).json(guest);
+
+    notifier.notify({
+      'title' : 'Information',
+      'message' : 'Invité créé',
+      'sound' : false,
+      'wait' : true
+    });
+
+    res.redirect('/guestIndex');
   })
   .catch((err) => {
     res.status(500).end();
@@ -60,4 +78,8 @@ ConferenceController.getAllConferenceByGuest(guestId)
     })
   });
 
+
+guestRouter.get('/guestIndex' , function(req,res) {
+  res.send('Jean');
+})
 module.exports = guestRouter;

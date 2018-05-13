@@ -5,9 +5,12 @@ const PresentationController = controllers.PresentationController;
 const ConferenceController = controllers.ConferenceController;
 const notifier = require('node-notifier');
 const presentationRouter = express.Router();
+const path = require("path");
 
 presentationRouter.use(bodyParser.json());
 presentationRouter.use(bodyParser.urlencoded({ extended: true }));
+presentationRouter.use(express.static(path.join(__dirname + '../../../style')));
+
 
 presentationRouter.post('/', function(req, res) {
   const title = req.body.title;
@@ -37,11 +40,13 @@ presentationRouter.post('/', function(req, res) {
       'sound': false,
       'wait' : false
       });
+
+      res.sendFile(path.join(__dirname,'../../view/task.html'));
+
   })
   .catch((err) => {
     res.status(500).end();
   })
-    res.redirect('https://www.google.fr');
 
 
 });
@@ -60,7 +65,7 @@ presentationRouter.post('/', function(req, res) {
 
       notifier.notify({
         'title': 'Information',
-        'message': 'présentation supprimé',
+        'message': 'Présentation supprimé',
         'sound': false,
         'wait' : false
         });

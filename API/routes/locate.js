@@ -5,16 +5,18 @@ const LocateController = controllers.LocateController;
 const ConferenceController = controllers.ConferenceController;
 const notifier = require('node-notifier');
 const locateRouter = express.Router();
+const path = require("path");
+
 
 locateRouter.use(bodyParser.json());
 locateRouter.use(bodyParser.urlencoded({ extended: true }));
+locateRouter.use(express.static(path.join(__dirname + '../../../style')));
 
 locateRouter.post('/', function(req, res) {
   const name = req.body.name;
   const address = req.body.address;
   const city = req.body.city;
   const cityCode = parseInt(req.body.cityCode);
-
 
   if(name === undefined || address === undefined || city === undefined || cityCode === undefined ) {
 
@@ -26,6 +28,8 @@ locateRouter.post('/', function(req, res) {
     });
 
     res.status(400).end();
+    res.sendFile(path.join(__dirname,'../../view/locate.html'));
+
 
   }
 
@@ -39,11 +43,12 @@ locateRouter.post('/', function(req, res) {
       'sound': false,
       'wait' : false
       });
+
+
   })
   .catch((err) => {
     res.status(500).end();
   })
-    res.redirect('https://www.google.fr');
 
 
 });

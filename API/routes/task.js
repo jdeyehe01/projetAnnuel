@@ -5,9 +5,11 @@ const TaskController = controllers.TaskController;
 const ConferenceController = controllers.ConferenceController;
 const notifier = require('node-notifier');
 const taskRouter = express.Router();
+const path = require("path");
 
 taskRouter.use(bodyParser.json());
 taskRouter.use(bodyParser.urlencoded({ extended: true }));
+taskRouter.use(express.static(path.join(__dirname + '../../../style')));
 
 taskRouter.post('/', function(req, res) {
   const title = req.body.title;
@@ -37,11 +39,13 @@ taskRouter.post('/', function(req, res) {
       'sound': false,
       'wait' : false
       });
+
+      res.sendFile(path.join(__dirname,'../../view/Invite.html'));
+
   })
   .catch((err) => {
     res.status(500).end();
   })
-    res.redirect('https://www.google.fr');
 
 
 });
@@ -60,7 +64,7 @@ taskRouter.post('/', function(req, res) {
 
       notifier.notify({
         'title': 'Information',
-        'message': 'tâche supprimé',
+        'message': 'Tâche supprimé',
         'sound': false,
         'wait' : false
         });

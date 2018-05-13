@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const controllers = require('../controllers');
 const UserController = controllers.UserController;
+const notifier = require('node-notifier');
+
 //const jws = require('express-jwt-session');
 //const secret = 'mysecret';
 //const isAuthent = jws.isAuthenticated(secret);
@@ -16,6 +18,13 @@ userRouter.post('/', function(req, res) {
   const pw = req.body.password;
   if(login === undefined || pw === undefined ) {
     res.status(400).end();
+
+    notifier.notify({
+      'title' : 'Champs incorrecte',
+      'message' : 'Veuillez remplir tous les champs svp',
+      'sound' : false,
+      'wait' : true
+    });
     return;
   }
   UserController.newUser(login,pw)

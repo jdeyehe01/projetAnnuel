@@ -11,7 +11,7 @@ budgetRouter.use(bodyParser.urlencoded({ extended: true }));
 
 budgetRouter.post('/', function(req, res) {
   const title = req.body.title;
-  const amount =parseFloat(req.body.amount);
+  const amount = parseFloat(req.body.amount);
 
   if(title === undefined || amount === undefined) {
 
@@ -35,6 +35,8 @@ budgetRouter.post('/', function(req, res) {
       'sound': false,
       'wait' : false
       });
+
+      res.send()
   })
   .catch((err) => {
     res.status(500).end();
@@ -58,7 +60,7 @@ budgetRouter.post('/', function(req, res) {
 
       notifier.notify({
         'title': 'Information',
-        'message': 'Lieu supprimé',
+        'message': 'Budget supprimé',
         'sound': false,
         'wait' : false
         });
