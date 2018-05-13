@@ -19,11 +19,12 @@
     <link href="../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/style-css.min.css" rel="stylesheet">
+    <link href="../css/stylish-portfolio.min.css" rel="stylesheet">
 
   </head>
 
   <body id="page-top">
+
     <!-- Navigation -->
     <a class="menu-toggle rounded" href="#">
       <i class="fa fa-bars"></i>
@@ -47,47 +48,18 @@
 
     <!-- Header -->
     <header class="masthead d-flex">
-      <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Nouvelle conférence</h1>
-        <h3 class="mb-5  text-center ">
-          <em>Dans cette rubrique veuillez entrer les différentes informations de votre conference.</em>
+      <div class="container text-center my-auto">
+        <h1 class="mb-1">Bienvenue sur Before Show !</h1>
+        <h3 class="mb-5">
+          <em>Before Show est une plateforme de gestion d'inscription et de gestion de vos conférences. La gestion de vos invités est essentielle. Avec Before Show, tout sera super simple !</em>
         </h3>
-
-        <div class="width:50%" >
-          <form  action="http://localhost:8080/conference/" method="post">
-              <div class="col-lg-8">
-                    <div class="form-group">
-                      <div>
-                        <label for="name" >Nom de la conference :</label>
-                        <input class="form-control" type="text" placeholder="Entrer le nom" name="name" id="name">
-                      </div>
-
-                     <div>
-                      <label for="date">La date :</label>
-                      <input class="form-control" type="date" name="date" id="date">
-                      </div>
-                     <div>
-                      <label for="time">Heure de début :</label>
-                      <input class="form-control" type="time" name="time" id="time">
-                    </div>
-                    <div class="form-group">
-                      <label for="description">Description :</label>
-                      <textarea class="form-control" rows="10" name="description" id="description"></textarea>
-                    </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <input type="submit" value="Enregistrer">
-
-            </div>
-
-          </form>
-
-          <button onclick="window.location.href='index.html" >Retour</button>
-        </div>
+        <a class="btn btn-primary btn-xl js-scroll-trigger" href="Conference.html" >Créer une conférence</a>
+        <a class="btn btn-primary btn-xl js-scroll-trigger" href="ModifierConference.html" >Modifier une conference</a>
+        <a class="btn btn-primary btn-xl js-scroll-trigger" href="ListConference.html" target="_blank">Listes des conférences</a>
       </div>
+      <div class="overlay"></div>
     </header>
+
 
     <!-- Bootstrap core JavaScript -->
     <script src="../vendor/jquery/jquery.min.js"></script>
