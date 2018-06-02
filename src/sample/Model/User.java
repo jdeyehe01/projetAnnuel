@@ -13,7 +13,10 @@ public class User {
 		this.id = id;
 		this.login = login;
 		this.password = password;
+		this.isConnect = true;
 	}
+
+
 	
 	public int getId() {
 		return id;

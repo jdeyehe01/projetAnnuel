@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 
-import java.awt.*;
 import javafx.scene.control.TextField;
 import sample.Model.User;
 
@@ -12,7 +11,7 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class ControllerLogin implements Initializable {
 
     @FXML
     private Button btnConnexon;
@@ -32,14 +31,10 @@ public class Controller implements Initializable {
 
 
     @FXML
-    public void doClick(javafx.event.ActionEvent actionEvent) {
-        System.out.println("Toto");
+    public void signIn(javafx.event.ActionEvent actionEvent) {
 
         User user = new User(0,tfEmail.getText(),tfPw.getText());
 
-        System.out.println(user);
-
-
-
+        System.out.println("L'utilisateur est connecté");
     }
 }

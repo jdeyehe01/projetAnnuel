@@ -10,12 +10,29 @@ public class Guest {
 
 	private String email;
 
-	public Guest(String firstName, String lastName, String age, String email, String adressePostal, int codePostal, String ville) {
+	private Conference conf;
+
+	public Guest(String firstName, String lastName, String age, String email) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.age = age;
 		this.email = email;
-	
+	}
+
+	public Guest(String firstName, String lastName, String age, String email,Conference conf) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.email = email;
+		this.conf = conf;
+	}
+
+	public Conference getConf() {
+		return conf;
+	}
+
+	public void setConf(Conference conf) {
+		this.conf = conf;
 	}
 
 	public String getFirstName() {

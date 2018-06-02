@@ -1,6 +1,10 @@
 package sample.Model;
+import javafx.beans.property.ObjectProperty;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
+import javafx.util.Callback;
+
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class Conference {
@@ -10,7 +14,7 @@ public class Conference {
 	ArrayList<Image> pictures;
 
 	private String name;
-	private Date dateBegin;
+	private ObjectProperty<Callback<DatePicker, DateCell>> dateBegin;
 	private String timeBegin;
 	private String description;
 
@@ -22,11 +26,11 @@ public class Conference {
 		this.name = name;
 	}
 
-	public Date getDateBegin() {
+	public ObjectProperty<Callback<DatePicker, DateCell>> getDateBegin() {
 		return dateBegin;
 	}
 
-	public void setDateBegin(Date dateBegin) {
+	public void setDateBegin(ObjectProperty<Callback<DatePicker, DateCell>> dateBegin) {
 		this.dateBegin = dateBegin;
 	}
 
@@ -46,7 +50,7 @@ public class Conference {
 		this.description = description;
 	}
 
-	public Conference(String name, Date dateBegin, String timeBegin, String description) {
+	public Conference(String name, ObjectProperty<Callback<DatePicker, DateCell>> dateBegin, String timeBegin, String description) {
 		this.name = name;
 		this.dateBegin = dateBegin;
 		this.timeBegin = timeBegin;
@@ -54,7 +58,7 @@ public class Conference {
 	}
 
 	public Conference(ArrayList<Budget> hisBudgets, ArrayList<Guest> guests, ArrayList<Image> pictures,
-			String name, Date dateBegin, String timeBegin, String description) {
+					  String name, ObjectProperty<Callback<DatePicker, DateCell>> dateBegin, String timeBegin, String description) {
 		this.hisBudgets = hisBudgets;
 		this.guests = guests;
 		this.pictures = pictures;
@@ -99,5 +103,9 @@ public class Conference {
 				", timeBegin='" + timeBegin + '\'' +
 				", description='" + description + '\'' +
 				'}';
+	}
+
+	public Conference getConferenceByName(){
+		return this;
 	}
 }
