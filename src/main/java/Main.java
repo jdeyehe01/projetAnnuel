@@ -1,11 +1,10 @@
-package sample;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sample.Controller.ControllerLogin;
+
+import java.net.URL;
 
 public class Main extends Application {
 
@@ -14,8 +13,8 @@ public class Main extends Application {
      //   Parent root = FXMLLoader.load(getClass().getResource("View/beforShowWelcomeView.fxml"));
    //     primaryStage.setTitle("Before Show - Accueil ");
 
-
-      Parent root = FXMLLoader.load(getClass().getResource("View/CreateConfView.fxml"));
+        URL url = getClass().getResource("View/CreateConfView.fxml");
+    Parent root = FXMLLoader.load(url);
        primaryStage.setTitle("Before Show - Créer une conférence ");
 
       // Parent root = FXMLLoader.load(getClass().getResource("View/createGuestView.fxml"));

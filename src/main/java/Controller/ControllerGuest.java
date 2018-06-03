@@ -1,10 +1,9 @@
-package sample.Controller;
+package Controller;
 
+import Model.Guest;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import sample.Model.Conference;
-import sample.Model.Guest;
 
 import java.net.URL;
 import java.util.ArrayList;

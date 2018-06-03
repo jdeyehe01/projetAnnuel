@@ -1,4 +1,5 @@
-package sample.Model;
+package Model;
+
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package sample.Model;
+package Model;
 
 public class Task {
 	
