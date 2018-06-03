@@ -2,6 +2,7 @@ package Controller;
 
 import Model.Conference;
 //import com.google.gson.JsonObject;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -38,24 +39,11 @@ public class ControllerConf implements Initializable {
         Conference conference = new Conference(tfName.getText(),tfDate.getValue(),tfTime.getText(),tfDesc.getText());
 
         ControllerApi api = new ControllerApi();
-        /*
-        String jsonConf = api.get("http://localhost:8080/conference/lastConf");
-        //System.out.println(test);
-        JsonObject json = new JsonObject();
 
+        Gson gson = new Gson();
 
-        Gson gson = new GsonBuilder().create();
-
-        Conference c = gson.fromJson(jsonConf, Conference.class);
-        */
-       // Gson gson = new Gson();
-
-        Json
-       // json.pa
-
-
-       // System.out.println("Object java to object json :" + gson.toJson(conference));
-        //api.post("http://localhost:8080/conference/",gson.toJson(conference));
+        System.out.println("Object java to object json :" + gson.toJson(conference));
+        api.post("http://localhost:8080/conference/",new Gson().toJson(conference));
 
     }
 

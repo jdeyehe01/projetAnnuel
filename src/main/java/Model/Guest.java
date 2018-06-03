@@ -2,27 +2,23 @@ package Model;
 
 public class Guest {
 
-	private String firstName;
+	private String fname;
 
-	private String lastName;
-
-	private String age;
+	private String lname;
 
 	private String email;
 
 	private Conference conf;
 
-	public Guest(String firstName, String lastName, String age, String email) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
+	public Guest(String fname, String lname, String email) {
+		this.fname = fname;
+		this.lname = lname;
 		this.email = email;
 	}
 
-	public Guest(String firstName, String lastName, String age, String email,Conference conf) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.age = age;
+	public Guest(String fname, String lname, String email,Conference conf) {
+		this.fname = fname;
+		this.lname = lname;
 		this.email = email;
 		this.conf = conf;
 	}
@@ -35,28 +31,20 @@ public class Guest {
 		this.conf = conf;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getfname() {
+		return fname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setfname(String fname) {
+		this.fname = fname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getlname() {
+		return lname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getAge() {
-		return age;
-	}
-
-	public void setAge(String age) {
-		this.age = age;
+	public void setlname(String lname) {
+		this.lname = lname;
 	}
 
 	public String getEmail() {

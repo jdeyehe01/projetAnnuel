@@ -14,7 +14,7 @@ public class Main extends Application {
    //     primaryStage.setTitle("Before Show - Accueil ");
 
         URL url = getClass().getResource("View/CreateConfView.fxml");
-    Parent root = FXMLLoader.load(url);
+        Parent root = FXMLLoader.load(url);
        primaryStage.setTitle("Before Show - Créer une conférence ");
 
       // Parent root = FXMLLoader.load(getClass().getResource("View/createGuestView.fxml"));
