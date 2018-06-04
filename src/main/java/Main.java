@@ -13,16 +13,23 @@ public class Main extends Application {
      //   Parent root = FXMLLoader.load(getClass().getResource("View/beforShowWelcomeView.fxml"));
    //     primaryStage.setTitle("Before Show - Accueil ");
 
-        URL url = getClass().getResource("View/CreateConfView.fxml");
-        Parent root = FXMLLoader.load(url);
-       primaryStage.setTitle("Before Show - Créer une conférence ");
+        //URL url = getClass().getResource("View/CreateConfView.fxml");
+        //Parent root = FXMLLoader.load(url);
+       //primaryStage.setTitle("Before Show - Créer une conférence ");
 
       // Parent root = FXMLLoader.load(getClass().getResource("View/createGuestView.fxml"));
     //   primaryStage.setTitle("Before Show - Ajouter un invité ");
 
 
-       //Parent root = FXMLLoader.load(getClass().getResource("View/locateConfView.fxml"));
-       //primaryStage.setTitle("Before Show - Ajouter un invité ");
+        //URL url = getClass().getResource("View/locateConfView.fxml");
+        //Parent root = FXMLLoader.load(url);
+       //primaryStage.setTitle("Before Show - Ajouter un lieu ");
+
+
+        URL url = getClass().getResource("View/presentationConfView.fxml");
+        Parent root = FXMLLoader.load(url);
+       primaryStage.setTitle("Before Show - Ajouter une presentation ");
+
 
 
        // Parent root = FXMLLoader.load(getClass().getResource("View/loginView.fxml"));

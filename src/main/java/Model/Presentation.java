@@ -7,15 +7,18 @@ public class Presentation {
 	private String title;
 	private float amount;
 	private String description;
+	private Conference conference;
 	
-	
-	public Presentation(String title, float amount, String description) {
+	public Presentation(String title, float amount, String description , Conference conference) {
 		this.title = title;
 		this.amount = amount;
 		this.description = description;
+		this.conference = conference;
 	}
 
-	public int getId() {
+
+
+    public int getId() {
 		return id;
 	}
 

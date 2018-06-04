@@ -7,14 +7,24 @@ public class Locate {
 	private int cityCode;
 	private String city;
 	private String address;
+	private Conference conference;
 	
 	
 
-	public Locate(String name, String address, int cityCode, String city) {
+	public Locate(String name, String address, int cityCode, String city, Conference conference) {
 		this.name = name;
 		this.address = address;
 		this.cityCode = cityCode;
 		this.city = city;
+		this.conference = conference;
+	}
+
+	public Conference getConference() {
+		return conference;
+	}
+
+	public void setConference(Conference conference) {
+		this.conference = conference;
 	}
 
 	public int getId() {
