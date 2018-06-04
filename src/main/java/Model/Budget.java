@@ -3,29 +3,20 @@ package Model;
 
 public class Budget {
 
-	private Conference yourConference;
-	private String name;
+	private Conference conference;
+	private String title;
 	private Float amount;
 
-	public String getName() {
-		return this.name;
-	}
-
-	@Override
-	public String toString() {
-		return "Budget{" +
-				"yourConference=" + yourConference +
-				", name='" + name + '\'' +
-				", amount=" + amount +
-				'}';
+	public String gettitle() {
+		return this.title;
 	}
 
 	/**
 	 * 
-	 * @param name
+	 * @param title
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void settitle(String title) {
+		this.title = title;
 	}
 
 	public Float getMontant() {
@@ -42,12 +33,20 @@ public class Budget {
 
 	/**
 	 * 
-	 * @param name
+	 * @param title
 	 * @param amount
 	 */
-    public Budget(Conference yourConference, String name, Float amount) {
-        this.yourConference = yourConference;
-        this.name = name;
+    public Budget( String title, Float amount, Conference conference) {
+        this.title = title;
         this.amount = amount;
+		this.conference = conference;
     }
+
+	@Override
+	public String toString() {
+		return "Budget{" +
+				"title='" + title + '\'' +
+				", amount=" + amount +
+				'}';
+	}
 }

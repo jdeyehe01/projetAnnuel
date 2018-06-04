@@ -6,11 +6,21 @@ public class Task {
 	private String title;
 	private float amount;
 	private String duration;
-	
-	public Task(String title, float amount, String duration) {
+	private Conference conference;
+
+	public Conference getConference() {
+		return conference;
+	}
+
+	public void setConference(Conference conference) {
+		this.conference = conference;
+	}
+
+	public Task(String title, float amount, String duration, Conference conference) {
 		this.title = title;
 		this.amount = amount;
 		this.duration = duration;
+		this.conference = conference;
 	}
 
 	public String getTitle() {

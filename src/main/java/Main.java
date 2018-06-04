@@ -26,17 +26,24 @@ public class Main extends Application {
        //primaryStage.setTitle("Before Show - Ajouter un lieu ");
 
 
-        URL url = getClass().getResource("View/presentationConfView.fxml");
-        Parent root = FXMLLoader.load(url);
-       primaryStage.setTitle("Before Show - Ajouter une presentation ");
+       // URL url = getClass().getResource("View/presentationConfView.fxml");
+       // Parent root = FXMLLoader.load(url);
+       //primaryStage.setTitle("Before Show - Ajouter une presentation ");
 
+     /* URL url = getClass().getResource("View/taskView.fxml");
+      Parent root = FXMLLoader.load(url);
+       primaryStage.setTitle("Before Show - Ajouter une tâche ");
+       */
+
+        URL url = getClass().getResource("View/budgetView.fxml");
+        Parent root = FXMLLoader.load(url);
+        primaryStage.setTitle("Before Show - Ajouter un budget ");
 
 
        // Parent root = FXMLLoader.load(getClass().getResource("View/loginView.fxml"));
       // primaryStage.setTitle("Before Show - Login ");
 
 
-       // Controller conroller = FXMLLoader.load(getClass().getResource("Controller/Controller.java"));
         primaryStage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
         primaryStage.show();
 
