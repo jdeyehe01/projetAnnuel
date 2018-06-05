@@ -6,6 +6,7 @@ public class Budget {
 	private Conference conference;
 	private String title;
 	private Float amount;
+	private String id;
 
 	public String gettitle() {
 		return this.title;
@@ -47,6 +48,7 @@ public class Budget {
 		return "Budget{" +
 				"title='" + title + '\'' +
 				", amount=" + amount +
+				", id='" + id + '\'' +
 				'}';
 	}
 }

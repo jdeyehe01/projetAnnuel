@@ -3,9 +3,15 @@ package Controller;
 import Model.Conference;
 import Model.Locate;
 import com.google.gson.Gson;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +46,18 @@ public class ControllerLocate implements Initializable {
 
         api.post("http://localhost:8080/locate",jsonLocate);
 
+    }
+
+    @FXML
+    public void navigateTo(ActionEvent event) throws IOException {
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/taskView.fxml"));
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Créer une tâche ");
+
+        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
+        stage.show();
     }
 
     @Override

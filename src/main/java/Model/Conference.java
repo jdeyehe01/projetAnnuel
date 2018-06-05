@@ -15,6 +15,7 @@ public class Conference {
 	private LocalDate date;
 	private String time;
 	private String description;
+	private String id;
 
 	public String getName() {
 		return name;
@@ -79,6 +80,32 @@ public class Conference {
 		this.pictures = pictures;
 	}
 
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
+
+	public String getTime() {
+		return time;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public void setId(String id) {
+
+		this.id = id;
+	}
+
+	public String getId() {
+
+		return id;
+	}
+
 	@Override
 	public String toString() {
 		return "Conference{" +
@@ -89,6 +116,7 @@ public class Conference {
 				", date=" + date +
 				", time='" + time + '\'' +
 				", description='" + description + '\'' +
+				", id='" + id + '\'' +
 				'}';
 	}
 

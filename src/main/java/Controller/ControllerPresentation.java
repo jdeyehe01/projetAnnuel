@@ -5,7 +5,11 @@ import Model.Locate;
 import Model.Presentation;
 import com.google.gson.Gson;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
@@ -39,6 +43,7 @@ public class ControllerPresentation implements Initializable {
         api.post("http://localhost:8080/presentation",jsonPresentation);
 
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

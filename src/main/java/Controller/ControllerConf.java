@@ -3,8 +3,13 @@ package Controller;
 import Model.Conference;
 //import com.google.gson.JsonObject;
 import com.google.gson.Gson;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
@@ -15,6 +20,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 //import com.google.gson.Gson;
 //import com.google.gson.GsonBuilder;
+import javafx.stage.Stage;
 import jdk.nashorn.internal.parser.JSONParser;
 import sun.plugin.javascript.navig5.JSObject;
 
@@ -32,10 +38,17 @@ public class ControllerConf implements Initializable {
     @FXML
     private TextArea tfDesc;
 
+    @FXML
+    private Button btnNext;
 
     @FXML
-    public void signIn(javafx.event.ActionEvent actionEvent) throws IOException {
+    private Button btnSave;
 
+    @FXML
+    public void signIn(ActionEvent event) throws IOException {
+
+        btnSave.setVisible(false);
+        btnNext.setVisible(true);
         Conference conference = new Conference(tfName.getText(),tfDate.getValue(),tfTime.getText(),tfDesc.getText());
 
         ControllerApi api = new ControllerApi();
@@ -44,6 +57,21 @@ public class ControllerConf implements Initializable {
 
         System.out.println("Object java to object json :" + gson.toJson(conference));
         api.post("http://localhost:8080/conference/",new Gson().toJson(conference));
+
+    }
+
+    @FXML
+    public void navigateTo(ActionEvent event) throws IOException {
+
+
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/locateConfView.fxml"));
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Créer une conférence ");
+
+        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
+        stage.show();
 
     }
 
