@@ -53,19 +53,6 @@ public class ControllerApi {
 
     }
 
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
 
-        Parent createConf = FXMLLoader.load(getClass().getResource("../View/CreateConfView.fxml"));
-
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Conference ");
-
-        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
-        stage.show();
-
-
-    }
 
 }

@@ -24,8 +24,8 @@
           <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="137.0" minHeight="10.0" prefHeight="137.0" vgrow="SOMETIMES" />
         </rowConstraints>
-         <children>
-            <TextField fx:id="tfName" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
+         <children >
+            <TextField fx:id="tfName"  prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
             <Label fx:id="labelName" alignment="CENTER" prefHeight="40.0" prefWidth="94.0" text="Nom : " />
             <Label fx:id="labelHoure" alignment="CENTER" prefHeight="44.0" prefWidth="92.0" text="Heure :" GridPane.rowIndex="1" />
             <DatePicker fx:id="tfDate" prefHeight="31.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />

@@ -1,7 +1,9 @@
 package Controller;
 
 import Model.Conference;
-//import com.google.gson.JsonObject;
+import annotation.BeanFromDataBase;
+import annotation.ControllerAnnoation;
+import annotation.Inject;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,13 +18,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ResourceBundle;
 //import com.google.gson.Gson;
-//import com.google.gson.GsonBuilder;
 import javafx.stage.Stage;
-import jdk.nashorn.internal.parser.JSONParser;
-import sun.plugin.javascript.navig5.JSObject;
 
 public class ControllerConf implements Initializable {
 
@@ -44,8 +46,22 @@ public class ControllerConf implements Initializable {
     @FXML
     private Button btnSave;
 
+    @Inject
+   private static String s;
+
+    public String getS() {
+        return s;
+    }
+
+    public void setS(String s) {
+        this.s = s;
+    }
     @FXML
     public void signIn(ActionEvent event) throws IOException {
+
+        System.out.println("Avant injection : " +s);
+        ControllerAnnoation.inject();
+        System.out.println("Apres injection : " +s);
 
         btnSave.setVisible(false);
         btnNext.setVisible(true);
@@ -54,16 +70,17 @@ public class ControllerConf implements Initializable {
         ControllerApi api = new ControllerApi();
 
         Gson gson = new Gson();
-
         System.out.println("Object java to object json :" + gson.toJson(conference));
+
+        //ControllerAnnoation.getLastBean(new String());
+
         api.post("http://localhost:8080/conference/",new Gson().toJson(conference));
+
 
     }
 
     @FXML
     public void navigateTo(ActionEvent event) throws IOException {
-
-
         Parent createConf = FXMLLoader.load(getClass().getResource("../View/locateConfView.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -73,14 +90,17 @@ public class ControllerConf implements Initializable {
         stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
         stage.show();
 
+
+
     }
+
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-    }
 
+    }
 
 }

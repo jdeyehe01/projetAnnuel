@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerApi">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="645.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerHome">
    <children>
       <Label layoutX="228.0" layoutY="30.0" prefHeight="62.0" prefWidth="190.0" text="Befor Show - Accueil">
          <font>
@@ -20,7 +21,7 @@
          <children>
             <Button fx:id="btnCreateConference" mnemonicParsing="false" onAction="#navigate" prefHeight="31.0" prefWidth="190.0" text="Créer un conférence" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="190.0" text="Mes conférences" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="191.0" text="Modifer une conférence" />
+            <Button fx:id="btnUpdateConference" mnemonicParsing="false" onAction="#updateConference" prefHeight="31.0" prefWidth="191.0" text="Modifer une conférence" />
          </children>
       </VBox>
       <ImageView fitHeight="103.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true">
@@ -28,5 +29,6 @@
             <Image url="@../logo.jpg" />
          </image>
       </ImageView>
+      <ComboBox fx:id="cbConference" layoutX="418.0" layoutY="243.0" prefWidth="150.0" visible="false" />
    </children>
 </Pane>
