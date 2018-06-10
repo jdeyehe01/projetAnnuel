@@ -29,38 +29,19 @@ public class ControllerHome implements Initializable {
     @FXML
     private ComboBox cbConference;
 
+    @FXML
+    private Button btnUpdate;
+
    /* @BeanFromDataBase(url = "http://localhost:8080/conference/getAll" , className = Conference.class)
     private static List*/
 
-    @FXML
-    public void updateConference() throws IOException {
 
-        cbConference.setVisible(true);
 
-       String s = new ControllerApi().get("http://localhost:8080/conference/getAll");
-        System.out.println(s);
-
-      //  JsonObject jsonObject = new Gson().fromJson(s,JsonObject.class);
-       // System.out.println(jsonObject);
-       Conference[] tabConference =  new Gson().fromJson(s, Conference[].class);
-
-       List<Conference> listConference = Arrays.asList(tabConference);
-       ArrayList<String> listIdName = new ArrayList<String>();
-
-       for(Conference c : listConference){
-           listIdName.add(c.getId() + "-" +c.getName());
-       }
-
-        cbConference.getItems().addAll(listIdName);
-        //System.out.println(tabConference[0].getId());
-
-    }
 
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
 
@@ -78,4 +59,6 @@ public class ControllerHome implements Initializable {
 
 
     }
+
+
 }
