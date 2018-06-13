@@ -37,7 +37,7 @@
             <TextField fx:id="tfEmail" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button fx:id="btnNext" layoutX="332.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" />
+        <Button fx:id="btnNext" layoutX="332.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
       <Button fx:id="btnNext1" layoutX="232.0" layoutY="304.0" mnemonicParsing="false" onAction="#newGuest" text="Ajouter un nouvel invité" />
       <ScrollPane fx:id="scrollPaneGuest" layoutX="599.0" layoutY="105.0" prefHeight="200.0" prefWidth="200.0">
          <content>
