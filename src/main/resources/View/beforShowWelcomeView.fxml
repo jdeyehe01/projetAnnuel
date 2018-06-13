@@ -20,7 +20,7 @@
          <children>
             <Button fx:id="btnCreateConference" mnemonicParsing="false" onAction="#navigate" prefHeight="31.0" prefWidth="190.0" text="Créer un conférence" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="190.0" text="Mes conférences" />
-            <Button fx:id="btnUpdateConference" mnemonicParsing="false" onAction="#navigate" prefHeight="31.0" prefWidth="191.0" text="Modifer une conférence" />
+            <Button fx:id="btnUpdateConference" mnemonicParsing="false" onAction="#updateConference" prefHeight="31.0" prefWidth="191.0" text="Modifer une conférence" />
          </children>
       </VBox>
       <ImageView fitHeight="103.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true">

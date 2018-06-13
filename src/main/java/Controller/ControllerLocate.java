@@ -48,17 +48,6 @@ public class ControllerLocate implements Initializable {
 
     }
 
-    @FXML
-    public void navigateTo(ActionEvent event) throws IOException {
-        Parent createConf = FXMLLoader.load(getClass().getResource("../View/taskView.fxml"));
-
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Créer une tâche ");
-
-        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
-        stage.show();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

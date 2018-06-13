@@ -2,7 +2,6 @@ package Model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class Conference {
@@ -12,7 +11,7 @@ public class Conference {
 	ArrayList<Image> pictures;
 
 	private String name;
-	private LocalDate date;
+	private String date;
 	private String time;
 	private String description;
 	private String id;
@@ -25,13 +24,7 @@ public class Conference {
 		this.name = name;
 	}
 
-	public LocalDate getdate() {
-		return date;
-	}
 
-	public void setdate(LocalDate date) {
-		this.date = date;
-	}
 
 	public String gettime() {
 		return time;
@@ -49,7 +42,7 @@ public class Conference {
 		this.description = description;
 	}
 
-	public Conference(String name, LocalDate date, String time, String description) {
+	public Conference(String name, String date, String time, String description) {
 		this.name = name;
 		this.date = date;
 		this.time = time;
@@ -80,11 +73,11 @@ public class Conference {
 		this.pictures = pictures;
 	}
 
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

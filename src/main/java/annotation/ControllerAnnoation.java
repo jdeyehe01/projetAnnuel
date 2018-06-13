@@ -3,7 +3,7 @@ package annotation;
 
 import Controller.ControllerApi;
 import com.google.gson.Gson;
-
+import java.lang.Object;
 import java.io.IOException;
 import java.lang.reflect.Field;
 
@@ -15,7 +15,7 @@ public static void inject() {
 
 
     try {
-        Class<?> c = Class.forName("Controller.ControllerConf");
+        Class c = Class.forName("Controller.ControllerConf");
         Field[] tabField = c.getDeclaredFields();
         Object o = c.newInstance();
 
@@ -46,29 +46,23 @@ public static void inject() {
     Annotation BeanFromDataBase
 
  */
-public static void getLastBean(Class <? extends Object> clazzObject) throws IllegalAccessException, InstantiationException {
+public static void getBean(String url , Class clazzObject) throws IllegalAccessException, InstantiationException {
     try {
-    Field[] tabField = clazzObject.getDeclaredFields();
-    Object o = null;
+        System.out.println(clazzObject.toString());
+
+        Field[] tabField = clazzObject.getDeclaredFields();
+
     Object object = clazzObject.newInstance();
     for(Field field : tabField){
         BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
 
         if(aBean != null){
             field.setAccessible(true);
-            String url = aBean.url();
-            Class<?> className = aBean.className();
-
-
+            Class<?> fieldType = field.getType();
             String jsonObject = new ControllerApi().get(url);
-
-             o = new Gson().fromJson(jsonObject,className);
-
-
+            System.out.println(jsonObject);
+            Object o = new Gson().fromJson(jsonObject,fieldType);
             field.set(object,o);
-
-
-
         }
     }
     } catch (IOException e) {
