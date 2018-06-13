@@ -15,11 +15,11 @@ conferenceRouter.use(express.static(path.join(__dirname + '../../../style')));
 
 conferenceRouter.post('/', function(req, res) {
   const name = req.body.name;
-  const dateDebut = req.body.date;
-  const heureDebut = req.body.time;
+  const date = req.body.date;
+  const time = req.body.time;
   const description = req.body.description;
 
-  if(name === undefined || dateDebut === undefined || description === undefined || heureDebut === undefined) {
+  if(name === undefined || date === undefined || description === undefined || time === undefined) {
     res.status(400).end();
 
     notifier.notify({
@@ -30,7 +30,7 @@ conferenceRouter.post('/', function(req, res) {
     });
     return;
   }
-  ConferenceController.newConference(name,dateDebut,heureDebut,description)
+  ConferenceController.newConference(name,date,time,description)
   .then((conference) => {
 
     notifier.notify({
@@ -56,6 +56,33 @@ conferenceRouter.get('/getAll' , function(req,res){
   .catch((err) => {
     console.error(err);
   })
+});
+
+
+conferenceRouter.get('/getById/:id' , function(req,res){
+  const idConference = req.params.id;
+  if(idConference === undefined) {
+    res.status(400).end();
+
+    notifier.notify({
+      'title' : 'Champs incorrecte',
+      'message' : "Veuillez renseigner l'id de la conference svp",
+      'sound' : false,
+      'wait' : true
+    });
+    return;
+  }
+
+  ConferenceController.getConferenceById(idConference)
+  .then((conference)=>{
+    res.status(200).json(conference);
+  })
+  .catch((err)=>{
+    res.status(200).end();
+    console.error(err);
+  })
+
+
 });
 
 conferenceRouter.get('/getAllGuest/:conferenceId' , function(req,res){
@@ -110,4 +137,35 @@ conferenceRouter.delete('/deleteConference/:idConf' , function(req,res){
   });
 
 });
+
+
+
+conferenceRouter.get('/nameConf' , function(req,res){
+
+  ConferenceController.findLast()
+  .then((conference) =>{
+      console.log('Lecture...');
+      res.render('ListConference.ejs' , {nameConf: conference.name  });
+      res.status(200).end();
+  })
+  .catch((err)=>{
+    console.error(err);
+  });
+
+} );
+
+
+conferenceRouter.get('/lastConf' , function(req,res){
+
+  ConferenceController.findLast()
+  .then((conference) =>{
+      res.status(200).json(conference);
+  })
+  .catch((err)=>{
+    console.error(err);
+  });
+
+} );
+
+
 module.exports = conferenceRouter;

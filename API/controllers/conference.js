@@ -6,19 +6,29 @@ const Guest = ModelIndex.Guest;
 
 const ConferenceController = function() { };
 
-ConferenceController.newConference = function(name,dateDebut,heureDebut,description) {
+ConferenceController.newConference = function(name,date,time,description) {
   return Conference.create({
     name: name,
-    dateDebut: dateDebut,
-    heureDebut: heureDebut,
+    date: date,
+    time: time,
     description: description
   });
 };
 
 ConferenceController.getAllConference = function() {
-  return Conference.findAll();
+  return Conference.findAll()
 };
 
+
+ConferenceController.getConferenceById = function(id){
+  return Conference.findById(id)
+  .then((conference) =>{
+    return conference;
+  })
+  .catch((err)=>{
+    console.error(err);
+  })
+};
 
 ConferenceController.getAllConferenceByGuest = function(guestId){
 

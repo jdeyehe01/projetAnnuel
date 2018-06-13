@@ -36,12 +36,11 @@ budgetRouter.post('/', function(req, res) {
       'wait' : false
       });
 
-      res.send()
+      res.status(200).end();
   })
   .catch((err) => {
     res.status(500).end();
   })
-    res.redirect('https://www.google.fr');
 
 
 });

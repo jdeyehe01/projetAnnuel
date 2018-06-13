@@ -9,11 +9,11 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        dateDebut: {
+        date: {
             type: DataTypes.DATE,
             allowNull: false
         },
-        heureDebut: {
+        time: {
             type: DataTypes.STRING,
             allowNull: false
         },

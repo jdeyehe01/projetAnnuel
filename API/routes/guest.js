@@ -9,6 +9,39 @@ const guestRouter = express.Router();
 guestRouter.use(bodyParser.json());
 guestRouter.use(bodyParser.urlencoded({ extended: true }));
 guestRouter.use(express.static(path.join(__dirname + '../../../style')));
+const nodemailer = require('nodemailer');
+
+var jean = "jean"
+guestRouter.get('/mail', function(req, res) {
+
+
+    const transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'no.reply.please.project@gmail.com',
+                pass: 'dupondToto12'
+            }
+});
+
+  var mailOptions = {
+    from : 'no.reply.please.project@gmail.com',
+    to: 'jdeyehe@gmail.com,Sebas9241@hotmail.fr,m9.moreira@gmail.com',
+    subject: 'Test Projet annuel ESGI 2018 envoie de mail',
+    text: "Ceci est un test depuis l'api du projet annuel mdrr"
+  };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+              return console.log(error);
+          }
+        console.log('Message envoyé: '+info.response);
+      });
+
+
+
+  transporter.close();
+  res.status(200).end();
+});
 
 
 guestRouter.post('/', function(req, res) {
