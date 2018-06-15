@@ -50,10 +50,6 @@ public class ControllerGuest implements Initializable {
 
         Guest guest = new Guest(tfFirstName.getText(),tfLastName.getText(),tfEmail.getText(),conference);
 
-        verticalBox.getChildren().add(new Label(guest.getlname() + " " + guest.getfname()));
-
-        scrollPaneGuest.setContent(verticalBox);
-        scrollPaneGuest.setVisible(true);
 
         System.out.println(guest);
     }
@@ -79,7 +75,6 @@ public class ControllerGuest implements Initializable {
 
 
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }

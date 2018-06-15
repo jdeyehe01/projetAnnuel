@@ -7,8 +7,13 @@ import annotation.ControllerAnnoation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import javax.swing.text.html.ObjectView;
 import java.io.IOException;
@@ -19,8 +24,6 @@ import java.time.chrono.Chronology;
 import java.util.*;
 
 public class UpdateConference implements Initializable {
-
-    private static final String URL_API = "";
 
 
     @BeanFromDataBase
@@ -47,10 +50,6 @@ public class UpdateConference implements Initializable {
     @FXML
     private ComboBox cbConference;
 
-/*
-    @BeanFromDataBase(url = "http://localhost:8080/conference/getById/3", className = UpdateConference.class)
-    private static Conference c;*/
-
 
     @FXML
     public void updateConference() throws IOException {
@@ -75,6 +74,19 @@ public class UpdateConference implements Initializable {
 
 
     @FXML
+    public void navigate(ActionEvent event) throws IOException {
+        Parent updateConf = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Modifier les informations sur un invité ");
+
+        stage.setScene(new Scene(updateConf, updateConf.getLayoutX(), updateConf.getLayoutY()));
+        stage.show();
+    }
+
+
+    @FXML
     public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
         tfName.clear();
         tfTime.clear();
@@ -83,7 +95,7 @@ public class UpdateConference implements Initializable {
         String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "http://localhost:8080/conference/getById/"+idConference;
         btnSave.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass());
+        ControllerAnnoation.getBean(url,this.getClass(),conference);
 
         tfName.setText(conference.getName());
         tfTime.setText(conference.getTime());
@@ -92,7 +104,6 @@ public class UpdateConference implements Initializable {
 
 
     }
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         try {

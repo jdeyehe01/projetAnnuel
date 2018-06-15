@@ -46,7 +46,9 @@ public class Task {
 	public void setDuration(String duration) {
 		this.duration = duration;
 	}
-	
-	
 
+
+	public int getId() {
+		return id;
+	}
 }

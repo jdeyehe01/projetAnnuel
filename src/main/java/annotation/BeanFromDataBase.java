@@ -9,7 +9,4 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.FIELD , ElementType.LOCAL_VARIABLE})
 public @interface BeanFromDataBase {
-
-   // public String url() default "";
-    //public Class<?> className() ;
 }

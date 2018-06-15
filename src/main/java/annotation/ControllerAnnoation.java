@@ -46,13 +46,11 @@ public static void inject() {
     Annotation BeanFromDataBase
 
  */
-public static void getBean(String url , Class clazzObject) throws IllegalAccessException, InstantiationException {
+public static void getBean(String url , Class clazz , Object objectTarget) throws IllegalAccessException, InstantiationException {
     try {
-        System.out.println(clazzObject.toString());
+        Field[] tabField = clazz.getDeclaredFields();
 
-        Field[] tabField = clazzObject.getDeclaredFields();
-
-    Object object = clazzObject.newInstance();
+        objectTarget = clazz.newInstance();
     for(Field field : tabField){
         BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
 
@@ -61,8 +59,12 @@ public static void getBean(String url , Class clazzObject) throws IllegalAccessE
             Class<?> fieldType = field.getType();
             String jsonObject = new ControllerApi().get(url);
             System.out.println(jsonObject);
+
             Object o = new Gson().fromJson(jsonObject,fieldType);
-            field.set(object,o);
+
+            field.set(objectTarget,o);
+
+
         }
     }
     } catch (IOException e) {
@@ -75,7 +77,6 @@ public static void getBean(String url , Class clazzObject) throws IllegalAccessE
 public static boolean isNullField(Field f, Object o){
 
     try {
-        System.out.println(o.toString());
         Object currentObjet = f.get(o);
         if(currentObjet != null){
             return true;

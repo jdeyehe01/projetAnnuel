@@ -66,7 +66,6 @@ public class ControllerTask implements Initializable {
     }
 
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }

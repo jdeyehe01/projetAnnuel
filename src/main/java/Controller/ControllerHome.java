@@ -12,12 +12,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.Locale;
 import java.util.ResourceBundle;
+
 
 public class ControllerHome implements Initializable {
 
@@ -39,7 +35,9 @@ public class ControllerHome implements Initializable {
 
     @FXML
     public void updateConference(ActionEvent event) throws IOException {
-        Parent updateConf = FXMLLoader.load(getClass().getResource("../View/UpdateViews/updateConfView.fxml"));
+        //Parent updateConf = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
+
+        Parent updateConf = FXMLLoader.load(getClass().getResource("../View/updateBudget.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();

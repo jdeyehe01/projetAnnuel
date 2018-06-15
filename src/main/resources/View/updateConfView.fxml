@@ -36,8 +36,8 @@
             <TextArea fx:id="tfDesc" prefHeight="105.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="btnNext" layoutX="486.0" layoutY="355.0" mnemonicParsing="false"  text="Suivant" visible="false" />
-      <Button fx:id="btnSave" layoutX="274.0" layoutY="355.0" mnemonicParsing="false" text="Enregistrer" visible="false" />
+      <Button fx:id="btnNext" layoutX="486.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
+      <Button fx:id="btnSave" layoutX="274.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Modifier" visible="false" />
       <ComboBox fx:id="cbConference" layoutX="391.0" layoutY="33.0" onAction="#initialisationForm" prefWidth="150.0" visible="false" />
    </children>
 </Pane>

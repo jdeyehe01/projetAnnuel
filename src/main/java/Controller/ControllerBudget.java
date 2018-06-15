@@ -61,7 +61,6 @@ public class ControllerBudget implements Initializable {
         api.post("http://localhost:8080/budget",jsonBudget);
     }
 
-    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
