@@ -64,9 +64,9 @@ locateRouter.get('/getLocateById/:idLocate' , function(req,res){
     return;
   }
 
-LocateController.getAllLocate(locateId)
-  .then((locates) => {
-    res.status(201).json(locates);
+  LocateController.getLocateById(locateId)
+  .then((locate) => {
+    res.status(201).json(locate);
   })
   .catch((err) => {
       res.status(500).end();
@@ -104,5 +104,44 @@ LocateController.getAllLocate(locateId)
     LocateController.addConference(idLocate , idConference);
     res.status(201).end();
   });
+
+  locateRouter.get('/getAll/:idConference' , function(req,res){
+    const idConference = req.params.idConference;
+
+    if(idConference === undefined){
+      res.status(400).end();
+      return;
+    }
+    LocateController.getAllLocate(idConference)
+    .then((locates)=>{
+      res.status(200).json(locates);
+    })
+    .catch((err)=>{
+      res.status(400).end();
+    });
+  });
+
+
+  locateRouter.post('/update/:idLocate' , function(req,res){
+    const idLocate = req.params.idLocate;
+    const name = req.body.name;
+    const address = req.body.address;
+    const city = req.body.city;
+    const cityCode = req.body.cityCode;
+
+    if(idLocate === undefined || name === undefined || address === undefined || city === undefined || cityCode ===undefined){
+      res.status(400).end();
+      return;
+    }
+
+    LocateController.updateLocate(idLocate,name,address,city,cityCode)
+    .then((locate) => {
+      res.status(200).json(locate);
+    })
+    .catch((err) => {
+        res.status(500).end();
+      });
+    });
+
 
 module.exports = locateRouter;

@@ -11,7 +11,7 @@ guestRouter.use(bodyParser.urlencoded({ extended: true }));
 guestRouter.use(express.static(path.join(__dirname + '../../../style')));
 const nodemailer = require('nodemailer');
 
-var jean = "jean"
+var jean = "jean";
 guestRouter.get('/mail', function(req, res) {
 
 
@@ -37,12 +37,9 @@ guestRouter.get('/mail', function(req, res) {
         console.log('Message envoyé: '+info.response);
       });
 
-
-
   transporter.close();
   res.status(200).end();
 });
-
 
 guestRouter.post('/', function(req, res) {
   const fname = req.body.fname;
@@ -81,6 +78,21 @@ guestRouter.post('/', function(req, res) {
   })
 });
 
+guestRouter.get('/getAllGuest/:idConference' , function(req,res){
+  const idConf = req.params.idConference;
+  if(idConf === undefined){
+    res.status(400).end();
+    return;
+  }
+
+  GuestController.getAllGuest(idConf)
+  .then((guests) => {
+    res.status(201).json(guests);
+  })
+  .catch((err) => {
+      res.status(500).end();
+    });
+  });
 
 guestRouter.get('/getAllConference/:idGuest' , function(req,res){
   const guestId = req.params.idGuest;
@@ -97,6 +109,47 @@ ConferenceController.getAllConferenceByGuest(guestId)
       res.status(500).end();
     });
   });
+
+  guestRouter.get('/guestById/:idGuest' , function(req,res){
+    const idGuest = req.params.idGuest;
+
+    if(idGuest === undefined ){
+      res.status(400).end();
+      return;
+    }
+
+    GuestController.findById(idGuest)
+    .then((guest)=>{
+      res.status(200).json(guest);
+    })
+    .catch((err)=>{
+      res.status(404).end();
+    })
+
+  });
+
+  guestRouter.post('/update/:idGuest' , function(req,res){
+    const guestId = req.params.idGuest;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
+    const email = req.body.email;
+
+    if(guestId === undefined || fname === undefined || lname === undefined || email === undefined ){
+      res.status(400).end();
+      return;
+    }
+
+    GuestController.updateGuest(guestId,lname,fname,email)
+    .then((guest) => {
+      res.status(200).json(guest);
+    })
+    .catch((err) => {
+        res.status(500).end();
+      });
+    });
+
+
+
 
 
   guestRouter.delete('/deleteGuest/:idGuest' , function(req,res){

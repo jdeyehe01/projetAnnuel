@@ -15,6 +15,20 @@ ConferenceController.newConference = function(name,date,time,description) {
   });
 };
 
+
+ConferenceController.updateConference = function(idConference,name,date,time,description) {
+  return Conference.findById(idConference)
+  .then((conference)=>{
+    return conference.updateAttributes({
+      name: name,
+      date: date,
+      time: time,
+      description: description
+    });
+  });
+};
+
+
 ConferenceController.getAllConference = function() {
   return Conference.findAll()
 };
