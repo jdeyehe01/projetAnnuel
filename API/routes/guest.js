@@ -128,7 +128,7 @@ ConferenceController.getAllConferenceByGuest(guestId)
 
   });
 
-  guestRouter.post('/update/:idGuest' , function(req,res){
+  guestRouter.put('/update/:idGuest' , function(req,res){
     const guestId = req.params.idGuest;
     const fname = req.body.fname;
     const lname = req.body.lname;

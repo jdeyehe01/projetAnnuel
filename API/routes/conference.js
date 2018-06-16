@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const controllers = require('../controllers');
 const ConferenceController = controllers.ConferenceController;
 const GuestController = controllers.GuestController;
+const UserController = controllers.UserController;
 const notifier = require('node-notifier');
 const path = require("path");
 
@@ -39,7 +40,16 @@ conferenceRouter.post('/', function(req, res) {
       'sound' : false,
       'wait' : false
     });
-    res.sendFile(path.join(__dirname,'../../view/presentation.html'));
+    UserController.findLast()
+    .then((user)=>{
+      ConferenceController.addUser(conference.id ,user.id);
+      res.sendFile(path.join(__dirname,'../../view/presentation.html'));
+
+    })
+    .catch((err)=>{
+      console.error(err);
+    });
+
 
   })
   .catch((err) => {
@@ -58,22 +68,67 @@ conferenceRouter.get('/getAll' , function(req,res){
   })
 });
 
+conferenceRouter.get('/getAllByUser/:idUser' , function(req,res){
+  const userId = req.params.idUser;
+  if(userId === undefined) {
+    res.status(400).end();
 
-conferenceRouter.get('/getById/:id' , function(req,res){
-  const idConference = req.params.id;
-  if(idConference === undefined) {
+    notifier.notify({
+      'title' : 'Parametre incorrecte',
+      'message' : "Veuillez renseigner l'id du user svp ",
+      'sound' : false,
+      'wait' : true
+    });
+    return;
+  }
+  ConferenceController.getAllConferenceByUser(userId)
+  .then((conferences) => {
+    res.status(201).json(conferences);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+});
+
+conferenceRouter.get('/getAllByGuest/:idGuest' , function(req,res){
+  const guestId = req.params.idGuest;
+  if(guestId === undefined) {
+    res.status(400).end();
+
+    notifier.notify({
+      'title' : 'Parametre incorrecte',
+      'message' : "Veuillez renseigner l'id de l'invité svp ",
+      'sound' : false,
+      'wait' : true
+    });
+    return;
+  }
+  ConferenceController.getAllConferenceByGuest(guestId)
+  .then((conferences) => {
+    res.status(201).json(conferences);
+  })
+  .catch((err) => {
+    console.error(err);
+  })
+});
+
+conferenceRouter.get('/getById/:idConf/:idUser' , function(req,res){
+  const idConference = req.params.idConf;
+  const idUser = req.params.idUser;
+
+  if(idConference === undefined || idUser === undefined) {
     res.status(400).end();
 
     notifier.notify({
       'title' : 'Champs incorrecte',
-      'message' : "Veuillez renseigner l'id de la conference svp",
+      'message' : "Veuillez renseigner l'id de la conference et/ou de l'utilisateur svp",
       'sound' : false,
       'wait' : true
     });
     return;
   }
 
-  ConferenceController.getConferenceById(idConference)
+  ConferenceController.getConferenceById(idConference,idUser)
   .then((conference)=>{
     res.status(200).json(conference);
   })
@@ -166,6 +221,29 @@ conferenceRouter.get('/lastConf' , function(req,res){
   });
 
 } );
+
+
+conferenceRouter.put('/update/:idConference',function(req,res){
+  const idConf = req.params.idConference;
+  const name = req.body.name;
+  const date = req.body.date;
+  const time = req.body.time;
+  const description = req.body.description;
+
+  if(idConf === undefined ){
+    res.status(400).end();
+    return;
+  }
+
+  ConferenceController.updateConference(idConf,name,date,time,description)
+  .then((conference)=> {
+    res.status(200).json(conference);
+  })
+  .catch((err)=>{
+    console.error(err);
+  });
+
+});
 
 
 module.exports = conferenceRouter;

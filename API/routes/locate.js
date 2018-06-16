@@ -122,7 +122,7 @@ locateRouter.get('/getLocateById/:idLocate' , function(req,res){
   });
 
 
-  locateRouter.post('/update/:idLocate' , function(req,res){
+  locateRouter.put('/update/:idLocate' , function(req,res){
     const idLocate = req.params.idLocate;
     const name = req.body.name;
     const address = req.body.address;

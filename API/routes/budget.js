@@ -121,7 +121,7 @@ budgetRouter.post('/', function(req, res) {
   });
 
 
-  budgetRouter.post('/updateBudget/:idBudget' , function(req,res){
+  budgetRouter.put('/updateBudget/:idBudget' , function(req,res){
 
     const title = req.body.title;
     const amount = parseFloat(req.body.amount);
