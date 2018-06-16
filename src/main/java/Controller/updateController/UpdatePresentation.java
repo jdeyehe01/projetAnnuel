@@ -104,7 +104,7 @@ public class UpdatePresentation implements Initializable {
 
         String jsonPresentation = new Gson().toJson(presentation,Presentation.class);
 
-        new ControllerApi().post("http://localhost:8080/presentation/updatePresentation/"+presentation.getId(),jsonPresentation);
+        new ControllerApi().put("http://localhost:8080/presentation/updatePresentation/"+presentation.getId(),jsonPresentation);
 
         btnNext.setVisible(true);
     }

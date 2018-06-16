@@ -93,7 +93,7 @@ public class UpdateBudget implements Initializable {
 
         String jsonBudget = new Gson().toJson(budget,Budget.class);
 
-        new ControllerApi().post("http://localhost:8080/budget/updateBudget/"+budget.getId(),jsonBudget);
+        new ControllerApi().put("http://localhost:8080/budget/updateBudget/"+budget.getId(),jsonBudget);
 
         btnNext.setVisible(true);
     }

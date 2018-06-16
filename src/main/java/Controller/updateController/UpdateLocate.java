@@ -112,7 +112,7 @@ public class UpdateLocate implements Initializable {
 
         String jsonLocate = new Gson().toJson(l,Locate.class);
 
-        new ControllerApi().post("http://localhost:8080/locate/update/"+l.getId(),jsonLocate);
+        new ControllerApi().put("http://localhost:8080/locate/update/"+l.getId(),jsonLocate);
 
         btnNext.setVisible(true);
     }

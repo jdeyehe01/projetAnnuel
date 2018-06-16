@@ -15,6 +15,7 @@ public class Conference {
 	private String time;
 	private String description;
 	private String id;
+	private User user;
 
 	public String getName() {
 		return name;
@@ -42,11 +43,12 @@ public class Conference {
 		this.description = description;
 	}
 
-	public Conference(String name, String date, String time, String description) {
+	public Conference(String name, String date, String time, String description,User user) {
 		this.name = name;
 		this.date = date;
 		this.time = time;
 		this.description = description;
+		this.user = user;
 	}
 
 	public ArrayList<Budget> getHisBudgets() {

@@ -62,7 +62,7 @@ public class UpdateTask implements Initializable {
 
         ControllerAnnoation.getBean(url,this.getClass(),c);
 
-        String allTask = new ControllerApi().get("http://localhost:8080/task//getAllTaskForConference/"+c.getId());
+        String allTask = new ControllerApi().get("http://localhost:8080/task/getAllTaskForConference/"+c.getId());
         Task[] tabTask =  new Gson().fromJson(allTask, Task[].class);
 
         List<Task> listTask = Arrays.asList(tabTask);
@@ -103,7 +103,7 @@ public class UpdateTask implements Initializable {
 
         String jsonTask = new Gson().toJson(task,Task.class);
 
-        new ControllerApi().post("http://localhost:8080/task/updateTask/"+task.getId(),jsonTask);
+        new ControllerApi().put("http://localhost:8080/task/updateTask/"+task.getId(),jsonTask);
 
         btnNext.setVisible(true);
     }

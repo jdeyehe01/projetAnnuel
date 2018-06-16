@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -18,16 +19,19 @@ public class ControllerApi {
     public String get(String url) throws IOException {
         String source = "";
         URL oracle = new URL(url);
-        URLConnection yc = oracle.openConnection();
+
+        HttpURLConnection urlConnect = (HttpURLConnection) oracle.openConnection();
+        urlConnect.setRequestMethod("GET");
+
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(
-                        yc.getInputStream()));
+                        urlConnect.getInputStream()));
         String inputLine;
 
         while ((inputLine = in.readLine()) != null)
             source +=inputLine;
         in.close();
-
+        urlConnect.getInputStream().close();
 
         return source;
 
@@ -47,10 +51,40 @@ public class ControllerApi {
         BufferedWriter httpRequestBodyWriter = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
         httpRequestBodyWriter.write(json);
         httpRequestBodyWriter.close();
+        connection.getOutputStream().close();
         connection.disconnect();
 
         System.out.println(connection.getResponseCode());
 
+    }
+
+
+    public void delete(String s) throws IOException {
+        URL url = new URL(s);
+        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+        httpCon.setDoOutput(true);
+        httpCon.setRequestProperty(
+                "Content-Type", "application/x-www-form-urlencoded" );
+        httpCon.setRequestMethod("DELETE");
+        httpCon.connect();
+
+        System.out.println(httpCon.getResponseCode());
+    }
+
+
+    public void put(String s , String json) throws IOException {
+        URL url = new URL(s);
+        HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
+        httpCon.setDoOutput(true);
+        httpCon.setRequestProperty("Content-Type","application/json");
+        httpCon.setRequestMethod("PUT");
+
+        OutputStreamWriter out = new OutputStreamWriter(httpCon.getOutputStream());
+        out.write(json);
+        out.close();
+        httpCon.getInputStream();
+
+        System.out.println(httpCon.getResponseCode());
     }
 
 

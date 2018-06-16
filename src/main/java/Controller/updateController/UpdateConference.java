@@ -75,15 +75,30 @@ public class UpdateConference implements Initializable {
 
     @FXML
     public void navigate(ActionEvent event) throws IOException {
-        Parent updateConf = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Modifier les informations sur un invité ");
 
-        stage.setScene(new Scene(updateConf, updateConf.getLayoutX(), updateConf.getLayoutY()));
+        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
         stage.show();
     }
+
+    @FXML
+    public void updateDataBase() throws IOException {
+        conference.setName(tfName.getText());
+        conference.setTime(tfTime.getText());
+        conference.setDescription(tfDesc.getText());
+        conference.setDate(tfDate.getValue().toString());
+
+        String jsonConference = new Gson().toJson(conference,Conference.class);
+
+        new ControllerApi().put("http://localhost:8080/conference/update/"+conference.getId(),jsonConference);
+
+        btnNext.setVisible(true);
+    }
+
 
 
     @FXML

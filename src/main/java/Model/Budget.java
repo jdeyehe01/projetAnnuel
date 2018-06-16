@@ -44,6 +44,7 @@ public class Budget {
 		this.id = id;
 	}
 
+
 	/**
 	 * 
 	 * @param title

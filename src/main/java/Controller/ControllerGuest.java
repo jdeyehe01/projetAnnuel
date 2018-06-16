@@ -67,11 +67,7 @@ public class ControllerGuest implements Initializable {
         stage.show();
     }
 
-    @FXML
-    public void newGuest(){
 
-
-    }
 
 
 

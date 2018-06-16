@@ -105,7 +105,7 @@ public class UpdateGuest implements Initializable {
 
         String jsonGuest = new Gson().toJson(guest,Guest.class);
 
-        new ControllerApi().post("http://localhost:8080/guest/update/"+guest.getId(),jsonGuest);
+        new ControllerApi().put("http://localhost:8080/guest/update/"+guest.getId(),jsonGuest);
 
         btnNext.setVisible(true);
     }

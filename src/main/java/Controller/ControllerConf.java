@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Conference;
 
+import Model.User;
+import annotation.BeanFromDataBase;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,18 +42,9 @@ public class ControllerConf implements Initializable {
     @FXML
     private Button btnSave;
 
-   // @Inject
-   private static String s;
+   @BeanFromDataBase
+   private static User user;
 
-
-
-    public String getS() {
-        return s;
-    }
-
-    public void setS(String s) {
-        this.s = s;
-    }
     @FXML
     public void signIn(ActionEvent event) throws IOException, ParseException {
 
@@ -59,7 +52,7 @@ public class ControllerConf implements Initializable {
         btnNext.setVisible(true);
 
 
-        Conference conference = new Conference(tfName.getText(),tfDate.getValue().toString(),tfTime.getText(),tfDesc.getText());
+        Conference conference = new Conference(tfName.getText(),tfDate.getValue().toString(),tfTime.getText(),tfDesc.getText(),user);
         System.out.println(conference.getDate());
         ControllerApi api = new ControllerApi();
 
@@ -84,6 +77,7 @@ public class ControllerConf implements Initializable {
 
     }
 
+    @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
 		

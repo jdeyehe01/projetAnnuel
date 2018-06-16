@@ -37,15 +37,13 @@ public class ControllerHome implements Initializable {
     public void updateConference(ActionEvent event) throws IOException {
         //Parent updateConf = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
 
-        Parent updateConf = FXMLLoader.load(getClass().getResource("../View/updateBudget.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Modifier votre conference ");
 
-        stage.setScene(new Scene(updateConf, updateConf.getLayoutX(), updateConf.getLayoutY()));
+        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
         stage.show();
     }
-
-
 }

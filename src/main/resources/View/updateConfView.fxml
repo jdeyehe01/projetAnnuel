@@ -37,7 +37,7 @@
          </children>
       </GridPane>
       <Button fx:id="btnNext" layoutX="486.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
-      <Button fx:id="btnSave" layoutX="274.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Modifier" visible="false" />
+      <Button fx:id="btnSave" layoutX="274.0" layoutY="355.0" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
       <ComboBox fx:id="cbConference" layoutX="391.0" layoutY="33.0" onAction="#initialisationForm" prefWidth="150.0" visible="false" />
    </children>
 </Pane>
