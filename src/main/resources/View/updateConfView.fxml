@@ -4,6 +4,10 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,7 +17,7 @@
 
 <Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdateConference">
    <children>
-      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="23.0" prefHeight="44.0" prefWidth="229.0" text="Modifier votre conférence" />
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="46.0" prefHeight="25.0" prefWidth="229.0" text="Modifier votre conférence" />
       <GridPane layoutX="46.0" layoutY="77.0" prefHeight="260.0" prefWidth="509.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
@@ -38,6 +42,33 @@
       </GridPane>
       <Button fx:id="btnNext" layoutX="486.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
       <Button fx:id="btnSave" layoutX="274.0" layoutY="355.0" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
-      <ComboBox fx:id="cbConference" layoutX="391.0" layoutY="33.0" onAction="#initialisationForm" prefWidth="150.0" visible="false" />
+      <ComboBox fx:id="cbConference" layoutX="391.0" layoutY="45.0" onAction="#initialisationForm" prefHeight="25.0" prefWidth="150.0" promptText="Liste des conférence" visible="false" />
+      <MenuBar layoutX="3.0" layoutY="2.0" prefHeight="26.0" prefWidth="600.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Accueil">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#delete" text="Retourner à l'accueil" />
+               </items>
+          </Menu>
+          <Menu fx:id="menuItemDelete" mnemonicParsing="false" text="Supprimer">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#delete" text="Supprimer la conférence" />
+               </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Mdifier ">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Un invité" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Une tâche" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Une présentation" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Un lieu" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" text="Un budget" />
+              </items>
+            </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </Pane>

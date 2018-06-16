@@ -40,7 +40,7 @@ public class ControllerApi {
 
 
 
-    public void post(String url, String json) throws IOException {
+    public int post(String url, String json) throws IOException {
 
        URL oracle = new URL(url);
        HttpURLConnection connection = (HttpURLConnection) oracle.openConnection();
@@ -54,12 +54,12 @@ public class ControllerApi {
         connection.getOutputStream().close();
         connection.disconnect();
 
-        System.out.println(connection.getResponseCode());
+        return connection.getResponseCode();
 
     }
 
 
-    public void delete(String s) throws IOException {
+    public int delete(String s) throws IOException {
         URL url = new URL(s);
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         httpCon.setDoOutput(true);
@@ -68,11 +68,11 @@ public class ControllerApi {
         httpCon.setRequestMethod("DELETE");
         httpCon.connect();
 
-        System.out.println(httpCon.getResponseCode());
+        return httpCon.getResponseCode();
     }
 
 
-    public void put(String s , String json) throws IOException {
+    public int put(String s , String json) throws IOException {
         URL url = new URL(s);
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         httpCon.setDoOutput(true);
@@ -84,7 +84,7 @@ public class ControllerApi {
         out.close();
         httpCon.getInputStream();
 
-        System.out.println(httpCon.getResponseCode());
+        return httpCon.getResponseCode();
     }
 
 

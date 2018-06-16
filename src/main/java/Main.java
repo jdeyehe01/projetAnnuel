@@ -11,8 +11,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent root = FXMLLoader.load(getClass().getResource("View/beforShowWelcomeView.fxml"));
-     primaryStage.setTitle("Before Show - Accueil ");
+     //   Parent root = FXMLLoader.load(getClass().getResource("View/loginView.fxml"));
+       // primaryStage.setTitle("Before Show - Authentification ");
+
+        Parent root = FXMLLoader.load(getClass().getResource("View/updateConfView.fxml"));
+        primaryStage.setTitle("Before Show - Authentification ");
+
+  //      Parent root = FXMLLoader.load(getClass().getResource("View/beforShowWelcomeView.fxml"));
+    // primaryStage.setTitle("Before Show - Accueil ");
+
+
 
         //URL url = getClass().getResource("View/CreateConfView.fxml");
         //Parent root = FXMLLoader.load(url);

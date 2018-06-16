@@ -2,9 +2,11 @@ package Controller.updateController;
 
 import Controller.ControllerApi;
 import Model.Conference;
+import Model.User;
 import annotation.BeanFromDataBase;
 import annotation.ControllerAnnoation;
 import com.google.gson.Gson;
+import com.sun.xml.internal.ws.api.FeatureConstructor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,6 +31,9 @@ public class UpdateConference implements Initializable {
     @BeanFromDataBase
     private static Conference conference;
 
+    @BeanFromDataBase
+    private static User user;
+
     @FXML
     private TextField tfName;
 
@@ -52,11 +57,14 @@ public class UpdateConference implements Initializable {
 
 
     @FXML
-    public void updateConference() throws IOException {
+    public void updateConference() throws IOException, InstantiationException, IllegalAccessException {
+
+        String url = "http://localhost:8080/user/lastUser";
+        ControllerAnnoation.getBean(url,this.getClass(),user);
 
         cbConference.setVisible(true);
 
-        String allConference = new ControllerApi().get("http://localhost:8080/conference/getAll");
+        String allConference = new ControllerApi().get("http://localhost:8080/conference/getAllByUser/"+user.getId());
         System.out.println(allConference);
         Conference[] tabConference =  new Gson().fromJson(allConference, Conference[].class);
 
@@ -108,9 +116,12 @@ public class UpdateConference implements Initializable {
         tfDesc.clear();
 
         String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
+        System.out.println("id: "+idConference);
+
         String url = "http://localhost:8080/conference/getById/"+idConference;
         btnSave.setVisible(true);
         ControllerAnnoation.getBean(url,this.getClass(),conference);
+        System.out.println("Conference: "+conference);
 
         tfName.setText(conference.getName());
         tfTime.setText(conference.getTime());
@@ -119,12 +130,34 @@ public class UpdateConference implements Initializable {
 
 
     }
+
+
+    @FXML
+    public void delete() throws IOException {
+
+        String idConference = cbConference.getValue().toString().split("-")[0];
+
+        String url =" http://localhost:8080/conference/deleteConference/"+idConference;
+        int code = new ControllerApi().delete(url);
+
+        if(code <= 200){
+            System.out.println("Delete ! ");
+
+        }else{
+            System.out.println("no delete ! ");
+
+        }
+    }
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
            this.updateConference();
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
             e.printStackTrace();
         }
 
