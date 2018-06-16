@@ -13,7 +13,7 @@ const userRouter = express.Router();
 userRouter.use(bodyParser.json());
 //userRouter.use(jwt({ secret: secret});
 
-userRouter.post('/', function(req, res) {
+userRouter.post('/signUp', function(req, res) {
   const login = req.body.login;
   const pw = req.body.password;
   if(login === undefined || pw === undefined ) {
@@ -47,18 +47,67 @@ userRouter.get('/getAll' , function(req,res){
   })
 });
 
-userRouter.get('/setAuth', function(req,res){
-  //  var token = jws.signToken({login : 'jean',mdp:'toto'}, secret, 150);
-  //  res.json({token: token});
+  userRouter.post('/auth', function(req,res){
+      const login = req.body.login;
+      const pw = req.body.password;
+      if(login === undefined || pw === undefined ) {
+        res.status(400).end();
 
+        notifier.notify({
+          'title' : 'Champs incorrecte',
+          'message' : 'Veuillez remplir tous les champs svp',
+          'sound' : false,
+          'wait' : true
+        });
+        return;
+      }
+
+    UserController.authent(login,pw)
+    .then((user)=>{
+      if(user == null){
+        res.status(404).end();
+        notifier.notify({
+          'title' : "Combinaison incorrecte",
+          'message' : 'La combinaisont est incorrecte',
+          'sound' : false,
+          'wait' : true
+        });
+        return;
+      }
+       res.status(200).json(user)
+    })
+    .catch((err)=>{
+      console.error(err);
 });
 /*
-userRouter.get('/getAuth',isAuthent, function(req,res){
-  res.send(req.user);
+    if(userAuth === undefined ){
+      res.status(400).end();
 
-});
+      notifier.notify({
+        'title' : 'Echec de connection',
+        'message' : "La combinaison login/password n'est pas correcte",
+        'sound' : false,
+        'wait' : true
+      });
+      return;
+    }
+
+    res.status(200).json(userAuth);
 */
-userRouter.get('/jean',function(req,res){
-  console.log('Jean');
-})
+  });
+
+  userRouter.get('/lastUser' , function(req,res){
+
+    UserController.findLast()
+    .then((user) =>{
+        res.status(200).json(user);
+    })
+    .catch((err)=>{
+      console.error(err);
+    });
+
+  } );
+
+
+
 module.exports = userRouter;

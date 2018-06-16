@@ -60,4 +60,33 @@ LocateController.addConference = function(idLocate , idConference){
 };
 
 
+LocateController.updateLocate = function(idLocate,name,address,city,cityCode){
+  return Locate.findById(idLocate)
+  .then((locate)=>{
+   return locate.updateAttributes({
+      name: name,
+      address: address,
+      city: city,
+      cityCode: cityCode
+    })
+  })
+  .catch((err)=>{
+    console.error(err);
+  });
+
+};
+
+LocateController.getLocateById = function(idLocate){
+  return Locate.findById(idLocate)
+  .then((locate)=>{
+    return locate;
+  })
+  .catch((err)=>{
+    return undefined;
+  })
+}
+
+
+
+
 module.exports = LocateController;

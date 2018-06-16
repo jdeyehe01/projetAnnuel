@@ -12,6 +12,33 @@ GuestController.newGuest = function(lname,fname,email) {
   });
 };
 
+GuestController.findById = function(idGuest){
+  return Guest.findById(idGuest)
+  .then((guest)=>{
+    return guest;
+  })
+  .catch((err)=>{
+    return undefined;
+    console.error(err);
+  })
+}
+
+GuestController.updateGuest = function(idGuest,lname,fname,email) {
+
+ return Guest.findById(idGuest)
+ .then((guest)=>{
+  return guest.updateAttributes({
+     lname: lname,
+     fname: fname,
+     email: email
+   })
+ })
+ .catch((err)=>{
+   console.error(err);
+ });
+
+}
+
 GuestController.getAllGuest = function(conferenceId) {
 
 const options = {

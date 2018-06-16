@@ -3,22 +3,53 @@ const Controllers = require('../controllers');
 const Conference = ModelIndex.Conference;
 const GuestController = Controllers.GuestController;
 const Guest = ModelIndex.Guest;
+const User = ModelIndex.User;
 
 const ConferenceController = function() { };
 
-ConferenceController.newConference = function(name,dateDebut,heureDebut,description) {
+ConferenceController.newConference = function(name,date,time,description) {
   return Conference.create({
     name: name,
-    dateDebut: dateDebut,
-    heureDebut: heureDebut,
+    date: date,
+    time: time,
     description: description
   });
 };
 
-ConferenceController.getAllConference = function() {
-  return Conference.findAll();
+
+ConferenceController.updateConference = function(idConference,name,date,time,description) {
+  return Conference.findById(idConference)
+  .then((conference)=>{
+    return conference.updateAttributes({
+      name: name,
+      date: date,
+      time: time,
+      description: description
+    });
+  });
 };
 
+
+ConferenceController.getAllConference = function() {
+  return Conference.findAll()
+};
+
+
+ConferenceController.getConferenceById = function(idConference,idUser){
+  return Conference.findOne({
+    where:{
+      id: idConference,
+      user_id: idUser
+    }
+  })
+  .then((conference) =>{
+    return conference;
+  })
+  .catch((err)=>{
+    console.error(err);
+    return undefined;
+  })
+};
 
 ConferenceController.getAllConferenceByGuest = function(guestId){
 
@@ -40,6 +71,33 @@ ConferenceController.getAllConferenceByGuest = function(guestId){
     })
 
   };
+
+  ConferenceController.getAllConferenceByUser = function(idUser){
+    return Conference.findAll({
+      where:{
+        user_id: idUser
+      }
+    })
+    .then((conferences) =>{
+      return conferences;
+    })
+    .catch((err)=>{
+      console.error(err);
+      return undefined;
+    })
+  };
+
+  ConferenceController.getAllConference = function(){
+    return Conference.findAll()
+    .then((conferences)=>{
+      return conferences;
+    })
+    .catch((err)=>{
+      console.error(err);
+    });
+  };
+
+
 
 
 
@@ -89,5 +147,18 @@ ConferenceController.findLast = function(){
       order: [ [ 'created_at', 'DESC' ]]
   });
 }
+
+ConferenceController.addUser = function(idConference ,idUser){
+
+  return Conference.findById(idConference)
+  .then((conference)=>{
+    return User.findById(idUser)
+    .then((user) => {
+      return conference.updateAttributes({
+        user_id: user.id
+      });
+    })
+  })
+  };
 
 module.exports = ConferenceController;
