@@ -49,7 +49,6 @@ public static void inject() {
 public static void getBean(String url , Class clazz , Object objectTarget) throws IllegalAccessException, InstantiationException {
     try {
         Field[] tabField = clazz.getDeclaredFields();
-
         objectTarget = clazz.newInstance();
     for(Field field : tabField){
         BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
@@ -58,13 +57,9 @@ public static void getBean(String url , Class clazz , Object objectTarget) throw
             field.setAccessible(true);
             Class<?> fieldType = field.getType();
             String jsonObject = new ControllerApi().get(url);
-            System.out.println(jsonObject);
+            Object newObject = new Gson().fromJson(jsonObject,fieldType);
 
-            Object o = new Gson().fromJson(jsonObject,fieldType);
-
-            field.set(objectTarget,o);
-
-
+            field.set(objectTarget,newObject);
         }
     }
     } catch (IOException e) {

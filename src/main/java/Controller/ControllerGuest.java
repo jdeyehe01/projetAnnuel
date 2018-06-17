@@ -50,6 +50,7 @@ public class ControllerGuest implements Initializable {
 
         Guest guest = new Guest(tfFirstName.getText(),tfLastName.getText(),tfEmail.getText(),conference);
 
+        //new ControllerApi().get("http://localhost:8080/guest//sendMail/idGuest/response");
 
         System.out.println(guest);
     }
