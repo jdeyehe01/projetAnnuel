@@ -97,7 +97,15 @@ ConferenceController.getAllConferenceByGuest = function(guestId){
     });
   };
 
-
+ConferenceController.getOneConference = function(idConference){
+  return Conference.findById(idConference)
+  .then((conference)=>{
+    return conference;
+  })
+  .catch((err)=>{
+    console.error(err);
+  })
+}
 
 
 

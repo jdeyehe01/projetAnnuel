@@ -14,14 +14,14 @@ GuestController.newGuest = function(lname,fname,email) {
 
 GuestController.findById = function(idGuest){
   return Guest.findById(idGuest)
-  .then((guest)=>{
+/*  .then((guest)=>{
     return guest;
   })
   .catch((err)=>{
     return undefined;
     console.error(err);
-  })
-}
+  })*/
+};
 
 GuestController.updateGuest = function(idGuest,lname,fname,email) {
 
@@ -83,6 +83,17 @@ GuestController.addConference = function(idGuest , idConference){
       return guest.addConference(conference);
     })
   })
+};
+
+GuestController.respond = function(idGuest,res){
+  Guest.findById(idGuest)
+  .then((guest)=>{
+    guest.updateAttributes({
+      isPresent:res
+    });
+  });
+
+
 };
 
 

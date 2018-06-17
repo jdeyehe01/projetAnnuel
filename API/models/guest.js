@@ -17,7 +17,15 @@ module.exports = function (sequelize, DataTypes) {
         },
         email: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+              isEmail: true
+            }
+          },
+        isPresent : {
+          type: DataTypes.TINYINT,
+          allowNull: false,
+          defaultValue: 0
         }
     }, {
         paranoid: false,
