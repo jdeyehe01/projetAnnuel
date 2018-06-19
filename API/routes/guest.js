@@ -11,8 +11,19 @@ guestRouter.use(bodyParser.urlencoded({ extended: true }));
 guestRouter.use(express.static(path.join(__dirname + '../../../style')));
 const nodemailer = require('nodemailer');
 
-var jean = "jean";
-guestRouter.get('/mail', function(req, res) {
+guestRouter.post('/sendMail/:idGuest/:idConference', function(req, res) {
+
+const idGuest = req.params.idGuest;
+const idConference = req.params.idConference;
+
+if(idGuest === undefined || idConference === undefined){
+  res.status(400).end();
+  return;
+}
+ GuestController.findById(idGuest)
+.then((guest)=>{
+  ConferenceController.getOneConference(idConference)
+  .then((conference)=>{
 
 
     const transporter = nodemailer.createTransport({
@@ -21,14 +32,25 @@ guestRouter.get('/mail', function(req, res) {
                 user: 'no.reply.please.project@gmail.com',
                 pass: 'dupondToto12'
             }
-});
+    });
 
-  var mailOptions = {
+    var msg = "Bonjour " + guest.fname +" "+ guest.lname+", \n"+ "Vous avez été invité à la conférence "
+    +conference.name + " qui au lieu le " + conference.date +" à "+ conference.time+
+
+     " <ul> <li> <a href='http://localhost:8080/guest/responsGuest/"+guest.id+"/1'> Je serai présent </a> </li>  <li><a href='http://localhost:8080/guest/responsGuest/"+guest.id+"/0'> Je ne serai pas présent </a> </ul>";
+
+
+    var html = "<html> <body> <p>  "+msg+" </p> </body> </html>"
+
+
+
+    var mailOptions = {
     from : 'no.reply.please.project@gmail.com',
-    to: 'jdeyehe@gmail.com,Sebas9241@hotmail.fr,m9.moreira@gmail.com',
-    subject: 'Test Projet annuel ESGI 2018 envoie de mail',
-    text: "Ceci est un test depuis l'api du projet annuel mdrr"
-  };
+    to: guest.email,
+    subject: "Invitation à la conférence "+conference.name,
+    html : html
+    };
+
 
       transporter.sendMail(mailOptions, (error, info) => {
           if (error) {
@@ -37,8 +59,19 @@ guestRouter.get('/mail', function(req, res) {
         console.log('Message envoyé: '+info.response);
       });
 
-  transporter.close();
-  res.status(200).end();
+    transporter.close();
+    res.status(200).end();
+
+
+  })
+  .catch((err)=>{
+    console.error(err);
+  })
+
+})
+.catch((err)=>{
+  console.error(err);
+});
 });
 
 guestRouter.post('/', function(req, res) {
@@ -168,6 +201,32 @@ ConferenceController.getAllConferenceByGuest(guestId)
     .catch((err)=>{
       console.error(err);
     })
+  });
+
+
+  guestRouter.get('/responsGuest/:idGuest/:res', function(req,res){
+
+    const idGuest = req.params.idGuest;
+    const respons = req.params.res;
+
+    if(idGuest === undefined || respons === undefined){
+      res.status(400).end();
+      return;
+    }
+
+    GuestController.respond(idGuest,respons);
+    res.status(200).send('Merci de votre réponse');
+  });
+
+  guestRouter.get('/findLast/:idConference',function(req,res){
+    const idConference = req.params.idConference;
+
+    GuestController.findLast(idConference)
+    .then((guest)=>{
+      res.status(200).json(guest);
+    });
+
+
   });
 
 module.exports = guestRouter;

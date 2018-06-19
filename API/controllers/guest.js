@@ -14,14 +14,7 @@ GuestController.newGuest = function(lname,fname,email) {
 
 GuestController.findById = function(idGuest){
   return Guest.findById(idGuest)
-  .then((guest)=>{
-    return guest;
-  })
-  .catch((err)=>{
-    return undefined;
-    console.error(err);
-  })
-}
+};
 
 GuestController.updateGuest = function(idGuest,lname,fname,email) {
 
@@ -85,6 +78,29 @@ GuestController.addConference = function(idGuest , idConference){
   })
 };
 
+GuestController.respond = function(idGuest,res){
+  Guest.findById(idGuest)
+  .then((guest)=>{
+    guest.updateAttributes({
+      isPresent:res
+    });
+  });
 
+};
+
+
+GuestController.findLast = function(idConference){
+return Guest.findOne({
+  include: [{
+        model: Conference,
+        as: 'conferences',
+        where:{
+          id: idConference
+        }
+    }],
+    order: [ [ 'created_at', 'DESC' ]]
+});
+
+};
 
 module.exports = GuestController;

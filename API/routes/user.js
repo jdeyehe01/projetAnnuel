@@ -64,7 +64,17 @@ userRouter.get('/getAll' , function(req,res){
 
     UserController.authent(login,pw)
     .then((user)=>{
-      return res.status(200).json(user)
+      if(user == null){
+        res.status(404).end();
+        notifier.notify({
+          'title' : "Combinaison incorrecte",
+          'message' : 'La combinaisont est incorrecte',
+          'sound' : false,
+          'wait' : true
+        });
+        return;
+      }
+       res.status(200).json(user)
     })
     .catch((err)=>{
       console.error(err);

@@ -112,30 +112,38 @@ conferenceRouter.get('/getAllByGuest/:idGuest' , function(req,res){
   })
 });
 
-conferenceRouter.get('/getById/:idConf/:idUser' , function(req,res){
+conferenceRouter.get('/getById/:idConf' , function(req,res){
   const idConference = req.params.idConf;
-  const idUser = req.params.idUser;
-
-  if(idConference === undefined || idUser === undefined) {
+    if(idConference === undefined ) {
     res.status(400).end();
 
     notifier.notify({
       'title' : 'Champs incorrecte',
-      'message' : "Veuillez renseigner l'id de la conference et/ou de l'utilisateur svp",
+      'message' : "Veuillez renseigner l'id de la conference ",
       'sound' : false,
       'wait' : true
     });
     return;
   }
 
-  ConferenceController.getConferenceById(idConference,idUser)
-  .then((conference)=>{
-    res.status(200).json(conference);
+  UserController.findLast()
+  .then((user)=>{
+    ConferenceController.getConferenceById(idConference,user.id)
+    .then((conference)=>{
+      res.status(200).json(conference);
+    })
+    .catch((err)=>{
+      res.status(400).end();
+      console.error(err);
+    })
   })
   .catch((err)=>{
-    res.status(200).end();
+    res.status(400).end();
     console.error(err);
   })
+
+
+
 
 
 });
@@ -188,7 +196,7 @@ conferenceRouter.delete('/deleteConference/:idConf' , function(req,res){
       'sound' : false,
       'wait' : true
     });
-    res.status(201).end();
+    res.status(200).end();
   });
 
 });

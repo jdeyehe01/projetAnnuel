@@ -92,12 +92,20 @@ ConferenceController.getAllConferenceByGuest = function(guestId){
     .then((conferences)=>{
       return conferences;
     })
-    .cath((err)=>{
+    .catch((err)=>{
       console.error(err);
-    })
+    });
   };
 
-
+ConferenceController.getOneConference = function(idConference){
+  return Conference.findById(idConference)
+  .then((conference)=>{
+    return conference;
+  })
+  .catch((err)=>{
+    console.error(err);
+  })
+}
 
 
 
