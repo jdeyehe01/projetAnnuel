@@ -11,14 +11,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-     //   Parent root = FXMLLoader.load(getClass().getResource("View/loginView.fxml"));
-       // primaryStage.setTitle("Before Show - Authentification ");
+        Parent root = FXMLLoader.load(getClass().getResource("View/loginView.fxml"));
+       primaryStage.setTitle("Before Show - Authentification ");
 
-        Parent root = FXMLLoader.load(getClass().getResource("View/updateConfView.fxml"));
-        primaryStage.setTitle("Before Show - Authentification ");
 
-  //      Parent root = FXMLLoader.load(getClass().getResource("View/beforShowWelcomeView.fxml"));
-    // primaryStage.setTitle("Before Show - Accueil ");
+        //Parent root = FXMLLoader.load(getClass().getResource("View/beforShowWelcomeView.fxml"));
+        //primaryStage.setTitle("Before Show - Accueil ");
 
 
 
@@ -26,8 +24,8 @@ public class Main extends Application {
         //Parent root = FXMLLoader.load(url);
        //primaryStage.setTitle("Before Show - Créer une conférence ");
 
-      // Parent root = FXMLLoader.load(getClass().getResource("View/createGuestView.fxml"));
-    //   primaryStage.setTitle("Before Show - Ajouter un invité ");
+      //Parent root = FXMLLoader.load(getClass().getResource("View/createGuestView.fxml"));
+       //primaryStage.setTitle("Before Show - Ajouter un invité ");
 
 
         //URL url = getClass().getResource("View/locateConfView.fxml");
@@ -53,7 +51,7 @@ public class Main extends Application {
       // primaryStage.setTitle("Before Show - Login ");
 
 
-        primaryStage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
 
     }

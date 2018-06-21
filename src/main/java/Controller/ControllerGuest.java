@@ -2,6 +2,8 @@ package Controller;
 
 import Model.Conference;
 import Model.Guest;
+import annotation.BeanFromDataBase;
+import annotation.ControllerAnnoation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -10,7 +12,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -40,19 +41,28 @@ public class ControllerGuest implements Initializable {
 
     private ArrayList<Guest> listGuest ;
 
+    @BeanFromDataBase
+    private static Conference conference;
+
+    @BeanFromDataBase
+    private static Guest guest;
+
 
     @FXML
     public void save() throws IOException {
 
-        String jsonConf = new ControllerApi().get("http://localhost:8080/conference/lastConf");
+       /* String jsonConf = new ControllerApi().get("http://localhost:8080/conference/lastConf");
 
         Conference conference = new Gson().fromJson(jsonConf,Conference.class);
+        */
 
         Guest guest = new Guest(tfFirstName.getText(),tfLastName.getText(),tfEmail.getText(),conference);
-
-        //new ControllerApi().get("http://localhost:8080/guest//sendMail/idGuest/response");
-
         System.out.println(guest);
+        String jsonGuest = new Gson().toJson(guest);
+        System.out.println(jsonGuest);
+        new ControllerApi().post("http://localhost:8080/guest",jsonGuest);
+
+
     }
 
     @FXML
@@ -66,13 +76,21 @@ public class ControllerGuest implements Initializable {
         stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
 
         stage.show();
+
+        //this.sendMail();
+
     }
-
-
-
-
 
     public void initialize(URL location, ResourceBundle resources) {
 
+        try {
+            String url = "http://localhost:8080/conference/lastConf";
+            ControllerAnnoation.getBean(url,this.getClass(),conference);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
     }
 }

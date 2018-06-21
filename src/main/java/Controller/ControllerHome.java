@@ -19,6 +19,17 @@ public class ControllerHome implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        /*try {
+          Process p = Runtime.getRuntime().exec( "cmd.exe /c ipconfig" );
+            java.io.BufferedReader out = new java.io.BufferedReader( new java.io.InputStreamReader( p.getInputStream() ) );
+
+            System.out.println(out.readLine());
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+*/
     }
 
 
@@ -31,6 +42,11 @@ public class ControllerHome implements Initializable {
         stage.setTitle("Before Show - Créer une Conference ");
         stage.setScene(new Scene(createConference, createConference.getLayoutX(), createConference.getLayoutY()));
         stage.show();
+
+
+
+
+
     }
 
     @FXML
