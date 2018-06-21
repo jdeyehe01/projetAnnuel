@@ -9,8 +9,8 @@ const guestRouter = express.Router();
 guestRouter.use(bodyParser.json());
 guestRouter.use(bodyParser.urlencoded({ extended: true }));
 guestRouter.use(express.static(path.join(__dirname + '../../../style')));
-const nodemailer = require('nodemailer');
 
+/*
 guestRouter.post('/sendMail/:idGuest/:idConference', function(req, res) {
 
 const idGuest = req.params.idGuest;
@@ -74,6 +74,8 @@ if(idGuest === undefined || idConference === undefined){
 });
 });
 
+*/
+
 guestRouter.post('/', function(req, res) {
   const fname = req.body.fname;
   const lname = req.body.lname;
@@ -101,6 +103,7 @@ guestRouter.post('/', function(req, res) {
     ConferenceController.findLast()
     .then((conference) =>{
       GuestController.addConference(guest.id ,conference.id);
+      GuestController.sendMail(guest.id ,conference.id);
     });
 
 
