@@ -1,4 +1,4 @@
-package annotation;
+package Annotation;
 
 
 import java.lang.annotation.ElementType;
@@ -7,6 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD , ElementType.LOCAL_VARIABLE})
-public @interface BeanFromDataBase {
+@Target(ElementType.FIELD)
+public @interface Inject {
 }

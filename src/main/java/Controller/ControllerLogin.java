@@ -67,9 +67,10 @@ public class ControllerLogin implements Initializable {
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
-        stage.setTitle("Before Show - Accueil ");
+        stage.setTitle("Before Show - Login ");
+        stage.setResizable(false);
 
-        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
+        stage.setScene(new Scene(createConf));
         stage.show();
     }
 }

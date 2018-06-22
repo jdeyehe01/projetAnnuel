@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+
+<MenuBar fx:id="navBar" prefHeight="26.0" prefWidth="593.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerNavBar">
+   <menus>
+      <Menu fx:id="navHome" mnemonicParsing="false" text="Accueil">
+         <items>
+            <MenuItem fx:id="returnHome" mnemonicParsing="false" text="Retourner à l'accueil" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Invités">
+        <items>
+            <MenuItem fx:id="guestShow" mnemonicParsing="false" text="Afficher" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+          <MenuItem fx:id="guestCreate" mnemonicParsing="false" text="Créer" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="guestUpdate" mnemonicParsing="false" text="Modifier" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="guestDelete" mnemonicParsing="false" text="Supprimer" />
+        </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Lieux">
+         <items>
+            <MenuItem fx:id="locateShow" mnemonicParsing="false" text="Afficher" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="locateCreate" mnemonicParsing="false" text="Créer" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="locateUpdate" mnemonicParsing="false" text="Modifier" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="locateDelete" mnemonicParsing="false" text="Supprimer" />
+         </items>
+      </Menu>
+      <Menu fx:id="menuItemDelete" mnemonicParsing="false" text="Conférences">
+         <items>
+            <MenuItem fx:id="conferenceShow" mnemonicParsing="false" onAction="#showConference" text="Afficher" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="conferenceCreate" mnemonicParsing="false" onAction="#createConference" text="Créer" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="conferenceUpdate" mnemonicParsing="false" onAction="#updateConference" text="Modifier" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="conferenceDelete" mnemonicParsing="false" onAction="#deleteConference" text="Supprimer" />
+         </items></Menu>
+      <Menu mnemonicParsing="false" text="Tâches">
+         <items>
+            <MenuItem fx:id="taskShow" mnemonicParsing="false" text="Afficher" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="taskCreate" mnemonicParsing="false" text="Créer" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="taskUpdate" mnemonicParsing="false" text="Modifier" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="taskDelete" mnemonicParsing="false" text="Supprimer" />
+         </items></Menu>
+      <Menu mnemonicParsing="false" text="budgets">
+         <items>
+            <MenuItem fx:id="budgetShow" mnemonicParsing="false" text="Afficher" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="budgetCreate" mnemonicParsing="false" text="Créer" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="budgetUpdate" mnemonicParsing="false" text="Modifier" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="budgetDelete" mnemonicParsing="false" text="Supprimer" />
+         </items></Menu>
+      <Menu mnemonicParsing="false" text="Plugins">
+         <items>
+            <MenuItem fx:id="loadPlugin" mnemonicParsing="false" text="Charger" />
+         </items>
+      </Menu>
+      <Menu mnemonicParsing="false" text="Profile">
+         <items>
+            <MenuItem fx:id="logOutItem" mnemonicParsing="false" text="Se déconnecter" />
+         </items>
+      </Menu>
+   </menus>
+</MenuBar>

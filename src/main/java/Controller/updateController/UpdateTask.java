@@ -3,9 +3,8 @@ package Controller.updateController;
 import Controller.ControllerApi;
 import Model.Conference;
 import Model.Task;
-import Model.Task;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,7 +59,7 @@ public class UpdateTask implements Initializable {
         String url = "http://localhost:8080/conference/lastConf";
         cbListTask.setVisible(true);
 
-        ControllerAnnoation.getBean(url,this.getClass(),c);
+        ControllerAnnotation.getBean(url,this.getClass(),c);
 
         String allTask = new ControllerApi().get("http://localhost:8080/task/getAllTaskForConference/"+c.getId());
         Task[] tabTask =  new Gson().fromJson(allTask, Task[].class);
@@ -85,7 +84,7 @@ public class UpdateTask implements Initializable {
         String idTask = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "http://localhost:8080/task/getTaskById/"+idTask+"/"+c.getId();
         btnUpdate.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass(),task);
+        ControllerAnnotation.getBean(url,this.getClass(),task);
 
         tfTitle.setText(task.getTitle());
         tfAmount.setText(String.valueOf(task.getAmount()));

@@ -1,4 +1,4 @@
-package annotation;
+package Annotation;
 
 
 import Controller.ControllerApi;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 
 
-public class ControllerAnnoation {
+public class ControllerAnnotation {
 
     //Annotation Inject
 public static void inject() {

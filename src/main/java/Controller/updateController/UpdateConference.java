@@ -3,10 +3,9 @@ package Controller.updateController;
 import Controller.ControllerApi;
 import Model.Conference;
 import Model.User;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
-import com.sun.xml.internal.ws.api.FeatureConstructor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,12 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import javax.swing.text.html.ObjectView;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.chrono.Chronology;
 import java.util.*;
 
 public class UpdateConference implements Initializable {
@@ -60,7 +56,7 @@ public class UpdateConference implements Initializable {
     public void updateConference() throws IOException, InstantiationException, IllegalAccessException {
 
         String url = "http://localhost:8080/user/lastUser";
-        ControllerAnnoation.getBean(url,this.getClass(),user);
+        ControllerAnnotation.getBean(url,this.getClass(),user);
 
         cbConference.setVisible(true);
 
@@ -120,7 +116,7 @@ public class UpdateConference implements Initializable {
 
         String url = "http://localhost:8080/conference/getById/"+idConference;
         btnSave.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass(),conference);
+        ControllerAnnotation.getBean(url,this.getClass(),conference);
         System.out.println("Conference: "+conference);
 
         tfName.setText(conference.getName());

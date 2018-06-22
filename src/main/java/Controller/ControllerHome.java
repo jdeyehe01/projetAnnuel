@@ -59,7 +59,9 @@ public class ControllerHome implements Initializable {
         stage.close();
         stage.setTitle("Before Show - Modifier votre conference ");
 
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
         stage.show();
     }
 }

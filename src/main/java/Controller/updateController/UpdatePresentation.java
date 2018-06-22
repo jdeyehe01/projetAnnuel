@@ -2,10 +2,9 @@ package Controller.updateController;
 
 import Controller.ControllerApi;
 import Model.Conference;
-import Model.Locate;
 import Model.Presentation;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,7 +60,7 @@ public class UpdatePresentation implements Initializable {
         String url = "http://localhost:8080/conference/lastConf";
         cbListPresentation.setVisible(true);
 
-        ControllerAnnoation.getBean(url,this.getClass(),c);
+        ControllerAnnotation.getBean(url,this.getClass(),c);
 
         String allPresentation = new ControllerApi().get("http://localhost:8080/presentation/getAllPresentationForConference/"+c.getId());
         Presentation[] tabPresentation =  new Gson().fromJson(allPresentation, Presentation[].class);
@@ -86,7 +85,7 @@ public class UpdatePresentation implements Initializable {
         String idPresnetation = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "http://localhost:8080/presentation/getPresentationById/"+idPresnetation+"/"+c.getId();
         btnUpdate.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass(),presentation);
+        ControllerAnnotation.getBean(url,this.getClass(),presentation);
 
         tfTitle.setText(presentation.getTitle());
         tfAmount.setText(String.valueOf(presentation.getAmount()));

@@ -59,7 +59,9 @@ public class ControllerTask implements Initializable {
         stage.close();
         stage.setTitle("Before Show - Budget ");
 
-        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(createConf));
         stage.show();
 
 

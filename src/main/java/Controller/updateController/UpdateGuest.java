@@ -3,11 +3,9 @@ package Controller.updateController;
 import Controller.ControllerApi;
 import Model.Conference;
 import Model.Guest;
-import Model.Guest;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
-import com.sun.xml.internal.ws.api.FeatureConstructor;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +57,7 @@ public class UpdateGuest implements Initializable {
         String url = "http://localhost:8080/conference/lastConf";
         cbListGuest.setVisible(true);
 
-        ControllerAnnoation.getBean(url,this.getClass(),c);
+        ControllerAnnotation.getBean(url,this.getClass(),c);
 
         String allGuest = new ControllerApi().get("http://localhost:8080/guest/getAllGuest/"+c.getId());
 
@@ -86,7 +84,7 @@ public class UpdateGuest implements Initializable {
         String idGuest = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "http://localhost:8080/guest/guestById/"+idGuest;
         btnSave.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass(),guest);
+        ControllerAnnotation.getBean(url,this.getClass(),guest);
 
         tfFirstName.setText(guest.getfname());
         tfLastName.setText(guest.getlname());

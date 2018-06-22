@@ -3,7 +3,7 @@ package Controller;
 import Model.Conference;
 
 import Model.User;
-import annotation.BeanFromDataBase;
+import Annotation.BeanFromDataBase;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
-import java.io.IOException;
+import java.io.*;
 
 import java.net.URL;
 import java.text.ParseException;
@@ -59,6 +59,19 @@ public class ControllerConf implements Initializable {
         Gson gson = new Gson();
         System.out.println(gson.toJson(conference));
         System.out.println("Object java to object json :" + gson.toJson(conference));
+        FileOutputStream f = new FileOutputStream("Toto.txt");
+        ObjectOutputStream o = new ObjectOutputStream(f);
+        o.writeObject(user);
+        o.close();
+
+        FileInputStream fi = new FileInputStream("Toto.txt");
+        ObjectInputStream oi = new ObjectInputStream(fi);
+        try {
+            Object ob = oi.readObject();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        o.close();
 
         api.post("http://localhost:8080/conference/",new Gson().toJson(conference));
 
@@ -71,8 +84,9 @@ public class ControllerConf implements Initializable {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Créer une conférence ");
+        stage.setResizable(false);
 
-        stage.setScene(new Scene(createConf, createConf.getLayoutX(), createConf.getLayoutY()));
+        stage.setScene(new Scene(createConf));
         stage.show();
 
     }

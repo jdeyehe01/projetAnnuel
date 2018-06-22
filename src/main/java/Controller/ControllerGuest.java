@@ -2,8 +2,8 @@ package Controller;
 
 import Model.Conference;
 import Model.Guest;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -73,7 +73,8 @@ public class ControllerGuest implements Initializable {
         stage.close();
         stage.setTitle("Before Show - Ajouter un invité ");
 
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
+        stage.setResizable(false);
+        stage.setScene(new Scene(root));
 
         stage.show();
 
@@ -85,7 +86,7 @@ public class ControllerGuest implements Initializable {
 
         try {
             String url = "http://localhost:8080/conference/lastConf";
-            ControllerAnnoation.getBean(url,this.getClass(),conference);
+            ControllerAnnotation.getBean(url,this.getClass(),conference);
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

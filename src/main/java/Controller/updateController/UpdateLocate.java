@@ -2,10 +2,9 @@ package Controller.updateController;
 
 import Controller.ControllerApi;
 import Model.Conference;
-import Model.Guest;
 import Model.Locate;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,7 +63,7 @@ public class UpdateLocate implements Initializable {
         String url = "http://localhost:8080/conference/lastConf";
         cbListLocate.setVisible(true);
 
-        ControllerAnnoation.getBean(url,this.getClass(),c);
+        ControllerAnnotation.getBean(url,this.getClass(),c);
 
         String allLocate = new ControllerApi().get("http://localhost:8080/locate/getAll/"+c.getId());
         System.out.println(allLocate);
@@ -91,7 +90,7 @@ public class UpdateLocate implements Initializable {
         String idLocate = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "http://localhost:8080/locate/getLocateById/"+idLocate;
         btnSave.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass(),l);
+        ControllerAnnotation.getBean(url,this.getClass(),l);
 
         tfName.setText(l.getName());
         tfAddress.setText(l.getAddress());

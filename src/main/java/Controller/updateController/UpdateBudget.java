@@ -3,8 +3,8 @@ package Controller.updateController;
 import Controller.ControllerApi;
 import Model.Conference;
 import Model.Budget;
-import annotation.BeanFromDataBase;
-import annotation.ControllerAnnoation;
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,7 +55,7 @@ public class UpdateBudget implements Initializable {
         String url = "http://localhost:8080/conference/lastConf";
         cbListBudget.setVisible(true);
 
-        ControllerAnnoation.getBean(url,this.getClass(),c);
+        ControllerAnnotation.getBean(url,this.getClass(),c);
 
         String allBudget = new ControllerApi().get("http://localhost:8080/budget/getAllBudgetForConference/"+c.getId());
         Budget[] tabBudget =  new Gson().fromJson(allBudget, Budget[].class);
@@ -79,7 +79,7 @@ public class UpdateBudget implements Initializable {
         String idBudget = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "http://localhost:8080/budget/getBudgetById/"+idBudget+"/"+c.getId();
         btnUpdate.setVisible(true);
-        ControllerAnnoation.getBean(url,this.getClass(),budget);
+        ControllerAnnotation.getBean(url,this.getClass(),budget);
 
         tfName.setText(budget.getTitle());
         tfAmount.setText(String.valueOf(budget.getAmount()));
