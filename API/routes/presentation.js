@@ -135,7 +135,7 @@ presentationRouter.post('/', function(req, res) {
   });
 
 
-  presentationRouter.post('/updatePresentation/:idPresentation' , function(req,res){
+  presentationRouter.put('/updatePresentation/:idPresentation' , function(req,res){
 
     const title = req.body.title;
     const amount = parseFloat(req.body.amount);

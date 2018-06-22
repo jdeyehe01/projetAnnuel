@@ -131,7 +131,7 @@ taskRouter.post('/', function(req, res) {
   });
 
 
-  taskRouter.post('/updateTask/:idTask' , function(req,res){
+  taskRouter.put('/updateTask/:idTask' , function(req,res){
 
     const title = req.body.title;
     const amount = parseFloat(req.body.amount);

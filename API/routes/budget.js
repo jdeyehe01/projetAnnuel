@@ -36,12 +36,11 @@ budgetRouter.post('/', function(req, res) {
       'wait' : false
       });
 
-      res.send()
+      res.status(200).end();
   })
   .catch((err) => {
     res.status(500).end();
   })
-    res.redirect('https://www.google.fr');
 
 
 });
@@ -122,7 +121,7 @@ budgetRouter.post('/', function(req, res) {
   });
 
 
-  budgetRouter.post('/updateBudget/:idBudget' , function(req,res){
+  budgetRouter.put('/updateBudget/:idBudget' , function(req,res){
 
     const title = req.body.title;
     const amount = parseFloat(req.body.amount);
