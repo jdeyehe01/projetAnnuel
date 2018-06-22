@@ -9,10 +9,11 @@ import java.util.jar.JarInputStream;
 
 public class PluginManager {
 
-    private File path = new File("C:\\Users\\Protek\\Desktop\\Projects\\TestPlugin\\MyPlugins");
+    private File path = new File(getLocalDirectory());
     private File[] allFiles = path.listFiles();
 
     public void loadPlugins() {
+
         for(File file : allFiles) {
             if(file.isFile()) {
                 try{
@@ -24,6 +25,9 @@ public class PluginManager {
                         if(jarEntry == null){
                             break;
                         }
+                        System.out.println(file);
+                        System.out.println("Here");
+                        System.out.println(jarEntry.getName());
                         if(jarEntry.getName().endsWith (".class")) {
                             URL[] classUrl = new URL[]{path.toURI().toURL()};
 
@@ -56,5 +60,16 @@ public class PluginManager {
             }
         }
         return false;
+    }
+
+
+    public String getLocalDirectory() {
+        File absolutePath = new File("").getAbsoluteFile();
+        File directory = new File(absolutePath + "\\MyPlugins");
+
+        if (!directory.exists()){
+            directory.mkdir();
+        }
+        return directory.getPath();
     }
 }
