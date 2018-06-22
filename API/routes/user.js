@@ -36,6 +36,29 @@ userRouter.post('/', function(req, res) {
   })
 });
 
+userRouter.post('/login', function(req, res){
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const user = UserController.login(email, password)
+  .then((user) => {
+    if(user == null){
+      res.send('Accès refusé').end();
+      return;
+    }
+
+    jwt.sign({user}, 'secretkey', {expiresIn: '1h'}, (err, token) =>{
+      res.json({
+        token
+      });
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).end();
+  })
+});
+
 
 userRouter.get('/getAll' , function(req,res){
   UserController.getAllUser()
