@@ -5,6 +5,7 @@ import Model.Conference;
 import Model.Guest;
 import Annotation.BeanFromDataBase;
 import Annotation.ControllerAnnotation;
+import Model.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,24 +43,31 @@ public class UpdateGuest implements Initializable {
     @FXML
     private Button btnNext;
 
+    @FXML
+    private ComboBox cbListConference;
+
     @BeanFromDataBase
     private static Guest guest;
 
     @BeanFromDataBase
     private static Conference c;
 
+    @BeanFromDataBase
+    private static User user;
+
     @FXML
     private ComboBox cbListGuest;
 
     @FXML
     public void updateGuest() throws IOException, InstantiationException, IllegalAccessException {
-
-        String url = "conference/lastConf";
+        cbListGuest.getItems().clear();
+        cbListGuest.getEditor().setDisable(false);
+        String url = "conference/getById/";
         cbListGuest.setVisible(true);
 
-        ControllerAnnotation.getBean(url,this.getClass(),c);
+        String idConference = cbListConference.getValue().toString().split("-")[0];
 
-        String allGuest = new ControllerApi().get("guest/getAllGuest/"+c.getId());
+        String allGuest = new ControllerApi().get("guest/getAllGuest/"+idConference);
 
         Guest[] tabGuest =  new Gson().fromJson(allGuest, Guest[].class);
 
@@ -110,11 +118,8 @@ public class UpdateGuest implements Initializable {
 
     @FXML
     public void navigate(ActionEvent event) throws IOException {
-        System.out.println("Entrer");
-       // Parent root = FXMLLoader.load(getClass().getResource("/View/UpdateViews/updateConfView.fxml"));
         Parent root  = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
 
-        System.out.println("Sortie");
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
@@ -125,10 +130,46 @@ public class UpdateGuest implements Initializable {
 
     }
 
+    public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
+        String url = "user/lastUser";
+        ControllerAnnotation.getBean(url,this.getClass(),user);
+
+        String allConference = new ControllerApi().get("conference/getAllByUser/"+user.getId());
+        System.out.println(allConference);
+        Conference[] tabConference =  new Gson().fromJson(allConference, Conference[].class);
+
+        List<Conference> listConference = Arrays.asList(tabConference);
+        ArrayList<String> listIdName = new ArrayList<String>();
+
+        for(Conference c : listConference){
+            listIdName.add(c.getId() + "-" +c.getName());
+        }
+
+        cbListConference.getItems().addAll(listIdName);
+
+    }
+
+    @FXML
+    public void deleteGuest() throws IOException {
+
+        String idGuest = cbListGuest.getValue().toString().split("-")[0];
+
+        String url = "guest/deleteGuest/"+idGuest;
+        int code = new ControllerApi().delete(url);
+
+        if(code <=202) {
+            System.out.println("Delete !");
+        }
+        else {
+            System.out.println("No delete");
+        }
+
+    }
+
 
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.updateGuest();
+            this.initListConference();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

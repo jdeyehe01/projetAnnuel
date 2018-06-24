@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class showControllerTask implements Initializable {
+public class ControllerShowTask implements Initializable {
 
     @FXML
     private Accordion accordionView;

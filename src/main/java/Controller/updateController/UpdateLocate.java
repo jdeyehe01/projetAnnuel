@@ -5,6 +5,7 @@ import Model.Conference;
 import Model.Locate;
 import Annotation.BeanFromDataBase;
 import Annotation.ControllerAnnotation;
+import Model.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,8 +46,9 @@ public class UpdateLocate implements Initializable {
     @BeanFromDataBase
      private static Locate l;
 
+
     @BeanFromDataBase
-    private static Conference c;
+    private static User user;
 
     @FXML
     private Button btnSave;
@@ -54,18 +56,20 @@ public class UpdateLocate implements Initializable {
     @FXML
     private Button btnNext;
 
+    @FXML
+    private ComboBox cbListConference;
 
+    @FXML
+    private Button btnDelete;
 
 
     @FXML
     public void updateLocate() throws IOException, InstantiationException, IllegalAccessException {
+        cbListLocate.getItems().clear();
 
-        String url = "conference/lastConf";
-        cbListLocate.setVisible(true);
+        String idConference = cbListConference.getValue().toString().split("-")[0];
 
-        ControllerAnnotation.getBean(url,this.getClass(),c);
-
-        String allLocate = new ControllerApi().get("locate/getAll/"+c.getId());
+        String allLocate = new ControllerApi().get("locate/getAll/"+idConference);
         System.out.println(allLocate);
         Locate[] tabLocate =  new Gson().fromJson(allLocate, Locate[].class);
 
@@ -77,6 +81,12 @@ public class UpdateLocate implements Initializable {
         }
 
         cbListLocate.getItems().addAll(listNameLocate);
+
+        if(cbListLocate.getItems().isEmpty()){
+            cbListLocate.setDisable(true);
+        }else{
+            cbListLocate.setDisable(false);
+        }
     }
 
 
@@ -89,7 +99,15 @@ public class UpdateLocate implements Initializable {
 
         String idLocate = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "locate/getLocateById/"+idLocate;
-        btnSave.setVisible(true);
+
+        if(btnDelete.isVisible()){
+            btnSave.setVisible(false);
+        }else{
+            btnSave.setVisible(true);
+        }
+
+
+
         ControllerAnnotation.getBean(url,this.getClass(),l);
 
         tfName.setText(l.getName());
@@ -134,11 +152,56 @@ public class UpdateLocate implements Initializable {
     }
 
 
+    public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
+        String url = "user/lastUser";
+        ControllerAnnotation.getBean(url, this.getClass(), user);
+
+        String allConference = new ControllerApi().get("conference/getAllByUser/" + user.getId());
+        System.out.println(allConference);
+        Conference[] tabConference = new Gson().fromJson(allConference, Conference[].class);
+
+        List<Conference> listConference = Arrays.asList(tabConference);
+        ArrayList<String> listIdName = new ArrayList<String>();
+
+        for (Conference c : listConference) {
+            listIdName.add(c.getId() + "-" + c.getName());
+        }
+
+        cbListConference.getItems().addAll(listIdName);
+
+
+    }
+
+    @FXML
+    public void deleteTask() throws IOException, IllegalAccessException, InstantiationException {
+        String idTask = cbListLocate.getValue().toString().split("-")[0];
+
+        String url = "task/deleteTaskById/"+idTask;
+        int code = new ControllerApi().delete(url);
+
+        this.updateLocate();
+        tfName.clear();
+        tfAddress.clear();
+        tfCity.clear();
+        tfCityCode.clear();
+
+
+        if(code <=200) {
+            System.out.println("Delete !");
+        }
+        else {
+            System.out.println("No delete");
+        }
+
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
-            this.updateLocate();
+            this.initListConference();
+            this.cbListLocate.setDisable(true);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {

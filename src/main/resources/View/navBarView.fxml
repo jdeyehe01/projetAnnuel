@@ -25,13 +25,13 @@
       </Menu>
       <Menu mnemonicParsing="false" text="Lieux">
          <items>
-            <MenuItem fx:id="locateShow" mnemonicParsing="false" text="Afficher" />
+            <MenuItem fx:id="locateShow" mnemonicParsing="false" onAction="#showLocate" text="Afficher" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="locateCreate" mnemonicParsing="false" text="Créer" />
+            <MenuItem fx:id="locateCreate" mnemonicParsing="false" onAction="#createLocate" text="Créer" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="locateUpdate" mnemonicParsing="false" text="Modifier" />
+            <MenuItem fx:id="locateUpdate" mnemonicParsing="false" onAction="#updateLocate" text="Modifier" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="locateDelete" mnemonicParsing="false" text="Supprimer" />
+            <MenuItem fx:id="locateDelete" mnemonicParsing="false" onAction="#deleteLocate" text="Supprimer" />
          </items>
       </Menu>
       <Menu fx:id="menuItemDelete" mnemonicParsing="false" text="Conférences">
@@ -48,11 +48,11 @@
          <items>
             <MenuItem fx:id="taskShow" mnemonicParsing="false" onAction="#showTask" text="Afficher" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="taskCreate" mnemonicParsing="false" text="Créer" />
+            <MenuItem fx:id="taskCreate" mnemonicParsing="false" onAction="#createTask" text="Créer" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="taskUpdate" mnemonicParsing="false" text="Modifier" />
+            <MenuItem fx:id="taskUpdate" mnemonicParsing="false" onAction="#updateTask" text="Modifier" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="taskDelete" mnemonicParsing="false" text="Supprimer" />
+            <MenuItem fx:id="taskDelete" mnemonicParsing="false" onAction="#deleteTask" text="Supprimer" />
          </items></Menu>
       <Menu mnemonicParsing="false" text="budgets">
          <items>
