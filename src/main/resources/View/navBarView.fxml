@@ -16,11 +16,11 @@
         <items>
             <MenuItem fx:id="guestShow" mnemonicParsing="false" onAction="#showGuest" text="Afficher" />
             <SeparatorMenuItem mnemonicParsing="false" />
-          <MenuItem fx:id="guestCreate" mnemonicParsing="false" text="Créer" />
+          <MenuItem fx:id="guestCreate" mnemonicParsing="false" onAction="#createGuest" text="Créer" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="guestUpdate" mnemonicParsing="false" text="Modifier" />
+            <MenuItem fx:id="guestUpdate" mnemonicParsing="false" onAction="#updateGuest" text="Modifier" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="guestDelete" mnemonicParsing="false" text="Supprimer" />
+            <MenuItem fx:id="guestDelete" mnemonicParsing="false" onAction="#deleteGuest" text="Supprimer" />
         </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Lieux">

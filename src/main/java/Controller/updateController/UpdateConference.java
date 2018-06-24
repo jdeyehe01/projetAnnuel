@@ -55,6 +55,11 @@ public class UpdateConference implements Initializable {
     @FXML
     public void updateConference() throws IOException, InstantiationException, IllegalAccessException {
 
+        tfName.clear();
+        tfTime.clear();
+        tfDesc.clear();
+        tfDate.getEditor().clear();
+        cbConference.getItems().clear();
         String url = "user/lastUser";
         ControllerAnnotation.getBean(url,this.getClass(),user);
 
@@ -85,7 +90,7 @@ public class UpdateConference implements Initializable {
         stage.close();
         stage.setTitle("Before Show - Modifier les informations sur un invité ");
 
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
@@ -110,6 +115,8 @@ public class UpdateConference implements Initializable {
         tfName.clear();
         tfTime.clear();
         tfDesc.clear();
+        tfDate.getEditor().clear();
+
 
         String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         System.out.println("id: "+idConference);
@@ -129,12 +136,15 @@ public class UpdateConference implements Initializable {
 
 
     @FXML
-    public void delete() throws IOException {
+    public void delete(ActionEvent event) throws IOException, IllegalAccessException, InstantiationException {
 
         String idConference = cbConference.getValue().toString().split("-")[0];
 
-        String url =" conference/deleteConference/"+idConference;
+        String url ="conference/deleteConference/"+idConference;
         int code = new ControllerApi().delete(url);
+
+        this.updateConference();
+
 
         if(code <= 200){
             System.out.println("Delete ! ");
