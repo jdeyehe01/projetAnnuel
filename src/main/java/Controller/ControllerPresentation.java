@@ -32,7 +32,7 @@ public class ControllerPresentation implements Initializable {
     private void save() throws IOException {
 
         ControllerApi api = new ControllerApi();
-        String jsonConf = api.get("http://localhost:8080/conference/lastConf");
+        String jsonConf = api.get("conference/lastConf");
 
         Conference conference = new Gson().fromJson(jsonConf,Conference.class);
 
@@ -40,7 +40,7 @@ public class ControllerPresentation implements Initializable {
 
         String jsonPresentation = new Gson().toJson(presentation);
 
-        api.post("http://localhost:8080/presentation",jsonPresentation);
+        api.post("presentation",jsonPresentation);
 
     }
 

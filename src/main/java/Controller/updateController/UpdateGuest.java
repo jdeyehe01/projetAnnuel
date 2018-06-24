@@ -54,12 +54,12 @@ public class UpdateGuest implements Initializable {
     @FXML
     public void updateGuest() throws IOException, InstantiationException, IllegalAccessException {
 
-        String url = "http://localhost:8080/conference/lastConf";
+        String url = "conference/lastConf";
         cbListGuest.setVisible(true);
 
         ControllerAnnotation.getBean(url,this.getClass(),c);
 
-        String allGuest = new ControllerApi().get("http://localhost:8080/guest/getAllGuest/"+c.getId());
+        String allGuest = new ControllerApi().get("guest/getAllGuest/"+c.getId());
 
         Guest[] tabGuest =  new Gson().fromJson(allGuest, Guest[].class);
 
@@ -82,7 +82,7 @@ public class UpdateGuest implements Initializable {
         tfEmail.clear();
 
         String idGuest = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "http://localhost:8080/guest/guestById/"+idGuest;
+        String url = "guest/guestById/"+idGuest;
         btnSave.setVisible(true);
         ControllerAnnotation.getBean(url,this.getClass(),guest);
 
@@ -103,7 +103,7 @@ public class UpdateGuest implements Initializable {
 
         String jsonGuest = new Gson().toJson(guest,Guest.class);
 
-        new ControllerApi().put("http://localhost:8080/guest/update/"+guest.getId(),jsonGuest);
+        new ControllerApi().put("guest/update/"+guest.getId(),jsonGuest);
 
         btnNext.setVisible(true);
     }

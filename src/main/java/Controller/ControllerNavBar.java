@@ -22,6 +22,10 @@ public class ControllerNavBar implements Initializable {
     @FXML
     private MenuBar navBar;
 
+    /*
+    Conference
+     */
+
     @FXML
     public void showConference() throws IOException {
         Parent createConf = FXMLLoader.load(getClass().getResource("../View/ShowView.fxml"));
@@ -78,9 +82,90 @@ public class ControllerNavBar implements Initializable {
         stage.show();
 
     }
+/*
+
+Guest
+ */
+
+    @FXML
+    public void showGuest(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/ShowGuest.fxml"));
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Invités ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
+    @FXML
+    public void createGuest() throws IOException {
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/createGuestView.fxml"));
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Ajouter un invité ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(createConf));
+        stage.show();
+
+    }
+
+    @FXML
+    public void updateGuest(ActionEvent event) throws IOException {
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/updateGuest.fxml"));
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Modifier un invité ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(createConf));
+        stage.show();
+
+    }
+
+    @FXML
+    public void deleteGuest(ActionEvent event) throws IOException {
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Suprimmer un un invité ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(createConf));
+        stage.show();
+
+    }
+
+    /*
+    Task
+     */
+    @FXML
+    public void showTask(ActionEvent event){
+        try {
+            Parent  root = FXMLLoader.load(getClass().getResource("../View/ShowTask.fxml"));
+            Stage stage = (Stage) navBar.getScene().getWindow();
+            stage.close();
+            stage.setTitle("Before Show - Tâches ");
+            stage.setResizable(false);
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        navBar.autosize();
     }
 }

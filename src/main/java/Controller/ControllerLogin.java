@@ -48,7 +48,7 @@ public class ControllerLogin implements Initializable {
 
         User user = new User(0,tfEmail.getText(),tfPw.getText());
         String jsonUser = new Gson().toJson(user,User.class);
-        String urlAuth = "http://localhost:8080/user/auth";
+        String urlAuth = "user/auth";
        int code = new ControllerApi().post(urlAuth,jsonUser);
        if(code <= 200){
            System.out.println("L'utilisateur est connecté");

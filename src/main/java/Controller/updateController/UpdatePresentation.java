@@ -57,12 +57,12 @@ public class UpdatePresentation implements Initializable {
     @FXML
     public void updateLocate() throws IOException, InstantiationException, IllegalAccessException {
 
-        String url = "http://localhost:8080/conference/lastConf";
+        String url = "conference/lastConf";
         cbListPresentation.setVisible(true);
 
         ControllerAnnotation.getBean(url,this.getClass(),c);
 
-        String allPresentation = new ControllerApi().get("http://localhost:8080/presentation/getAllPresentationForConference/"+c.getId());
+        String allPresentation = new ControllerApi().get("presentation/getAllPresentationForConference/"+c.getId());
         Presentation[] tabPresentation =  new Gson().fromJson(allPresentation, Presentation[].class);
 
         List<Presentation> listPresentation = Arrays.asList(tabPresentation);
@@ -83,7 +83,7 @@ public class UpdatePresentation implements Initializable {
         tfDesc.clear();
 
         String idPresnetation = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "http://localhost:8080/presentation/getPresentationById/"+idPresnetation+"/"+c.getId();
+        String url = "presentation/getPresentationById/"+idPresnetation+"/"+c.getId();
         btnUpdate.setVisible(true);
         ControllerAnnotation.getBean(url,this.getClass(),presentation);
 
@@ -103,7 +103,7 @@ public class UpdatePresentation implements Initializable {
 
         String jsonPresentation = new Gson().toJson(presentation,Presentation.class);
 
-        new ControllerApi().put("http://localhost:8080/presentation/updatePresentation/"+presentation.getId(),jsonPresentation);
+        new ControllerApi().put("presentation/updatePresentation/"+presentation.getId(),jsonPresentation);
 
         btnNext.setVisible(true);
     }

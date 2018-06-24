@@ -60,12 +60,12 @@ public class UpdateLocate implements Initializable {
     @FXML
     public void updateLocate() throws IOException, InstantiationException, IllegalAccessException {
 
-        String url = "http://localhost:8080/conference/lastConf";
+        String url = "conference/lastConf";
         cbListLocate.setVisible(true);
 
         ControllerAnnotation.getBean(url,this.getClass(),c);
 
-        String allLocate = new ControllerApi().get("http://localhost:8080/locate/getAll/"+c.getId());
+        String allLocate = new ControllerApi().get("locate/getAll/"+c.getId());
         System.out.println(allLocate);
         Locate[] tabLocate =  new Gson().fromJson(allLocate, Locate[].class);
 
@@ -88,7 +88,7 @@ public class UpdateLocate implements Initializable {
         tfCityCode.clear();
 
         String idLocate = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "http://localhost:8080/locate/getLocateById/"+idLocate;
+        String url = "locate/getLocateById/"+idLocate;
         btnSave.setVisible(true);
         ControllerAnnotation.getBean(url,this.getClass(),l);
 
@@ -111,7 +111,7 @@ public class UpdateLocate implements Initializable {
 
         String jsonLocate = new Gson().toJson(l,Locate.class);
 
-        new ControllerApi().put("http://localhost:8080/locate/update/"+l.getId(),jsonLocate);
+        new ControllerApi().put("locate/update/"+l.getId(),jsonLocate);
 
         btnNext.setVisible(true);
     }

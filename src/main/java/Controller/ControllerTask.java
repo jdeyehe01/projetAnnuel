@@ -39,7 +39,7 @@ public class ControllerTask implements Initializable {
         btnSave.setVisible(false);
         btnNext.setVisible(true);
         ControllerApi api = new ControllerApi();
-        String jsonConf = api.get("http://localhost:8080/conference/lastConf");
+        String jsonConf = api.get("conference/lastConf");
 
         Conference conference = new Gson().fromJson(jsonConf,Conference.class);
 
@@ -47,7 +47,7 @@ public class ControllerTask implements Initializable {
 
         String jsonTask = new Gson().toJson(task,Task.class);
 
-        api.post("http://localhost:8080/task",jsonTask);
+        api.post("task/",jsonTask);
     }
 
     @FXML

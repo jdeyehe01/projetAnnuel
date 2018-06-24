@@ -36,7 +36,7 @@ public class ControllerLocate implements Initializable {
     public void saveInBdd() throws IOException {
 
         ControllerApi api = new ControllerApi();
-        String jsonConf = api.get("http://localhost:8080/conference/lastConf");
+        String jsonConf = api.get("conference/lastConf");
 
         Conference conference = new Gson().fromJson(jsonConf,Conference.class);
 
@@ -44,7 +44,7 @@ public class ControllerLocate implements Initializable {
 
         String jsonLocate = new Gson().toJson(location);
 
-        api.post("http://localhost:8080/locate",jsonLocate);
+        api.post("locate/",jsonLocate);
 
     }
 

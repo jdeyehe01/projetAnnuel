@@ -73,7 +73,7 @@ public class ControllerConf implements Initializable {
         }
         o.close();
 
-        api.post("http://localhost:8080/conference/",new Gson().toJson(conference));
+        api.post("conference/",new Gson().toJson(conference));
 
     }
 

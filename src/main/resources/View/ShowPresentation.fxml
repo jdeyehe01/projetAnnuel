@@ -6,7 +6,7 @@
 
 <Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerShowView">
    <children>
-      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="23.0" prefHeight="44.0" prefWidth="229.0" text="Vos conférences" />
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="23.0" prefHeight="44.0" prefWidth="229.0" text="Vos présentation" />
       <Accordion fx:id="accordionView" layoutX="177.0" layoutY="67.0" prefHeight="244.0" prefWidth="248.0" />
    </children>
 </Pane>

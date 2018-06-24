@@ -16,9 +16,11 @@ import java.net.URLConnection;
 
 public class ControllerApi {
 
+    private String http = "http://sebastiendelbeportfolio.alwaysdata.net/";
+
     public String get(String url) throws IOException {
         String source = "";
-        URL oracle = new URL(url);
+        URL oracle = new URL(http+url);
 
         HttpURLConnection urlConnect = (HttpURLConnection) oracle.openConnection();
         urlConnect.setRequestMethod("GET");
@@ -42,7 +44,7 @@ public class ControllerApi {
 
     public int post(String url, String json) throws IOException {
 
-       URL oracle = new URL(url);
+       URL oracle = new URL(http+url);
        HttpURLConnection connection = (HttpURLConnection) oracle.openConnection();
        connection.setRequestMethod("POST");
        connection.setDoOutput(true);
@@ -60,7 +62,7 @@ public class ControllerApi {
 
 
     public int delete(String s) throws IOException {
-        URL url = new URL(s);
+        URL url = new URL(http+s);
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         httpCon.setDoOutput(true);
         httpCon.setRequestProperty(
@@ -73,7 +75,7 @@ public class ControllerApi {
 
 
     public int put(String s , String json) throws IOException {
-        URL url = new URL(s);
+        URL url = new URL(http+s);
         HttpURLConnection httpCon = (HttpURLConnection) url.openConnection();
         httpCon.setDoOutput(true);
         httpCon.setRequestProperty("Content-Type","application/json");

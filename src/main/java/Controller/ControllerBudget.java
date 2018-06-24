@@ -58,14 +58,14 @@ public class ControllerBudget implements Initializable {
 
         listBudgetPan.setContent(verticalBox);
         listBudgetPan.setVisible(true);
-        api.post("http://localhost:8080/budget",jsonBudget);
+        api.post("budget",jsonBudget);
     }
 
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
             api = new ControllerApi();
-            String jsonConf = api.get("http://localhost:8080/conference/lastConf");
+            String jsonConf = api.get("conference/lastConf");
             conference = new Gson().fromJson(jsonConf,Conference.class);
             listBudget = new ArrayList<Budget>();
 

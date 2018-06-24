@@ -52,12 +52,12 @@ public class UpdateBudget implements Initializable {
     @FXML
     public void updateBudget() throws IOException, InstantiationException, IllegalAccessException {
 
-        String url = "http://localhost:8080/conference/lastConf";
+        String url = "conference/lastConf";
         cbListBudget.setVisible(true);
 
         ControllerAnnotation.getBean(url,this.getClass(),c);
 
-        String allBudget = new ControllerApi().get("http://localhost:8080/budget/getAllBudgetForConference/"+c.getId());
+        String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/"+c.getId());
         Budget[] tabBudget =  new Gson().fromJson(allBudget, Budget[].class);
 
         List<Budget> listBudget = Arrays.asList(tabBudget);
@@ -77,7 +77,7 @@ public class UpdateBudget implements Initializable {
         tfAmount.clear();
 
         String idBudget = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "http://localhost:8080/budget/getBudgetById/"+idBudget+"/"+c.getId();
+        String url = "budget/getBudgetById/"+idBudget+"/"+c.getId();
         btnUpdate.setVisible(true);
         ControllerAnnotation.getBean(url,this.getClass(),budget);
 
@@ -93,7 +93,7 @@ public class UpdateBudget implements Initializable {
 
         String jsonBudget = new Gson().toJson(budget,Budget.class);
 
-        new ControllerApi().put("http://localhost:8080/budget/updateBudget/"+budget.getId(),jsonBudget);
+        new ControllerApi().put("budget/updateBudget/"+budget.getId(),jsonBudget);
 
         btnNext.setVisible(true);
     }

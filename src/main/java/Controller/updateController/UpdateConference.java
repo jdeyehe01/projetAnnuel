@@ -55,12 +55,12 @@ public class UpdateConference implements Initializable {
     @FXML
     public void updateConference() throws IOException, InstantiationException, IllegalAccessException {
 
-        String url = "http://localhost:8080/user/lastUser";
+        String url = "user/lastUser";
         ControllerAnnotation.getBean(url,this.getClass(),user);
 
         cbConference.setVisible(true);
 
-        String allConference = new ControllerApi().get("http://localhost:8080/conference/getAllByUser/"+user.getId());
+        String allConference = new ControllerApi().get("conference/getAllByUser/"+user.getId());
         System.out.println(allConference);
         Conference[] tabConference =  new Gson().fromJson(allConference, Conference[].class);
 
@@ -98,7 +98,7 @@ public class UpdateConference implements Initializable {
 
         String jsonConference = new Gson().toJson(conference,Conference.class);
 
-        new ControllerApi().put("http://localhost:8080/conference/update/"+conference.getId(),jsonConference);
+        new ControllerApi().put("conference/update/"+conference.getId(),jsonConference);
 
         btnNext.setVisible(true);
     }
@@ -114,7 +114,7 @@ public class UpdateConference implements Initializable {
         String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         System.out.println("id: "+idConference);
 
-        String url = "http://localhost:8080/conference/getById/"+idConference;
+        String url = "conference/getById/"+idConference;
         btnSave.setVisible(true);
         ControllerAnnotation.getBean(url,this.getClass(),conference);
         System.out.println("Conference: "+conference);
@@ -133,7 +133,7 @@ public class UpdateConference implements Initializable {
 
         String idConference = cbConference.getValue().toString().split("-")[0];
 
-        String url =" http://localhost:8080/conference/deleteConference/"+idConference;
+        String url =" conference/deleteConference/"+idConference;
         int code = new ControllerApi().delete(url);
 
         if(code <= 200){

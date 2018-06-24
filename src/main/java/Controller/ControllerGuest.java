@@ -51,7 +51,7 @@ public class ControllerGuest implements Initializable {
     @FXML
     public void save() throws IOException {
 
-       /* String jsonConf = new ControllerApi().get("http://localhost:8080/conference/lastConf");
+       /* String jsonConf = new ControllerApi().get("conference/lastConf");
 
         Conference conference = new Gson().fromJson(jsonConf,Conference.class);
         */
@@ -60,7 +60,7 @@ public class ControllerGuest implements Initializable {
         System.out.println(guest);
         String jsonGuest = new Gson().toJson(guest);
         System.out.println(jsonGuest);
-        new ControllerApi().post("http://localhost:8080/guest",jsonGuest);
+        new ControllerApi().post("guest",jsonGuest);
 
 
     }
@@ -85,7 +85,7 @@ public class ControllerGuest implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
-            String url = "http://localhost:8080/conference/lastConf";
+            String url = "conference/lastConf";
             ControllerAnnotation.getBean(url,this.getClass(),conference);
 
         } catch (IllegalAccessException e) {

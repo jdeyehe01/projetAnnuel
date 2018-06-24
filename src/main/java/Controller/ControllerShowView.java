@@ -1,10 +1,13 @@
 package Controller;
 
-import javafx.event.ActionEvent;
+import Model.Conference;
+import com.google.gson.Gson;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -13,30 +16,48 @@ import java.util.ResourceBundle;
 public class ControllerShowView implements Initializable {
 
     @FXML
-    private Pane windowCreateConference;
-
-    @FXML
-    public void start(ActionEvent event) throws IOException {
-        //Parent updateConf = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
-/*
-        Parent root = FXMLLoader.load(getClass().getResource("../View/ShowView.fxml"));
-
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        root.getChildrenUnmodifiable().add(new Label("Jean"));
-        stage.close();
-        stage.setTitle("Before Show - Conference ");
-
-        stage.setResizable(false);
-
-        stage.setScene(new Scene(root));
-        stage.show();
-*/
-    }
+    private Accordion accordionView;
 
     @Override
-    public void initialize(URL location, ResourceBundle resources){
+    public void initialize(URL location, ResourceBundle resources) {
 
-    windowCreateConference.getChildren().add(new Label("Jean"));
+        this.showConference();
+    }
+
+
+    public void showConference() {
+        try {
+            accordionView.getPanes().clear();
+            String jsonConferences = new ControllerApi().get("conference/getAllByUser/1");
+            String date = null;
+            Conference[] tabConference = new Gson().fromJson(jsonConferences, Conference[].class);
+
+            for (Conference c : tabConference) {
+                TitledPane t = new TitledPane();
+                t.setText(c.getName());
+
+                VBox content = new VBox();
+                content.getChildren().add(new Label("Description: " + c.getDescription()));
+                if(c.getDate()!=null){
+                    date = c.getDate().split("T")[0];
+                }
+                content.getChildren().add(new Label("Date: " + date));
+                content.getChildren().add(new Label("Heure: " + c.gettime()));
+
+                t.setContent(content);
+                t.setExpanded(true);
+
+                accordionView.getPanes().add(t);
+
+            }
+
+             accordionView.autosize();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 }
