@@ -8,10 +8,6 @@ public class Budget {
 	private Float amount;
 	private String id;
 
-	public String gettitle() {
-		return this.title;
-	}
-
 	public Conference getConference() {
 		return conference;
 	}
@@ -21,7 +17,7 @@ public class Budget {
 	}
 
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	public void setTitle(String title) {
@@ -44,33 +40,6 @@ public class Budget {
 		this.id = id;
 	}
 
-
-	/**
-	 * 
-	 * @param title
-	 */
-
-	public void settitle(String title) {
-		this.title = title;
-	}
-
-	public Float getMontant() {
-		return this.amount;
-	}
-
-	/**
-	 * 
-	 * @param amount
-	 */
-	public void setMontant(Float amount) {
-		this.amount = amount;
-	}
-
-	/**
-	 * 
-	 * @param title
-	 * @param amount
-	 */
     public Budget( String title, Float amount, Conference conference) {
         this.title = title;
         this.amount = amount;

@@ -10,7 +10,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,6 +34,12 @@ public class ControllerLocate implements Initializable {
     @FXML
     private TextField tfCityCode;
 
+    @FXML
+    private ScrollPane listLocate;
+
+    @FXML
+    private VBox contentLocate;
+
 
     @FXML
     public void saveInBdd() throws IOException {
@@ -46,7 +55,23 @@ public class ControllerLocate implements Initializable {
 
         api.post("locate/",jsonLocate);
 
+        contentLocate.getChildren().add(new Label(tfName.getText()));
+        listLocate.setContent(contentLocate);
     }
+
+    @FXML
+    public void newLocate() throws IOException {
+        this.saveInBdd();
+
+        tfAddress.clear();
+        tfCity.clear();
+        tfCityCode.clear();
+        tfName.clear();
+
+
+    }
+
+
 
 
     public void initialize(URL location, ResourceBundle resources) {

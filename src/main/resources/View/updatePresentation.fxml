@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdatePresentation">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="459.0" prefWidth="600.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdatePresentation">
    <children>
-      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="10.0" prefHeight="44.0" prefWidth="229.0" text="Modifier une présentation" />
-      <GridPane layoutX="46.0" layoutY="81.0" prefHeight="190.0" prefWidth="509.0">
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="49.0" prefHeight="44.0" prefWidth="229.0" text="Modifier une présentation" />
+      <GridPane layoutX="53.0" layoutY="182.0" prefHeight="190.0" prefWidth="509.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="415.0" />
@@ -34,6 +34,9 @@
       </GridPane>
       <Button fx:id="btnNext" layoutX="287.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
       <Button fx:id="btnUpdate" layoutX="284.0" layoutY="310.0" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
-      <ComboBox fx:id="cbListPresentation" layoutX="212.0" layoutY="54.0" onAction="#initialisationForm" prefHeight="25.0" prefWidth="168.0" promptText="Liste des présentations " />
+      <ComboBox fx:id="cbListPresentation" layoutX="209.0" layoutY="144.0" onAction="#initialisationForm" promptText="Liste des présentations " visible="false" />
+      <ComboBox fx:id="cbListConference" layoutX="209.0" layoutY="104.0" prefHeight="30.0" prefWidth="196.0" promptText="Liste des conférences" styleClass="label" />
+      <Button fx:id="btnDelete" layoutX="438.0" layoutY="118.0" mnemonicParsing="false" text="Supprimer" visible="false" />
+      <fx:include source="navBarView.fxml" />
    </children>
 </Pane>

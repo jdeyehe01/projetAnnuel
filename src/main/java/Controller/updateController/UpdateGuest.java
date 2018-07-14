@@ -92,7 +92,7 @@ public class UpdateGuest implements Initializable {
         String idGuest = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "guest/guestById/"+idGuest;
         btnSave.setVisible(true);
-        ControllerAnnotation.getBean(url,this.getClass(),guest);
+        new ControllerAnnotation().getBean(url,this.getClass(),guest);
 
         tfFirstName.setText(guest.getfname());
         tfLastName.setText(guest.getlname());
@@ -132,10 +132,9 @@ public class UpdateGuest implements Initializable {
 
     public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
         String url = "user/lastUser";
-        ControllerAnnotation.getBean(url,this.getClass(),user);
+        new ControllerAnnotation().getBean(url,this.getClass(),user);
 
         String allConference = new ControllerApi().get("conference/getAllByUser/"+user.getId());
-        System.out.println(allConference);
         Conference[] tabConference =  new Gson().fromJson(allConference, Conference[].class);
 
         List<Conference> listConference = Arrays.asList(tabConference);

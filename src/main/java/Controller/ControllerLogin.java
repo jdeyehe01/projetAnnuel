@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -63,14 +64,17 @@ public class ControllerLogin implements Initializable {
 
     @FXML
     public void navigateTo(ActionEvent event) throws IOException {
-        Parent createConf = FXMLLoader.load(getClass().getResource("../View/beforShowWelcomeView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/beforShowWelcomeView.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        MenuBar mBar = (MenuBar) root.lookup("#menuBar");
+        mBar.prefWidthProperty().bind(stage.widthProperty());
+
         stage.close();
-        stage.setTitle("Before Show - Login ");
+        stage.setTitle("Before Show - Accueil ");
         stage.setResizable(false);
 
-        stage.setScene(new Scene(createConf));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 }

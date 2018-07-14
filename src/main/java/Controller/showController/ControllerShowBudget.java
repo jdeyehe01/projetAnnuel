@@ -1,8 +1,7 @@
 package Controller.showController;
 
 import Controller.ControllerApi;
-import Model.Conference;
-import Model.Guest;
+import Model.Budget;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,52 +16,45 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerShowGuest extends ControllerInitShow implements Initializable {
-
+public class ControllerShowBudget extends ControllerInitShow implements Initializable {
     @FXML
     private Accordion accordionView;
 
     @FXML
     private ComboBox cbListConference;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.initialisationCb();
-    }
 
-
-    public void initialisationCb() {
-
-      cbListConference = super.ComboBoxInitConference(cbListConference);
-
+        cbListConference = super.ComboBoxInitConference(cbListConference);
     }
 
     @FXML
-    public void initialisationGuest(ActionEvent event) {
+    public void initialisationBudget(ActionEvent event) {
+
         try {
+            VBox content = new VBox();
+
             accordionView.setVisible(true);
             accordionView.getPanes().clear();
 
-            String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-            String url = "guest/getAllGuest/"+idConference;
 
-            String jsonGuest = new ControllerApi().get(url);
+            String idConference = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
+            String url = "budget/getAllBudgetForConference/" + idConference;
 
-            Guest[] tabGuest = new Gson().fromJson(jsonGuest, Guest[].class);
+            String jsonBudget = new ControllerApi().get(url);
 
-            for (Guest g : tabGuest) {
+            Budget[] tabBudget = new Gson().fromJson(jsonBudget, Budget[].class);
+
+            for (Budget budget : tabBudget) {
                 TitledPane t = new TitledPane();
-                t.setText(g.getfname());
+                t.setText(budget.getTitle());
 
-                VBox content = new VBox();
-                content.getChildren().add(new Label("First name: " + g.getfname()));
-                content.getChildren().add(new Label("Last name: " + g.getlname()));
-                content.getChildren().add(new Label("Email: " + g.getEmail()));
+                content.getChildren().add(new Label("Nom: " + budget.getTitle()));
+                content.getChildren().add(new Label("Montant: " + budget.getAmount()));
 
                 t.setContent(content);
                 t.setExpanded(true);
-
 
                 accordionView.getPanes().add(t);
 
@@ -74,7 +66,6 @@ public class ControllerShowGuest extends ControllerInitShow implements Initializ
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
     }
 }

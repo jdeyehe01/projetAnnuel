@@ -107,7 +107,7 @@ public class UpdateTask implements Initializable {
         }else{
             btnUpdate.setVisible(true);
         }
-        ControllerAnnotation.getBean(url, this.getClass(), task);
+       new  ControllerAnnotation().getBean(url, this.getClass(), task);
 
         tfTitle.setText(task.getTitle());
         tfAmount.setText(String.valueOf(task.getAmount()));
@@ -147,7 +147,7 @@ public class UpdateTask implements Initializable {
 
     public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
         String url = "user/lastUser";
-        ControllerAnnotation.getBean(url, this.getClass(), user);
+      new  ControllerAnnotation().getBean(url, this.getClass(), user);
 
         String allConference = new ControllerApi().get("conference/getAllByUser/" + user.getId());
         System.out.println(allConference);

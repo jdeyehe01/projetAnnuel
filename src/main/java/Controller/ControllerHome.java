@@ -8,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.MenuBar;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -15,21 +16,15 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
+
 public class ControllerHome implements Initializable {
+    @FXML
+    private MenuBar menuBar;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        /*try {
-          Process p = Runtime.getRuntime().exec( "cmd.exe /c ipconfig" );
-            java.io.BufferedReader out = new java.io.BufferedReader( new java.io.InputStreamReader( p.getInputStream() ) );
-
-            System.out.println(out.readLine());
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-*/
     }
 
 
@@ -38,9 +33,11 @@ public class ControllerHome implements Initializable {
 
         Parent createConference = FXMLLoader.load(getClass().getResource("../View/CreateConfView.fxml"));
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+       menuBar.prefWidthProperty().bind(stage.widthProperty());
+
         stage.close();
         stage.setTitle("Before Show - Créer une Conference ");
-        stage.setScene(new Scene(createConference, createConference.getLayoutX(), createConference.getLayoutY()));
+        stage.setScene(new Scene(createConference));
         stage.show();
 
 

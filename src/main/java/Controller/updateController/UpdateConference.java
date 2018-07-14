@@ -61,7 +61,7 @@ public class UpdateConference implements Initializable {
         tfDate.getEditor().clear();
         cbConference.getItems().clear();
         String url = "user/lastUser";
-        ControllerAnnotation.getBean(url,this.getClass(),user);
+        new ControllerAnnotation().getBean(url,this.getClass(),user);
 
         cbConference.setVisible(true);
 
@@ -123,7 +123,7 @@ public class UpdateConference implements Initializable {
 
         String url = "conference/getById/"+idConference;
         btnSave.setVisible(true);
-        ControllerAnnotation.getBean(url,this.getClass(),conference);
+        new ControllerAnnotation().getBean(url,this.getClass(),conference);
         System.out.println("Conference: "+conference);
 
         tfName.setText(conference.getName());

@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
@@ -39,8 +40,6 @@ public class ControllerGuest implements Initializable {
     @FXML
     private ScrollPane scrollPaneGuest;
 
-    private ArrayList<Guest> listGuest ;
-
     @BeanFromDataBase
     private static Conference conference;
 
@@ -57,12 +56,23 @@ public class ControllerGuest implements Initializable {
         */
 
         Guest guest = new Guest(tfFirstName.getText(),tfLastName.getText(),tfEmail.getText(),conference);
-        System.out.println(guest);
+
+
+
         String jsonGuest = new Gson().toJson(guest);
-        System.out.println(jsonGuest);
         new ControllerApi().post("guest",jsonGuest);
+        verticalBox.getChildren().add(new Label(tfFirstName.getText()+"-"+tfLastName));
 
+        scrollPaneGuest.setContent(verticalBox);
 
+    }
+
+    @FXML
+    public void newGuest() throws IOException {
+        this.save();
+        tfLastName.clear();
+        tfEmail.clear();
+        tfFirstName.clear();
     }
 
     @FXML
@@ -78,15 +88,13 @@ public class ControllerGuest implements Initializable {
 
         stage.show();
 
-        //this.sendMail();
-
     }
 
     public void initialize(URL location, ResourceBundle resources) {
 
         try {
             String url = "conference/lastConf";
-            ControllerAnnotation.getBean(url,this.getClass(),conference);
+            new ControllerAnnotation().getBean(url,this.getClass(),conference);
 
         } catch (IllegalAccessException e) {
             e.printStackTrace();

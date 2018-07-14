@@ -1,6 +1,7 @@
 package Controller.updateController;
 
 import Controller.ControllerApi;
+import Controller.showController.ControllerInitShow;
 import Model.Conference;
 import Model.Budget;
 import Annotation.BeanFromDataBase;
@@ -25,13 +26,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UpdateBudget implements Initializable {
+public class UpdateBudget extends ControllerInitShow implements Initializable {
     @BeanFromDataBase
     private static Conference c;
 
     @BeanFromDataBase
     private static Budget budget;
 
+
+    @FXML
+    private ComboBox cbListConference;
 
     @FXML
     private TextField tfName;
@@ -48,23 +52,23 @@ public class UpdateBudget implements Initializable {
     @FXML
     private Button btnNext;
 
+    @FXML
+    private Button btnDelete;
+
 
     @FXML
     public void updateBudget() throws IOException, InstantiationException, IllegalAccessException {
 
-        String url = "conference/lastConf";
         cbListBudget.setVisible(true);
-
-        ControllerAnnotation.getBean(url,this.getClass(),c);
-
-        String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/"+c.getId());
+        String idConference = cbListConference.getValue().toString().split("-")[0];
+        String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/"+idConference);
         Budget[] tabBudget =  new Gson().fromJson(allBudget, Budget[].class);
 
         List<Budget> listBudget = Arrays.asList(tabBudget);
         ArrayList<String> listTitle = new ArrayList<String>();
 
         for(Budget b : listBudget){
-            listTitle.add(b.getId()+"-"+b.gettitle());
+            listTitle.add(b.getId()+"-"+b.getTitle());
         }
 
         cbListBudget.getItems().addAll(listTitle);
@@ -73,13 +77,14 @@ public class UpdateBudget implements Initializable {
 
     @FXML
     public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
+
         tfName.clear();
         tfAmount.clear();
 
         String idBudget = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "budget/getBudgetById/"+idBudget+"/"+c.getId();
         btnUpdate.setVisible(true);
-        ControllerAnnotation.getBean(url,this.getClass(),budget);
+       new  ControllerAnnotation().getBean(url,this.getClass(),budget);
 
         tfName.setText(budget.getTitle());
         tfAmount.setText(String.valueOf(budget.getAmount()));
@@ -99,9 +104,32 @@ public class UpdateBudget implements Initializable {
     }
 
     @FXML
+    public void deleteBudget() throws IOException, IllegalAccessException, InstantiationException {
+
+            String idBudget = cbListBudget.getValue().toString().split("-")[0];
+
+            String url = "budget/deleteBudgetById/"+idBudget;
+            int code = new ControllerApi().delete(url);
+
+            this.updateBudget();
+            tfName.clear();
+            tfAmount.clear();
+
+
+
+            if(code <=200) {
+                System.out.println("Delete !");
+            }
+            else {
+                System.out.println("No delete");
+            }
+
+        }
+
+
+    @FXML
     public void navigate(ActionEvent event) throws IOException {
         System.out.println("Entrer");
-        // Parent root = FXMLLoader.load(getClass().getResource("/View/UpdateViews/updateConfView.fxml"));
         Parent root  = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
@@ -117,16 +145,20 @@ public class UpdateBudget implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        //this.updateBudget();
+        cbListConference = super.ComboBoxInitConference(cbListConference);
+
         try {
-            this.updateBudget();
-        } catch (IOException e) {
+            new ControllerAnnotation().getBean("conference/lastConf",this.getClass(),c);
+            System.out.println(c.toString());
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
         }
-
     }
+
+
+
 }
 

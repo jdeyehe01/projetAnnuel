@@ -1,6 +1,7 @@
 package Controller.updateController;
 
 import Controller.ControllerApi;
+import Controller.showController.ControllerInitShow;
 import Model.Conference;
 import Model.Locate;
 import Annotation.BeanFromDataBase;
@@ -26,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UpdateLocate implements Initializable {
+public class UpdateLocate extends ControllerInitShow implements Initializable {
 
     @FXML
     private TextField tfName;
@@ -108,7 +109,7 @@ public class UpdateLocate implements Initializable {
 
 
 
-        ControllerAnnotation.getBean(url,this.getClass(),l);
+        new ControllerAnnotation().getBean(url,this.getClass(),l);
 
         tfName.setText(l.getName());
         tfAddress.setText(l.getAddress());
@@ -151,7 +152,7 @@ public class UpdateLocate implements Initializable {
 
     }
 
-
+/*
     public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
         String url = "user/lastUser";
         ControllerAnnotation.getBean(url, this.getClass(), user);
@@ -171,7 +172,7 @@ public class UpdateLocate implements Initializable {
 
 
     }
-
+*/
     @FXML
     public void deleteTask() throws IOException, IllegalAccessException, InstantiationException {
         String idTask = cbListLocate.getValue().toString().split("-")[0];
@@ -199,16 +200,11 @@ public class UpdateLocate implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        try {
-            this.initListConference();
+
+           // this.initListConference();
+            cbListConference = super.ComboBoxInitConference(cbListConference);
             this.cbListLocate.setDisable(true);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+
 
     }
 

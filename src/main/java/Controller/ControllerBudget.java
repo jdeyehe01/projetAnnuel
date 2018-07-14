@@ -54,7 +54,7 @@ public class ControllerBudget implements Initializable {
 
         String jsonBudget= new Gson().toJson(budget);
 
-        verticalBox.getChildren().add(new Label(budget.gettitle()));
+        verticalBox.getChildren().add(new Label(budget.getTitle()));
 
         listBudgetPan.setContent(verticalBox);
         listBudgetPan.setVisible(true);
@@ -82,7 +82,9 @@ public class ControllerBudget implements Initializable {
 
 
     @FXML
-    public void newBudget(){
+    public void newBudget() throws IOException {
+
+        this.save();
 
         tfName.clear();
         tfAmount.clear();

@@ -20,7 +20,7 @@ public static void inject() {
         Object o = c.newInstance();
 
         for(Field f : tabField ){
-            Inject i = f.getAnnotation(Inject.class);
+            Annotation.Inject i = f.getAnnotation(Annotation.Inject.class);
             if (i != null && !isNullField(f,o)){
                 Class type = f.getType();
                 Object obj = type.newInstance();
@@ -46,20 +46,20 @@ public static void inject() {
     Annotation BeanFromDataBase
 
  */
-public static void getBean(String url , Class clazz , Object objectTarget) throws IllegalAccessException, InstantiationException {
+public void getBean(String url , Class clazz , Object objectTarget) throws IllegalAccessException, InstantiationException {
     try {
         Field[] tabField = clazz.getDeclaredFields();
         objectTarget = clazz.newInstance();
     for(Field field : tabField){
-        BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
+        Annotation.BeanFromDataBase aBean = field.getAnnotation(Annotation.BeanFromDataBase.class);
 
         if(aBean != null){
             field.setAccessible(true);
             Class<?> fieldType = field.getType();
             String jsonObject = new ControllerApi().get(url);
             Object newObject = new Gson().fromJson(jsonObject,fieldType);
+            field.set(this,newObject);
 
-            field.set(objectTarget,newObject);
         }
     }
     } catch (IOException e) {

@@ -60,7 +60,7 @@ public class UpdatePresentation implements Initializable {
         String url = "conference/lastConf";
         cbListPresentation.setVisible(true);
 
-        ControllerAnnotation.getBean(url,this.getClass(),c);
+        new ControllerAnnotation().getBean(url,this.getClass(),c);
 
         String allPresentation = new ControllerApi().get("presentation/getAllPresentationForConference/"+c.getId());
         Presentation[] tabPresentation =  new Gson().fromJson(allPresentation, Presentation[].class);
@@ -85,7 +85,7 @@ public class UpdatePresentation implements Initializable {
         String idPresnetation = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
         String url = "presentation/getPresentationById/"+idPresnetation+"/"+c.getId();
         btnUpdate.setVisible(true);
-        ControllerAnnotation.getBean(url,this.getClass(),presentation);
+        new ControllerAnnotation().getBean(url,this.getClass(),presentation);
 
         tfTitle.setText(presentation.getTitle());
         tfAmount.setText(String.valueOf(presentation.getAmount()));

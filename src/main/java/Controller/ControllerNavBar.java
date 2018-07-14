@@ -21,6 +21,23 @@ public class ControllerNavBar implements Initializable {
     @FXML
     private MenuBar navBar;
 
+
+    @FXML
+    public void backToHome(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/beforShowWelcomeView.fxml"));
+
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        MenuBar mBar = (MenuBar) root.lookup("#menuBar");
+        mBar.prefWidthProperty().bind(stage.widthProperty());
+
+        stage.close();
+        stage.setTitle("Before Show - Accueil ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
     /*
     Conference
      */
@@ -32,6 +49,7 @@ public class ControllerNavBar implements Initializable {
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Conférence ");
+        //navBar.get
         stage.setResizable(false);
 
         stage.setScene(new Scene(root));
@@ -195,7 +213,7 @@ Guest
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
-        stage.setTitle("Before Show - Ajouter un invité ");
+        stage.setTitle("Before Show - Ajouter une tâche ");
         stage.setResizable(false);
 
         stage.setScene(new Scene(root));
@@ -208,7 +226,7 @@ Guest
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
-        stage.setTitle("Before Show - Modifier un invité ");
+        stage.setTitle("Before Show - Modifier une tâche ");
         stage.setResizable(false);
 
         stage.setScene(new Scene(root));
@@ -257,7 +275,7 @@ Guest
             Parent root = FXMLLoader.load(getClass().getResource("../View/ShowLocate.fxml"));
             Stage stage = (Stage) navBar.getScene().getWindow();
             stage.close();
-            stage.setTitle("Before Show - Tâches ");
+            stage.setTitle("Before Show - Lieu ");
             stage.setResizable(false);
 
             stage.setScene(new Scene(root));
@@ -275,7 +293,7 @@ Guest
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
-        stage.setTitle("Before Show - Ajouter un invité ");
+        stage.setTitle("Before Show - Ajouter un lieu ");
         stage.setResizable(false);
 
         stage.setScene(new Scene(root));
@@ -288,7 +306,7 @@ Guest
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
-        stage.setTitle("Before Show - Modifier un invité ");
+        stage.setTitle("Before Show - Modifier un lieu ");
         stage.setResizable(false);
 
         stage.setScene(new Scene(root));
@@ -328,6 +346,78 @@ Guest
         stage.show();
 
     }
+    /*
+    Budget
+     */
+
+    public void showBudget(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("../View/ShowBudget.fxml"));
+            Stage stage = (Stage) navBar.getScene().getWindow();
+            stage.close();
+            stage.setTitle("Before Show - Budget ");
+            stage.setResizable(false);
+
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    @FXML
+    public void createBudget() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/budgetView.fxml"));
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Ajouter un budget ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+    @FXML
+    public void updateBudget(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/updateBudget.fxml"));
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Modifier un budget ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
+    @FXML
+    public void deleteBudget(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/updateBudget.fxml"));
+        Button btnDelete = (Button) (root.lookup("#btnDelete"));
+        btnDelete.setVisible(true);
+
+        TextField tfLastName = (TextField) root.lookup("#tfName");
+        TextField tfFirstName = (TextField) root.lookup("#tfAmount");
+
+        tfFirstName.setEditable(false);
+        tfLastName.setEditable(false);
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Suprimmer un invité ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    }
+
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

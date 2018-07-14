@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerShowTask implements Initializable {
+public class ControllerShowTask extends ControllerInitShow implements Initializable  {
 
     @FXML
     private Accordion accordionView;
@@ -33,22 +33,7 @@ public class ControllerShowTask implements Initializable {
 
 
     public void initialisationCb() {
-        try {
-            String jsonConferences = new ControllerApi().get("conference/getAllByUser/1");
-            Conference[] tabConference = new Gson().fromJson(jsonConferences, Conference[].class);
-
-            for (Conference c : tabConference) {
-                cbListConference.getItems().add(c.getId()+"-"+c.getName());
-
-            }
-
-            cbListConference.autosize();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
+        cbListConference = super.ComboBoxInitConference(cbListConference);
     }
 
     @FXML
