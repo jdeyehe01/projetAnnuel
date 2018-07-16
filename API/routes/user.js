@@ -14,9 +14,9 @@ userRouter.use(bodyParser.json());
 //userRouter.use(jwt({ secret: secret});
 
 userRouter.post('/signUp', function(req, res) {
-  const login = req.body.login;
+  const email = req.body.email;
   const pw = req.body.password;
-  if(login === undefined || pw === undefined ) {
+  if(email === undefined || pw === undefined ) {
     res.status(400).end();
 
     notifier.notify({
@@ -27,7 +27,7 @@ userRouter.post('/signUp', function(req, res) {
     });
     return;
   }
-  UserController.newUser(login,pw)
+  UserController.newUser(email,pw)
   .then((user) => {
     res.status(201).json(user);
   })
@@ -35,30 +35,6 @@ userRouter.post('/signUp', function(req, res) {
     res.status(500).end();
   })
 });
-
-userRouter.post('/login', function(req, res){
-  const email = req.body.email;
-  const password = req.body.password;
-
-  const user = UserController.login(email, password)
-  .then((user) => {
-    if(user == null){
-      res.send('Accès refusé').end();
-      return;
-    }
-
-    jwt.sign({user}, 'secretkey', {expiresIn: '1h'}, (err, token) =>{
-      res.json({
-        token
-      });
-    });
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).end();
-  })
-});
-
 
 userRouter.get('/getAll' , function(req,res){
   UserController.getAllUser()
@@ -70,37 +46,37 @@ userRouter.get('/getAll' , function(req,res){
   })
 });
 
-  userRouter.post('/auth', function(req,res){
-      const login = req.body.login;
-      const pw = req.body.password;
-      if(login === undefined || pw === undefined ) {
-        res.status(400).end();
+userRouter.post('/auth', function(req,res){
+  const email = req.body.email;
+  const pw = req.body.password;
+  if(email === undefined || pw === undefined ) {
+    res.status(400).end();
 
-        notifier.notify({
-          'title' : 'Champs incorrecte',
-          'message' : 'Veuillez remplir tous les champs svp',
-          'sound' : false,
-          'wait' : true
-        });
-        return;
-      }
+    notifier.notify({
+      'title' : 'Champs incorrecte',
+      'message' : 'Veuillez remplir tous les champs...',
+      'sound' : false,
+      'wait' : true
+    });
+    return;
+  }
 
-    UserController.authent(login,pw)
-    .then((user)=>{
-      if(user == null){
-        res.status(404).end();
-        notifier.notify({
-          'title' : "Combinaison incorrecte",
-          'message' : 'La combinaisont est incorrecte',
-          'sound' : false,
-          'wait' : true
-        });
-        return;
-      }
-       res.status(200).json(user)
-    })
-    .catch((err)=>{
-      console.error(err);
+  UserController.authent(email,pw)
+  .then((user)=>{
+    if(user == null){
+      res.status(404).end();
+      notifier.notify({
+        'title' : "Combinaison incorrecte",
+        'message' : 'La combinaison est incorrecte',
+        'sound' : false,
+        'wait' : true
+      });
+      return;
+    }
+      res.status(200).json(user)
+  })
+  .catch((err)=>{
+    console.error(err);
 });
 /*
     if(userAuth === undefined ){
@@ -108,7 +84,7 @@ userRouter.get('/getAll' , function(req,res){
 
       notifier.notify({
         'title' : 'Echec de connection',
-        'message' : "La combinaison login/password n'est pas correcte",
+        'message' : "La combinaison email/password n'est pas correcte",
         'sound' : false,
         'wait' : true
       });
@@ -117,20 +93,19 @@ userRouter.get('/getAll' , function(req,res){
 
     res.status(200).json(userAuth);
 */
+});
+
+userRouter.get('/lastUser' , function(req,res){
+
+  UserController.findLast()
+  .then((user) =>{
+      res.status(200).json(user);
+  })
+  .catch((err)=>{
+    console.error(err);
   });
 
-  userRouter.get('/lastUser' , function(req,res){
-
-    UserController.findLast()
-    .then((user) =>{
-        res.status(200).json(user);
-    })
-    .catch((err)=>{
-      console.error(err);
-    });
-
-  } );
-
+});
 
 
 module.exports = userRouter;

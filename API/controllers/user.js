@@ -1,13 +1,14 @@
 const ModelIndex = require('../models');
 const User = ModelIndex.User;
 const Conference = ModelIndex.Conference;
+const crypto = require('crypto'), algorithm = 'aes-256-ctr', password = 'd6F3Efeq';
 
 const UserController = function() { };
 
-UserController.newUser = function(login,password) {
+UserController.newUser = function(email,password) {
   return User.create({
-    login: login,
-    password: password
+    email: email,
+    password: UserController.encrypt(password)
   });
 };
 
@@ -15,11 +16,11 @@ UserController.getAllUser = function() {
   return User.findAll();
 };
 
-UserController.authent = function(login,pw) {
+UserController.authent = function(email,pw) {
   return User.find({
     where:{
-      login: login,
-      password: pw
+      email: email,
+      password: UserController.encrypt(pw)
     }
   })
   .then((user)=>{
@@ -55,5 +56,18 @@ UserController.findLast = function(){
   });
 }
 
+UserController.encrypt = function(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
 
-module.exports = UserController
+UserController.decrypt = function(text){
+  var decipher = crypto.createDecipher(algorithm,password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
+
+module.exports = UserController;
