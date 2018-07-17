@@ -56,8 +56,4 @@ function _associate(models) {
       as: 'tasks'
     });
 
-    models.Conference.hasMany(models.Presentation, {
-      as: 'presentations'
-    });
-
 }

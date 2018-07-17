@@ -4,6 +4,5 @@ module.exports = {
   GuestController: require('./guest'),
   LocateController: require('./locate'),
   BudgetController: require('./budget'),
-  TaskController: require('./task'),
-  PresentationController : require('./presentation')
+  TaskController: require('./task')
 }

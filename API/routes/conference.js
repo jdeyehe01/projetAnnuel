@@ -57,7 +57,6 @@ conferenceRouter.post('/', function(req, res) {
   })
 });
 
-
 conferenceRouter.get('/getAll' , function(req,res){
   ConferenceController.getAllConference()
   .then((conferences) => {

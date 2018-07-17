@@ -11,7 +11,23 @@ const notifier = require('node-notifier');
 
 const userRouter = express.Router();
 userRouter.use(bodyParser.json());
+userRouter.use(bodyParser.urlencoded({ extended: true }));
+
 //userRouter.use(jwt({ secret: secret});
+
+userRouter.put('/confirmed/:idUser' , function(req,res){
+  const idUser = req.params.idUser;
+
+  if(idUser === undefined ) {
+    res.status(400).end();
+    return;
+  }
+
+  UserController.confirmed(idUser)
+  .then(()=>{
+    console.log('Mail confirmé');
+  })
+});
 
 userRouter.post('/signUp', function(req, res) {
   const email = req.body.email;
@@ -29,7 +45,8 @@ userRouter.post('/signUp', function(req, res) {
   }
   UserController.newUser(email,pw)
   .then((user) => {
-    res.status(201).json(user);
+    UserController.verifyEmail(user.id)
+    res.status(200).json(user);
   })
   .catch((err) => {
     res.status(500).end();

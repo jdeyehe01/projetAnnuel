@@ -123,7 +123,7 @@ GuestController.sendMail = function(idGuest,idConference){
       var msg = "Bonjour " + guest.fname +" "+ guest.lname+", \n"+ "Vous avez été invité à la conférence "
       +conference.name + " qui au lieu le " + conference.date +" à "+ conference.time+
 
-       " <ul> <li> <a href='http://localhost:8080/guest/responsGuest/"+guest.id+"/1'> Je serai présent </a> </li>  <li><a href='http://localhost:8080/guest/responsGuest/"+guest.id+"/0'> Je ne serai pas présent </a> </ul>";
+       " <ul> <li> <a href='http://sebastiendelbeportfolio.alwaysdata.net/guest/responsGuest/"+guest.id+"/1'> Je serai présent </a> </li>  <li><a href='http://sebastiendelbeportfolio.alwaysdata.net/guest/responsGuest/"+guest.id+"/0'> Je ne serai pas présent </a> </ul>";
 
 
       var html = "<html> <body> <p>  "+msg+" </p> </body> </html>"

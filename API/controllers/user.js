@@ -49,6 +49,15 @@ UserController.getAllConference = function(idUser){
   });
 }
 
+UserController.Confirmed = function(idUser){
+  User.findById(idUser)
+  .then((user)=>{
+    user.updateAttributes({
+      emailConfirmed: 1
+    });
+  })
+}
+
 
 UserController.findLast = function(){
   return User.findOne({
@@ -63,12 +72,58 @@ UserController.encrypt = function(text){
   return crypted;
 }
 
-/*
 UserController.decrypt = function(text){
   var decipher = crypto.createDecipher(algorithm,password)
   var dec = decipher.update(text,'hex','utf8')
   dec += decipher.final('utf8');
   return dec;
-}*/
+}
+
+UserController.verifyEmail = function(idUser){
+
+  User.findById(idUser)
+  .then((user)=>{
+
+      const transporter = nodemailer.createTransport({
+              service: 'Gmail',
+              auth: {
+                  user: 'no.reply.please.project@gmail.com',
+                  pass: 'dupondToto12'
+              }
+      });
+
+      var msg = "Bonjour veuillez confirmer votre adresse email en cliquant "
+
+       " <ul> <li> <a href='http://sebastiendelbeportfolio.alwaysdata.net/user/confirmed/"+user.id+"> ici </a> </li> ";
+
+
+      var html = "<html> <body> <p>  "+msg+" </p> </body> </html>"
+
+
+
+      var mailOptions = {
+      from : 'no.reply.please.project@gmail.com',
+      to: user.email,
+      subject: "Suite de votre inscription",
+      html : html
+      };
+
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+          console.log('Message envoyé: '+info.response);
+        });
+
+      transporter.close();
+
+    })
+    .catch((err)=>{
+      console.error(err);
+    })
+
+
+}
 
 module.exports = UserController;

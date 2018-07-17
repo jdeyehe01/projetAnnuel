@@ -14,6 +14,11 @@ module.exports = function (sequelize, DataTypes) {
         password: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        emailConfirmed:{
+          type: DataTypes.TINYINT,
+          allowNull: false,
+          defaultValue: 0
         }
     }, {
         paranoid: false,
