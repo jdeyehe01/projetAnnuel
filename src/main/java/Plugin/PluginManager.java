@@ -1,50 +1,59 @@
 package Plugin;
 
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.jar.JarEntry;
-import java.util.jar.JarInputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.stream.Stream;
 
 public class PluginManager {
-
-    private File path = new File(getLocalDirectory());
-    private File[] allFiles = path.listFiles();
-
-    public void loadPlugins() {
-
-        for(File file : allFiles) {
-            if(file.isFile()) {
-                try{
-                    JarInputStream jarFile = new JarInputStream(new FileInputStream(file));
-                    JarEntry jarEntry;
-
-                    while(true) {
-                        jarEntry = jarFile.getNextJarEntry();
-                        if(jarEntry == null){
-                            break;
-                        }
-                        System.out.println(file);
-                        System.out.println("Here");
-                        System.out.println(jarEntry.getName());
-                        if(jarEntry.getName().endsWith (".class")) {
-                            URL[] classUrl = new URL[]{path.toURI().toURL()};
-
-                            // We create new URLClassLoader to load the Jar file
-                            ClassLoader cl = new URLClassLoader(classUrl);
-                            Class loadedClass = cl.loadClass(jarEntry.getName().replace(".class", ""));
-                            if(validInterface(loadedClass)) {
-                                System.out.println("The plugin : " + file.getName() + " it's a valid plugin.");
-                            }
-                        }
-                    }
-                } catch(Exception e){
-                    System.out.println(e.fillInStackTrace());
-                }
-            }
+	
+	private Path path = getLocalDirectory();
+	
+	/**
+	 * Load all jar files in MyPlugins directory
+	 * @return boolean
+	 */
+	public boolean loadPlugins() {
+		
+		boolean result = true;
+		
+		try(Stream<Path> listOfPath = Files.list(path)) {
+			
+			Iterator<Path> it = listOfPath.iterator();
+			
+			while(it.hasNext()) {
+				try {
+					Path path = (Path) it.next();
+					File file = path.toFile();
+					
+					if(file.getName().endsWith(".jar")) {
+						
+						URL url = file.toURI().toURL();
+						URL[] urls = new URL[] {url};
+						ClassLoader cl = new URLClassLoader(urls);
+						Class<?> cls = cl.loadClass("Plugin.Plugin");
+						
+						if(validInterface(cls)) {
+							IPlugin plugin = (IPlugin) cls.newInstance();
+						}
+					}
+				}
+				catch(Exception e) {
+					result = false;
+				}
+			}
         }
-    }
+        catch(Exception e) { 
+        	result = false; 
+        }
+		return result;
+	}
+	
 
     /**
      * Check if the plugin implement IPlugin interface
@@ -55,21 +64,26 @@ public class PluginManager {
         Class[] myInterfaces = myClass.getInterfaces();
 
         for(Class myInterface : myInterfaces) {
-            if(myInterface.getName().equals("IPlugin")) {
+            if(myInterface.getName().equals("Plugin.IPlugin")) {
                 return true;
             }
         }
         return false;
     }
 
-
-    public String getLocalDirectory() {
-        File absolutePath = new File("").getAbsoluteFile();
-        File directory = new File(absolutePath + "\\MyPlugins");
-
-        if (!directory.exists()){
-            directory.mkdir();
-        }
-        return directory.getPath();
+    /**
+     * Check and create the folder MyPlugins if not exist
+     * @return Path
+     */
+    public Path getLocalDirectory() {
+    	Path path = Paths.get("");
+    	path = Paths.get(path.toAbsolutePath() + "\\MyPlugins");
+    	
+    	try {
+			Files.createDirectories(path);
+		} catch (IOException e) {
+			//System.out.println(e.getMessage());
+		}
+        return path;
     }
 }
