@@ -8,24 +8,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="305.0" prefWidth="645.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerHome">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="645.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerHome">
    <children>
-      <Label layoutX="242.0" layoutY="63.0" styleClass="label-header" text="Accueil">
+      <Label layoutX="270.0" layoutY="63.0" styleClass="label-header" text="Accueil">
          <font>
             <Font name="Times New Roman" size="21.0" />
          </font>
       </Label>
-      <Label id="labelDesc" focusTraversable="false" layoutX="28.0" layoutY="112.0" prefHeight="62.0" prefWidth="550.0" text="Before Show est une plateforme de gestion d'inscription et d'organisation de conférence. Avec Before Show , envoyez vos invitation et collecter les reponses en quelques etapes.Et bien plus encore" />
-      <VBox layoutX="208.0" layoutY="181.0" prefHeight="95.0" prefWidth="190.0">
+      <Label id="labelDesc" focusTraversable="false" layoutX="35.0" layoutY="140.0" prefHeight="87.0" prefWidth="590.0" text="Before Show est une plateforme de gestion d'inscription et d'organisation de conférences. Avec Before Show, envoyez vos invitations et collecter les reponses en quelques étapes et bien plus encore." wrapText="true" />
+      <VBox layoutX="240.0" layoutY="250.0" prefHeight="95.0" prefWidth="190.0">
          <children>
-            <Button fx:id="btnCreateConference" mnemonicParsing="false" onAction="#navigate" prefHeight="31.0" prefWidth="190.0" styleClass="windows7-default" text="Créer un conférence" />
+            <Button fx:id="btnCreateConference" mnemonicParsing="false" onAction="#navigate" prefHeight="31.0" prefWidth="190.0" styleClass="windows7-default" text="Créer une conférence" />
             <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="190.0" styleClass="windows7-default" text="Mes conférences" />
-            <Button fx:id="btnUpdateConference" mnemonicParsing="false" onAction="#updateConference" prefHeight="31.0" prefWidth="191.0" styleClass="windows7-default" text="Modifer une conférence" />
+            <Button fx:id="btnUpdateConference" mnemonicParsing="false" onAction="#updateConference" prefHeight="31.0" prefWidth="191.0" styleClass="windows7-default" text="Modifier une conférence" />
          </children>
       </VBox>
-      <ImageView fitHeight="103.0" fitWidth="151.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="103.0" fitWidth="151.0" layoutX="10.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../logo.jpg" />
+            <Image url="@../logo.png" />
          </image>
       </ImageView>
       <fx:include fx:id="menuBar" source="navBarView.fxml" />
