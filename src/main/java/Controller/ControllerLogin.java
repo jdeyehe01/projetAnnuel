@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -36,6 +37,12 @@ public class ControllerLogin implements Initializable {
     @FXML
     private Button btnNext;
 
+    @FXML
+    private Label lbInfoCheck;
+
+    @FXML
+    private Button btnEnrollement;
+
 
 
 
@@ -47,7 +54,7 @@ public class ControllerLogin implements Initializable {
     @FXML
     public void signIn(javafx.event.ActionEvent actionEvent) throws IOException {
 
-        User user = new User(0,tfEmail.getText(),tfPw.getText());
+        User user = new User(tfEmail.getText(),tfPw.getText());
         String jsonUser = new Gson().toJson(user,User.class);
         String urlAuth = "user/auth";
        int code = new ControllerApi().post(urlAuth,jsonUser);
@@ -67,8 +74,6 @@ public class ControllerLogin implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("../View/beforShowWelcomeView.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        MenuBar mBar = (MenuBar) root.lookup("#menuBar");
-        mBar.prefWidthProperty().bind(stage.widthProperty());
 
         stage.close();
         stage.setTitle("Before Show - Accueil ");
@@ -77,4 +82,40 @@ public class ControllerLogin implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
+
+    @FXML
+    public void signUp(){
+        System.out.println("click");
+        tfEmail.clear();
+        tfPw.clear();
+        btnNext.setVisible(false);
+        btnSignUp.setVisible(false);
+        btnSignIn.setVisible(false);
+        btnEnrollement.setVisible(true);
+    }
+
+    @FXML
+    public void enrollment() throws IOException {
+        if(tfEmail.getText().isEmpty() || tfPw.getText().isEmpty()){
+            return;
+        }
+
+        User user = new User(tfEmail.getText(),tfPw.getText());
+
+        String jsonUser = new Gson().toJson(user,User.class);
+        int responseCode = new ControllerApi().post("user/signUp" ,jsonUser );
+
+        if(responseCode <=201){
+            lbInfoCheck.setVisible(true);
+            tfPw.clear();
+            tfEmail.clear();
+
+            btnEnrollement.setVisible(false);
+            btnSignUp.setVisible(true);
+            btnSignIn.setVisible(true);
+        }
+
+
+    }
+
 }

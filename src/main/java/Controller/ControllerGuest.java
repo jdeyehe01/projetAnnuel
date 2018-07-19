@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -38,6 +39,9 @@ public class ControllerGuest implements Initializable {
     private VBox verticalBox;
 
     @FXML
+    private Button btnNext;
+
+    @FXML
     private ScrollPane scrollPaneGuest;
 
     @BeanFromDataBase
@@ -60,10 +64,13 @@ public class ControllerGuest implements Initializable {
 
 
         String jsonGuest = new Gson().toJson(guest);
-        new ControllerApi().post("guest",jsonGuest);
-        verticalBox.getChildren().add(new Label(tfFirstName.getText()+"-"+tfLastName));
+       int responseCode =  new ControllerApi().post("guest",jsonGuest);
+       if(responseCode <=201 ){
+           verticalBox.getChildren().add(new Label(tfFirstName.getText()+"-"+tfLastName));
+           scrollPaneGuest.setContent(verticalBox);
+            btnNext.setVisible(true);
+       }
 
-        scrollPaneGuest.setContent(verticalBox);
 
     }
 

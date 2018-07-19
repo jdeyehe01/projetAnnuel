@@ -26,11 +26,9 @@ public class ControllerNavBar implements Initializable {
     public void backToHome(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../View/beforShowWelcomeView.fxml"));
 
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        MenuBar mBar = (MenuBar) root.lookup("#menuBar");
-        mBar.prefWidthProperty().bind(stage.widthProperty());
+        Stage stage = (Stage) navBar.getScene().getWindow();
 
-        stage.close();
+          stage.close();
         stage.setTitle("Before Show - Accueil ");
         stage.setResizable(false);
 

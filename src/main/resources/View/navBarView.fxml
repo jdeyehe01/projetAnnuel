@@ -5,13 +5,23 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 
-<MenuBar fx:id="navBar" prefHeight="26.0" prefWidth="665.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerNavBar">
+<MenuBar fx:id="navBar" prefHeight="26.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerNavBar">
    <menus>
       <Menu fx:id="navHome" mnemonicParsing="false" text="Accueil">
          <items>
             <MenuItem fx:id="returnHome" mnemonicParsing="false" onAction="#backToHome" text="Retourner à l'accueil" />
          </items>
       </Menu>
+      <Menu fx:id="menuItemDelete" mnemonicParsing="false" text="Conférences">
+         <items>
+            <MenuItem fx:id="conferenceShow" mnemonicParsing="false" onAction="#showConference" text="Afficher les conférences" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="conferenceCreate" mnemonicParsing="false" onAction="#createConference" text="Créer une conférence" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="conferenceUpdate" mnemonicParsing="false" onAction="#updateConference" text="Modifier une conférence" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem fx:id="conferenceDelete" mnemonicParsing="false" onAction="#deleteConference" text="Supprimer une conférence" />
+         </items></Menu>
       <Menu mnemonicParsing="false" text="Invités">
         <items>
             <MenuItem fx:id="guestShow" mnemonicParsing="false" onAction="#showGuest" text="Afficher les invités" />
@@ -34,16 +44,6 @@
             <MenuItem fx:id="locateDelete" mnemonicParsing="false" onAction="#deleteLocate" text="Supprimer un lieu" />
          </items>
       </Menu>
-      <Menu fx:id="menuItemDelete" mnemonicParsing="false" text="Conférences">
-         <items>
-            <MenuItem fx:id="conferenceShow" mnemonicParsing="false" onAction="#showConference" text="Afficher les conférences" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="conferenceCreate" mnemonicParsing="false" onAction="#createConference" text="Créer une conférence" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="conferenceUpdate" mnemonicParsing="false" onAction="#updateConference" text="Modifier une conférence" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem fx:id="conferenceDelete" mnemonicParsing="false" onAction="#deleteConference" text="Supprimer une conférence" />
-         </items></Menu>
       <Menu mnemonicParsing="false" text="Tâches">
          <items>
             <MenuItem fx:id="taskShow" mnemonicParsing="false" onAction="#showTask" text="Afficher l'ensemble des tâches" />
