@@ -22,7 +22,15 @@
     <link href="css/style-css.min.css" rel="stylesheet">
 
   </head>
-
+    <!-- Header -->
+    <header class="masthead d-flex">
+      <div class="container my-auto">
+        <h1 class="mb-1  text-center ">Nouvelle conférence</h1>
+        <h3 class="mb-5  text-center ">
+          <em>Dans cette rubrique veuillez entrer les différentes informations de votre conference.</em>
+        </h3>
+    </div>
+    </header>
   <body id="page-top">
     <!-- Navigation -->
     <a class="menu-toggle rounded" href="#">
@@ -45,13 +53,6 @@
       </ul>
     </nav>
 
-    <!-- Header -->
-    <header class="masthead d-flex">
-      <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Nouvelle conférence</h1>
-        <h3 class="mb-5  text-center ">
-          <em>Dans cette rubrique veuillez entrer les différentes informations de votre conference.</em>
-        </h3>
 
         <div class="width:50%" >
           <form>
@@ -84,10 +85,10 @@
 
           </form>
 
-          <button onclick="window.location.href='index.html" >Retour</button>
+          <button type="button" value="retour" id="retour" >Retour</button>
         </div>
-      </div>
-    </header>
+
+
 
   </body>
 
@@ -106,22 +107,32 @@
     var dateConf = document.getElementById("date").value;
     var timeConf = document.getElementById("time").value;
     var descriConf = document.getElementById("description").value;
-    $.ajax({
-      type: 'POST',
-      url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/",
-      data: {
-        name: nameConf,
-        date: dateConf,
-        time: timeConf,
-        description: descriConf
-      },
-      success: function(data) {
-        alert("Conférence créée ! Maintenant le ou les lieux de celle-ci ! " + data );
-      },
-      error: function(){
-        alert(errormessage.responseText);
-      }
-    });
+    if(nameConf.length !=0 && nameConf.length != 0 && nameConf.length != 0 && nameConf.length !=0 ){
+      $.ajax({
+          type: 'POST',
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/",
+          data: {
+            name: nameConf,
+            date: dateConf,
+            time: timeConf,
+            description: descriConf
+          },
+          success: function(data) {
+            alert("Conférence créée ! Maintenant le ou les lieux de celle-ci ! " + data );
+          },
+          error: function(){
+            alert(errormessage.responseText);
+          }
+        });
+        document.location.href="CreateLieu.html";
+      
+    }
+    else{
+      alert("veuillez remplir les champs !");
+    }
+  });
+
+  $('#retour').on('click', function(){
     document.location.href="index.html";
   });
 </script>
