@@ -23,11 +23,19 @@
         <!-- Custom CSS -->
         <link href="css/style-css.min.css" rel="stylesheet">
 
-
   </head>
-
+<!-- Header -->
+    <header class="masthead d-flex">
+      <div class="container my-auto">
+        <h1 class="mb-1  text-center ">Tâche</h1>
+        <h3 class="mb-5  text-center ">
+          <em>Dans cette rubrique veuillez entrer les différentes informations de votre tâche.</em>
+        </h3>
+      </div>
+    </header>
   <body id="page-top">
     <!-- Navigation -->
+
     <a class="menu-toggle rounded" href="#">
       <i class="fa fa-bars"></i>
     </a>
@@ -48,49 +56,150 @@
       </ul>
     </nav>
 
-    <!-- Header -->
-    <header class="masthead d-flex">
-      <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Tâche</h1>
-        <h3 class="mb-5  text-center ">
-          <em>Dans cette rubrique veuillez entrer les différentes informations de votre tâche.</em>
-        </h3>
-
-        <div class="width:50%" >
-          <form  action="http://localhost:8080/task/" method="post">
+      <div class="width:50%" >
+          <form>
               <div class="col-lg-8">
                     <div class="form-group">
                       <div>
                         <label for="title">Titre de la tâche</label>
                         <input class="form-control" type="text" name="title" id="tilte">
                       </div>
-                     <div>
-                      <label for="amount">Montant de la tâche :</label>
-                      <input class="form-control" type="text" name="amount" id="amount">
+                      <div>
+                        <label for="amount">Montant de la tâche :</label>
+                        <input class="form-control" type="number" name="amount" id="amount">
                       </div>
-                     <div>
-                      <label for="duration">Durée de la tâche :  </label>
-                      <input class="form-control" type="text" name="duration" id="duration">
-                      </div>
-
-                    <div class="form-group">
-                      <input type="submit" value="Enregistrer">
-                      <a href="index.html"><button>Retour</button>
+                      <div>
+                        <label for="duration">Durée de la tâche :  </label>
+                        <input class="form-control" type="time" name="duration" id="duration">
                     </div>
-              </div>
+                   </div>
             </div>
+
+            <div class="form-group">
+              <input type="button" value="Enregistrer" id="submit">
+
+            </div>
+
           </form>
+           <button type="button" value="retour" id="retour" >Retour</button>
         </div>
-      </div>
-    </header>
+<br/>
+<hr/>
+        <h3> Liste des tâches ajoutées</h3>
+      <div class="width:50%"  id="madivdelist">
+          <table class="table table-striped" >
+            <thead>
+              <tr>
+                <th>Titre</th>
+                <th>Montant</th>
+                <th>Durée</th>            
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="listTask">
 
-<script src="vendor/jquery/jquery.min.js"></script>
-        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <!-- Plugin JavaScript -->
-        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-        <!-- Custom scripts for this template -->
-        <script src="js/stylish-portfolio.min.js"></script>
-
+            </tbody>
+          </table>
+        </div>
   </body>
 
 </html>
+
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Custom scripts for this template -->
+<script src="js/stylish-portfolio.min.js"></script>
+
+<script type="text/javascript">
+
+
+
+  $('#submit').on('click', function(){
+    var tilteTask = document.getElementById("tilte").value;
+    var amountTask = document.getElementById("amount").value;
+    var durationTask = document.getElementById("duration").value;
+
+     if(durationTask.length !=0 && amountTask.length != 0 && tilteTask.length != 0 ){
+        $.ajax({
+          type: 'POST',
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/task/",
+          data: {
+            title: tilteTask,
+            amount: amountTask,
+            duration: durationTask
+          },
+          success: function(data) {
+            
+          },
+          error: function(){
+            alert(errormessage.responseText);
+          }
+        });
+        FindLastConf();
+        
+      }else{
+         alert("veuillez remplir les champs !");
+      }
+
+  });
+
+function FindLastConf(){
+  $.ajax({
+      type: "GET",
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/lastConf",
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+        $(result).each(function (index, m){
+         RefreshDiv(m.id);
+        });
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
+
+};
+
+function RefreshDiv(idLastconf){
+  $.ajax({
+      type: "GET",
+      url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idLastconf,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+        $(result).each(function (index, m){
+          var ligne = $("<tr> </tr>");
+            ligne.append($("<td>" + m.title + "</td>"));
+            ligne.append($("<td>" + m.amount + "</td>"));
+            ligne.append($("<td>" + m.duration + "</td>"));
+            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
+            $('#listTask').append(ligne);
+            $('#madivdelist').html(retour);
+          });
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+    });
+  
+};
+
+function DeleteTask(idtask){
+  $.ajax({
+      type: "DELETE",
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/deleteTaskById/"+idtask,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+      alert("Tâche supprimée !");
+      window.location.reload(true);
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
+};
+</script>

@@ -107,8 +107,8 @@
     var dateConf = document.getElementById("date").value;
     var timeConf = document.getElementById("time").value;
     var descriConf = document.getElementById("description").value;
-    if(nameConf.length !=0 && nameConf.length != 0 && nameConf.length != 0 && nameConf.length !=0 ){
-      $.ajax({
+    if(nameConf.length !=0 && dateConf.length != 0 && timeConf.length != 0 && descriConf.length !=0 ){
+      var request = $.ajax({
           type: 'POST',
           url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/",
           data: {
@@ -116,16 +116,15 @@
             date: dateConf,
             time: timeConf,
             description: descriConf
-          },
-          success: function(data) {
-            alert("Conférence créée ! Maintenant le ou les lieux de celle-ci ! " + data );
-          },
-          error: function(){
-            alert(errormessage.responseText);
           }
         });
-        document.location.href="CreateLieu.html";
-      
+      request.done(function() {
+            document.location.href="CreateLieu.html";
+            alert("Conférence créée ! Maintenant le ou les lieux de celle-ci ! ");
+          });
+      request.fail(function(){
+            alert(errormessage.responseText);
+          });
     }
     else{
       alert("veuillez remplir les champs !");

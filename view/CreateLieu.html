@@ -101,29 +101,37 @@
 <script src="js/stylish-portfolio.min.js"></script>
 
 <script type="text/javascript">
+  $(document).ready(function(){
+    alert("conférence créée ! ");
+  });
    $('#submit').on('click', function(){
-    alert("Conférence créée ! Attaquons le lieu !");
+    
     var nameLieu = document.getElementById("name").value;
     var addressLieu = document.getElementById("address").value;
     var cityLieu = document.getElementById("city").value;
     var cpLieu = document.getElementById("cityCode").value;
-    $.ajax({
-      type: 'POST',
-      url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/",
-      data: {
-        name: nameLieu,
-        address: addressLieu,
-        city: cityLieu,
-        cityCode: cpLieu
-      },
-      success: function(data) {
-        alert("Lieu crée ! Maintenant Les tâches ! " + data );
-      },
-      error: function(){
-        alert(errormessage.responseText);
+     if(nameLieu.length !=0 && addressLieu.length != 0 && cityLieu.length != 0 && cpLieu.length !=0 ){
+        $.ajax({
+          type: 'POST',
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/",
+          data: {
+            name: nameLieu,
+            address: addressLieu,
+            city: cityLieu,
+            cityCode: cpLieu
+          },
+          success: function(data) {
+            
+          },
+          error: function(){
+            alert(errormessage.responseText);
+          }
+        });
+        alert("Lieu crée ! Maintenant Les tâches ! ");
+        document.location.href="CreateTask.html";
+      }else{
+         alert("veuillez remplir les champs !");
       }
-    });
-    document.location.href="CreateTask.html";
   });
    $('#retour').on('click', function(){
     document.location.href="Modify.html";
