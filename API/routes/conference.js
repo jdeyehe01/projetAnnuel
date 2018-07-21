@@ -43,7 +43,6 @@ conferenceRouter.post('/', function(req, res) {
     UserController.findLast()
     .then((user)=>{
       ConferenceController.addUser(conference.id ,user.id);
-      res.sendFile(path.join(__dirname,'../../view/presentation.html'));
 
     })
     .catch((err)=>{

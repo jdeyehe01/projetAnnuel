@@ -44,9 +44,6 @@ taskRouter.post('/', function(req, res) {
       .then((conference) => {
         TaskController.addConference(task.id , conference.id);
       });
-
-      res.sendFile(path.join(__dirname,'../../view/Invite.html'));
-
   })
   .catch((err) => {
     res.status(500).end();

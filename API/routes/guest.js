@@ -43,7 +43,6 @@ guestRouter.post('/', function(req, res) {
     });
 
 
-    res.sendFile(path.join(__dirname,'../../view/index.html'));
   })
   .catch((err) => {
     res.status(500).end();

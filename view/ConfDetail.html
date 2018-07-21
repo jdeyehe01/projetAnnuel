@@ -105,7 +105,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody id="displayLocate">
+        <tbody id="displayGuest">
           
         </tbody>
       </table>
@@ -126,9 +126,10 @@
 <script type="text/javascript">
   var url = window.location.href;
   var idconf = url.split("?");
+
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idconf,
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idconf[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
@@ -137,7 +138,7 @@
             ligne.append($("<td>" + m.title + "</td>"));
             ligne.append($("<td>" + m.amount + "</td>"));
             ligne.append($("<td>" + m.duration + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"details\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
+            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
             $('#displaytask').append(ligne);
           });
       },
@@ -148,7 +149,7 @@
 
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/getAll/"+idconf,
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/getAll/"+idconf[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
@@ -158,7 +159,7 @@
             ligne.append($("<td>" + m.address + "</td>"));
             ligne.append($("<td>" + m.city + "</td>"));
             ligne.append($("<td>" + m.cityCode + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"details\" onClick=\" AddLocate("+m.id+")\"> </td>"));
+            ligne.append($("<td> <input type=\"button\" value=\"Ajouter\" onClick=\" AddLocate("+m.id+")\"> </td>"));
             $('#displayLocate').append(ligne);
           });
       },
@@ -169,7 +170,7 @@
 
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/guest/getAllGuest/"+idconf,
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/guest/getAllGuest/"+idconf[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
@@ -184,8 +185,8 @@
               displayPresent = "Pas là ou pas encore répondu ;) ";
             }
             ligne.append($("<td>" + displayPresent + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"details\" onClick=\" DeleteGuest("+m.id+")\"> </td>"));
-            $('#displayLocate').append(ligne);
+            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\" DeleteGuest("+m.id+")\"> </td>"));
+            $('#displayGuest').append(ligne);
           });
       },
       error: function (errormessage) {
@@ -196,13 +197,13 @@
 
 function DeleteGuest(idGuest) {
   $.ajax({
-      type: "POST",
+      type: "DELETE",
        url: "http://sebastiendelbeportfolio.alwaysdata.net/guest/deleteGuest/"+idGuest,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
-      alert("invités suppimée !");
-      reload(idconf);
+      alert("invités supprimée !");
+      window.location.reload(true);
       },
       error: function (errormessage) {
           alert(errormessage.responseText);
@@ -210,17 +211,19 @@ function DeleteGuest(idGuest) {
   });
 };
 
+function AddLocate(){
 
+};
 
 function DeleteTask(idtask,idconf){
   $.ajax({
-      type: "POST",
+      type: "DELETE",
        url: "http://sebastiendelbeportfolio.alwaysdata.net/task/deleteTaskById/"+idtask,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
-      alert("Tâche suppimée !");
-      reload(idconf);
+      alert("Tâche supprimée !");
+      window.location.reload(true);
       },
       error: function (errormessage) {
           alert(errormessage.responseText);
@@ -229,72 +232,7 @@ function DeleteTask(idtask,idconf){
 };
 
 
-function reload(idconf){
-  $.ajax({
-      type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idconf,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    success: function( result){
-        $(result).each(function (index, m){
-          var ligne = $("<tr> </tr>");
-            ligne.append($("<td>" + m.title + "</td>"));
-            ligne.append($("<td>" + m.amount + "</td>"));
-            ligne.append($("<td>" + m.duration + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"details\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
-            $('#displaytask').append(ligne);
-          });
-      },
-      error: function (errormessage) {
-          alert(errormessage.responseText);
-      }
-  });
-
-  $.ajax({
-      type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/getAll/"+idconf,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    success: function( result){
-        $(result).each(function (index, m){
-          var ligne = $("<tr> </tr>");
-            ligne.append($("<td>" + m.name + "</td>"));
-            ligne.append($("<td>" + m.address + "</td>"));
-            ligne.append($("<td>" + m.city + "</td>"));
-            ligne.append($("<td>" + m.cityCode + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"details\" onClick=\" AddLocate("+m.id+")\"> </td>"));
-            $('#displayLocate').append(ligne);
-          });
-      },
-      error: function (errormessage) {
-          alert(errormessage.responseText);
-      }
-  });
-
-  $.ajax({
-      type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/guest/getAllGuest/"+idconf,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    success: function( result){
-        $(result).each(function (index, m){
-          var ligne = $("<tr> </tr>");
-            ligne.append($("<td>" + m.fname + "</td>"));
-            ligne.append($("<td>" + m.lname + "</td>"));
-            ligne.append($("<td>" + m.email + "</td>"));
-            if(m.isPresent == true){
-              var displayPresent = "Présent !";
-            } else {
-              displayPresent = "Pas là ou pas encore répondu ;) ";
-            }
-            ligne.append($("<td>" + displayPresent + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"details\" onClick=\" DeleteGuest("+m.id+")\"> </td>"));
-            $('#displayLocate').append(ligne);
-          });
-      },
-      error: function (errormessage) {
-          alert(errormessage.responseText);
-      }
-  });
+function Reload(){
+  window.location.reload(true);
 };
 </script>

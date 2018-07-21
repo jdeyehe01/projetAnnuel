@@ -46,7 +46,6 @@ locateRouter.post('/', function(req, res) {
         LocateController.addConference(locate.id,conference.id);
       });
 
-      res.sendFile(path.join(__dirname,'../../view/task.html'));
 
   })
   .catch((err) => {

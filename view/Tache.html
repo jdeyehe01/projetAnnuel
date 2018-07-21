@@ -13,46 +13,18 @@
         <title>Before Show</title>
   
         <!-- Bootstrap Core CSS -->
-        <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   
         <!-- Custom Fonts -->
-        <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-        <link href="../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+        <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
   
         <!-- Custom CSS -->
-        <link href="../css/style-css.min.css" rel="stylesheet">
+        <link href="css/style-css.min.css" rel="stylesheet">
 
 
   </head>
-
-  <!--script type="text/javascript">
-    function SubFormTask() {
-      var xhttp = new XMLHttpRequest();
-      var url = "http://sebastiendelbeportfolio.alwaysdata.net/task/";
-
-      var taskTitle = document.getElementById("tilte");
-      var amountTask = document.getElementById("amount");
-      var durationTask = document.getElementById("duration");
-
-      var newTask = {
-        title : taskTitle,
-        amount : amountTask,
-        duration : durationTask
-      };
-
-      var chaine = JSON.stringify(newTask); 
-      var myNewTask = JSON.parse(chaine);
-
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-         xhttp.open("POST", url, true);
-          xhttp.setRequestHeader(json, myNewTask);
-          xhttp.send();
-        }
-      };
-    }
-  </script-->
 
   <body id="page-top">
     <!-- Navigation -->
@@ -85,7 +57,7 @@
         </h3>
 
         <div class="width:50%" >
-          <form  action="http://sebastiendelbeportfolio.alwaysdata.net/task/" method="post">
+          <form  action="http://localhost:8080/task/" method="post">
               <div class="col-lg-8">
                     <div class="form-group">
                       <div>
@@ -94,11 +66,11 @@
                       </div>
                      <div>
                       <label for="amount">Montant de la tâche :</label>
-                      <input class="form-control" type="number" name="amount" id="amount">
+                      <input class="form-control" type="text" name="amount" id="amount">
                       </div>
                      <div>
                       <label for="duration">Durée de la tâche :  </label>
-                      <input class="form-control" type="number" name="duration" id="duration">
+                      <input class="form-control" type="text" name="duration" id="duration">
                       </div>
 
                     <div class="form-group">
@@ -112,19 +84,13 @@
       </div>
     </header>
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="jquery.min.js"></script>
-        <script src="bootstrap.bundle.min.js"></script>
-
+<script src="vendor/jquery/jquery.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- Plugin JavaScript -->
-        <script src="jquery.easing.min.js"></script>
-
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
         <!-- Custom scripts for this template -->
-        <script src="stylish-portfolio.min.js"></script>
-
+        <script src="js/stylish-portfolio.min.js"></script>
 
   </body>
 
-
 </html>
-

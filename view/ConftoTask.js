@@ -107,3 +107,38 @@ function reload(idconf){
 };
 
 
+
+
+
+
+
+  $('#test').on("click", function () {
+    var url = window.location.href;
+
+var x=url.split("?");
+alert(x[1]);
+
+    });
+
+
+  $(document).ready(function() {
+
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+//alert(value);
+    
+var ligne = $("<tr> </tr>");
+	ligne.append($("<td>e</td>"));
+    ligne.append($("<td>e</td>"));
+    ligne.append($("<td>h</td>"));
+    ligne.append($("<td> g</td>"));
+    //alert(ligne).html().text;
+   // ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"taskPerId()\"> </td>"));
+    $('#displaytask').append(ligne);
+    //var idconf = $(this).parent().siblings(":first").text()
+    //taskPerId(idconf);
+
+  	
+  });
+  });
