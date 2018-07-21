@@ -25,10 +25,7 @@ locateRouter.post('/', function(req, res) {
       'sound' : false,
       'wait' : true
     });
-
     res.status(400).end();
-
-
   }
 
   LocateController.newLocate(name,address,cityCode,city)
@@ -54,6 +51,36 @@ locateRouter.post('/', function(req, res) {
 
 
 });
+
+
+locateRouter.post('/:idConference', function(req, res) {
+  const idConf = req.params.idConference;
+  const name = req.body.name;
+  const address = req.body.address;
+  const city = req.body.city;
+  const cityCode = parseInt(req.body.cityCode);
+
+  if(name === undefined || address === undefined || city === undefined || cityCode === undefined || idConf === idConference ) {
+
+    res.status(400).end();
+    return;
+  }
+
+  LocateController.newLocate(name,address,cityCode,city)
+  .then((locate) => {
+
+    ConferenceController.getOneConference(idConf)
+    .then((conference) => {
+        LocateController.addConference(locate.id,conference.id);
+      });
+  })
+  .catch((err) => {
+    res.status(500).end();
+  })
+
+
+});
+
 
 
 locateRouter.get('/getLocateById/:idLocate' , function(req,res){

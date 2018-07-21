@@ -4,10 +4,9 @@ const Conference = ModelIndex.Conference;
 
 const TaskController = function() {};
 
-TaskController.newTask = function(title,amount,duration) {
+TaskController.newTask = function(title,duration) {
   return Task.create({
     title: title,
-    amount : amount,
     duration: duration
   });
 };
@@ -49,12 +48,11 @@ TaskController.addConference = function(idTask , idConference){
 };
 
 
-TaskController.updateTask = function(idTask,title,amount,duration){
+TaskController.updateTask = function(idTask,title,duration){
   return  Task.findById(idTask)
     .then((task) => {
         return task.updateAttributes({
         title: title,
-        amount: amount,
         duration: duration
       });
     })

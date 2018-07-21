@@ -49,6 +49,43 @@ guestRouter.post('/', function(req, res) {
   })
 });
 
+
+guestRouter.post('/:idConference', function(req, res) {
+  const fname = req.body.fname;
+  const lname = req.body.lname;
+  const email = req.body.email;
+  const idConf = req.params.idConference;
+  if(fname === undefined || lname === undefined || email === undefined || idConf === undefined ) {
+    res.status(400).end();
+    return;
+  }
+  GuestController.newGuest(lname,fname,email)
+  .then((guest) => {
+
+    notifier.notify({
+      'title' : 'Information',
+      'message' : 'Invité créé',
+      'sound' : false,
+      'wait' : true
+    });
+
+    ConferenceController.getOneConference(idConf)
+    .then((conference) =>{
+      GuestController.addConference(guest.id ,conference.id);
+      GuestController.sendMail(guest.id ,conference.id);
+    });
+
+
+  })
+  .catch((err) => {
+    res.status(500).end();
+  })
+});
+
+
+
+
+
 guestRouter.get('/getAllGuest/:idConference' , function(req,res){
   const idConf = req.params.idConference;
   if(idConf === undefined){

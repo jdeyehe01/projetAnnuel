@@ -9,10 +9,6 @@ module.exports = function (sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false
         },
-        amount: {
-            type: DataTypes.FLOAT,
-            allowNull: false
-        },
         duration: {
             type: DataTypes.STRING,
             allowNull: false

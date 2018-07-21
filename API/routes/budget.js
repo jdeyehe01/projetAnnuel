@@ -45,6 +45,38 @@ budgetRouter.post('/', function(req, res) {
 
 });
 
+budgetRouter.post('/:idConf', function(req, res) {
+  const title = req.body.title;
+  const amount = parseFloat(req.body.amount);
+  const idConf = req.body.idConf;
+
+  if(title === undefined || amount === undefined) {
+
+    res.status(400).end();
+
+  }
+
+  BudgetController.newBudget(title,amount)
+  .then((budget) => {
+      res.status(200).json(budget);
+      ConferenceController.getOneConference(idConf)
+      .then((conference)=>{
+        BudgetController.addConference(budget.id , conference.id);
+
+      })
+      .catch((err)=>{
+        console.error(err);
+      })
+
+
+  })
+  .catch((err) => {
+    res.status(500).end();
+  })
+
+});
+
+
 
   budgetRouter.delete('/deleteBudgetById/:idBudget' , function(req,res){
 

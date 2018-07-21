@@ -156,6 +156,16 @@ ConferenceController.findLast = function(){
   });
 }
 
+ConferenceController.findFiveLast = function(idUser){
+  return Conference.findAll({
+      order: [ [ 'created_at', 'DESC' ]],
+      where:{
+          user_id: idUser
+      },
+      limit: 5
+  });
+}
+
 ConferenceController.addUser = function(idConference ,idUser){
 
   return Conference.findById(idConference)

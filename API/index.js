@@ -17,12 +17,13 @@ function _startServer() {
 
   RouteManager.attach(app);
 
-  /*app.listen(8080, function() {
+  app.listen(8080, function() {
     console.log('Server started on 8080...');
-  });*/
+  });
 
-
+/*
   app.listen(process.env.ALWAYSDATA_HTTPD_PORT,process.env.ALWAYSDATA_HTTPD_IP, function(){
     console.log('Server started on... ');
   });
+  */
 }

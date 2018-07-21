@@ -13,10 +13,9 @@ taskRouter.use(express.static(path.join(__dirname + '../../../style')));
 
 taskRouter.post('/', function(req, res) {
   const title = req.body.title;
-  const amount =parseFloat(req.body.amount);
   const duration = req.body.duration;
 
-  if(title === undefined || amount === undefined || duration ===undefined) {
+  if(title === undefined || duration ===undefined) {
 
     notifier.notify({
       'title' : 'Champs incorrecte',
@@ -30,7 +29,7 @@ taskRouter.post('/', function(req, res) {
 
   }
 
-  TaskController.newTask(title,amount,duration)
+  TaskController.newTask(title,duration)
   .then((task) => {
 
     notifier.notify({
@@ -51,6 +50,37 @@ taskRouter.post('/', function(req, res) {
 
 
 });
+
+
+
+
+
+taskRouter.post('/:idConference', function(req, res) {
+  const title = req.body.title;
+  const duration = req.body.duration;
+  const idConf = req.params.idConference
+
+  if(title === undefined || idConf === undefined || duration ===undefined) {
+    res.status(400).end();
+    return;
+  }
+
+  TaskController.newTask(title,duration)
+  .then((task) => {
+
+    ConferenceController.getOneConference(idConf)
+    .then((conference) => {
+        TaskController.addConference(task.id , conference.id);
+      });
+  })
+  .catch((err) => {
+    res.status(500).end();
+  })
+
+
+});
+
+
 
 
   taskRouter.delete('/deleteTaskById/:idTask' , function(req,res){
@@ -131,16 +161,15 @@ taskRouter.post('/', function(req, res) {
   taskRouter.put('/updateTask/:idTask' , function(req,res){
 
     const title = req.body.title;
-    const amount = parseFloat(req.body.amount);
     const duration = req.body.duration;
     const idTask = parseInt(req.params.idTask);
 
-    if( idTask === undefined || idTask <=0 || amount === undefined || amount <=0 || title ===undefined || duration === undefined){
+    if( idTask === undefined || idTask <=0 || title ===undefined || duration === undefined){
       res.status(403).end();
       return;
     }
 
-    TaskController.updateTask(idTask,title,amount,duration)
+    TaskController.updateTask(idTask,title,duration)
     .then((task) => {
       res.status(200).json(task);
     })

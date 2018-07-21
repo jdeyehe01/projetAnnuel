@@ -229,6 +229,25 @@ conferenceRouter.get('/lastConf' , function(req,res){
 } );
 
 
+conferenceRouter.get('/conferenceById/:idConference' , function(req,res){
+  const idConf = req.params.idConference;
+  if(idConf === undefined ){
+    res.status(400).end();
+    return;
+  }
+
+  ConferenceController.findConference(idConf)
+  .then((conf)=>{
+    return conf;
+  })
+  .catch((err)=>{
+    console.error(err);
+    return;
+  })
+
+});
+
+
 conferenceRouter.put('/update/:idConference',function(req,res){
   const idConf = req.params.idConference;
   const name = req.body.name;
@@ -248,6 +267,27 @@ conferenceRouter.put('/update/:idConference',function(req,res){
   .catch((err)=>{
     console.error(err);
   });
+
+});
+
+
+conferenceRouter.get('/getFiveLast/:idUser' , function(req,res){
+
+const idUser = req.params.idUser;
+if(idUser === undefined ) {
+  res.status(400).end();
+  return;
+}
+
+  ConferenceController.findFiveLast(idUser)
+  .then((conferences)=>{
+    res.status(200).json(conferences);
+  })
+  .catch((err)=>{
+    console.error(err);
+  })
+
+
 
 });
 
