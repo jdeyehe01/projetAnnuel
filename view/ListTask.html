@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Before Show</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="../css/style-css.min.css" rel="stylesheet">
+  </head>
+
+    <!-- Header -->
+    <header class="masthead d-flex">
+      <div class="container my-auto">
+        <h1 class="mb-1  text-center ">Voici le détails de la conférence</h1>
+      </div>
+    </header>
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="#page-top">Menu1</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#page-top">Menu2</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#about">Menu3</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="#services">Menu4</a>
+        </li>
+      </ul>
+    </nav>
+
+    <h2 class="mb-1  text-center "> Liste des tâches de la conférence</h2>
+
+    <div class="width:50%" >
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Montant</th>
+            <th>Durée</th>            
+            <th><button id="test" onclick="">test</button></th>
+          </tr>
+        </thead>
+        <tbody id="displaytask">
+        	
+        </tbody>
+      </table>
+    </div>
+
+    <hr  width="70%"/>
+    <br/>
+ <h2 class="mb-1  text-center "> Le</h2>
+
+    <div class="width:50%" >
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Montant</th>
+            <th>Durée</th>            
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="iiiii">
+        	
+        </tbody>
+      </table>
+    </div>
+
+<div>
+	<input type="button" name="ajout" value="ajouter une tâche" onclick="self.location.href='Tache.html'" >
+</div>
+       
+
+  </body>
+
+</html>
+ <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/stylish-portfolio.min.js"></script>
+
+<script type="text/javascript">
+  $('#test').on("click", function () {
+    var url = window.location.href;
+    var id = url.substring(url.lastIndexOf('=') + 1);
+var x=url.split("?");
+alert(x[1]);
+
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+alert(value);
+    
+    });
+
+});
+
+  $(document).ready(function() {
+var ligne = $("<tr> </tr>");
+	ligne.append($("<td>e</td>"));
+    ligne.append($("<td>e</td>"));
+    ligne.append($("<td>h</td>"));
+    ligne.append($("<td> g</td>"));
+    //alert(ligne).html().text;
+   // ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"taskPerId()\"> </td>"));
+    $('#displaytask').append(ligne);
+    //var idconf = $(this).parent().siblings(":first").text()
+    //taskPerId(idconf);
+
+  	
+  });
+</script>
+

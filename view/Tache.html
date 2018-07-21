@@ -26,6 +26,34 @@
 
   </head>
 
+  <!--script type="text/javascript">
+    function SubFormTask() {
+      var xhttp = new XMLHttpRequest();
+      var url = "http://sebastiendelbeportfolio.alwaysdata.net/task/";
+
+      var taskTitle = document.getElementById("tilte");
+      var amountTask = document.getElementById("amount");
+      var durationTask = document.getElementById("duration");
+
+      var newTask = {
+        title : taskTitle,
+        amount : amountTask,
+        duration : durationTask
+      };
+
+      var chaine = JSON.stringify(newTask); 
+      var myNewTask = JSON.parse(chaine);
+
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         xhttp.open("POST", url, true);
+          xhttp.setRequestHeader(json, myNewTask);
+          xhttp.send();
+        }
+      };
+    }
+  </script-->
+
   <body id="page-top">
     <!-- Navigation -->
     <a class="menu-toggle rounded" href="#">
@@ -57,7 +85,7 @@
         </h3>
 
         <div class="width:50%" >
-          <form  action="http://localhost:8080/task/" method="post">
+          <form  action="http://sebastiendelbeportfolio.alwaysdata.net/task/" method="post">
               <div class="col-lg-8">
                     <div class="form-group">
                       <div>
@@ -66,11 +94,11 @@
                       </div>
                      <div>
                       <label for="amount">Montant de la tâche :</label>
-                      <input class="form-control" type="text" name="amount" id="amount">
+                      <input class="form-control" type="number" name="amount" id="amount">
                       </div>
                      <div>
                       <label for="duration">Durée de la tâche :  </label>
-                      <input class="form-control" type="text" name="duration" id="duration">
+                      <input class="form-control" type="number" name="duration" id="duration">
                       </div>
 
                     <div class="form-group">
@@ -97,4 +125,6 @@
 
   </body>
 
+
 </html>
+

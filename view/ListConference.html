@@ -20,7 +20,6 @@
 
     <!-- Custom CSS -->
     <link href="../css/style-css.min.css" rel="stylesheet">
-
   </head>
 
   <body id="page-top">
@@ -54,23 +53,42 @@
         </h3>
 
         <div class="width:50%" >
-          <script src="../ConferenceList.js"></script>
+          <table class="table table-striped" >
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Description</th>            
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="displayconf">
+             <td>123</td>
+             <td>test</td> 
+             <td>tes</td> 
+             <td>test</td> 
+             <td><button id="btntask">details</button></td> 
+            </tbody>
+          </table>
         </div>
       </div>
     </header>
 
 
-        <!-- Bootstrap core JavaScript -->
-        <script src="jquery.min.js"></script>
-        <script src="bootstrap.bundle.min.js"></script>
-
-        <!-- Plugin JavaScript -->
-        <script src="jquery.easing.min.js"></script>
-
-        <!-- Custom scripts for this template -->
-        <script src="stylish-portfolio.min.js"></script>
+       
 
   </body>
 
 </html>
 
+
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="../js/stylish-portfolio.min.js"></script>
+<script src ="ConftoTask.js"></script>
