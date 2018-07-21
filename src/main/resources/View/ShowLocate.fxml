@@ -9,9 +9,8 @@
 <Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="544.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.showController.ControllerShowLocate">
    <children>
       <Label fx:id="labelTitleView" alignment="CENTER" layoutX="158.0" layoutY="36.0" prefHeight="44.0" prefWidth="229.0" styleClass="label-header" text="Vos Lieux" />
-      <Accordion fx:id="accordionView" layoutX="148.0" layoutY="129.0" prefHeight="244.0" prefWidth="248.0" />
+      <Accordion fx:id="accordionView" layoutX="148.0" layoutY="142.0" prefHeight="244.0" prefWidth="248.0" />
       <ComboBox fx:id="cbListConference" layoutX="186.0" layoutY="100.0" onAction="#initialisationLocate" promptText="Choisir une conférence" />
-      <fx:include source="navBarView.fxml" />
    </children>
    <styleClass>
       <String fx:value="windows7-default" />

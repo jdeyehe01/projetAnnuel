@@ -1,6 +1,7 @@
 package Controller.updateController;
 
 import Controller.ControllerApi;
+import Controller.showController.ControllerInitConference;
 import Model.Conference;
 import Model.User;
 import Annotation.BeanFromDataBase;
@@ -21,7 +22,7 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 
-public class UpdateConference implements Initializable {
+public class UpdateConference extends ControllerInitConference implements Initializable {
 
 
     @BeanFromDataBase
@@ -124,12 +125,8 @@ public class UpdateConference implements Initializable {
         String url = "conference/getById/"+idConference;
         btnSave.setVisible(true);
         new ControllerAnnotation().getBean(url,this.getClass(),conference);
-        System.out.println("Conference: "+conference);
 
-        tfName.setText(conference.getName());
-        tfTime.setText(conference.getTime());
-        tfDesc.setText(conference.getDescription());
-        tfDate.setValue(LocalDate.parse(conference.getDate().split("T")[0]));
+        cbConference = super.ComboBoxInitConference(cbConference);
 
 
     }

@@ -11,42 +11,11 @@ import java.lang.reflect.Field;
 public class ControllerAnnotation {
 
     //Annotation Inject
-public static void inject() {
-
-
-    try {
-        Class c = Class.forName("Controller.ControllerConf");
-        Field[] tabField = c.getDeclaredFields();
-        Object o = c.newInstance();
-
-        for(Field f : tabField ){
-            Annotation.Inject i = f.getAnnotation(Annotation.Inject.class);
-            if (i != null && !isNullField(f,o)){
-                Class type = f.getType();
-                Object obj = type.newInstance();
-                obj = "Jean";
-                f.setAccessible(true);
-                f.set(o,obj);
-
-            }
-        }
-
-    } catch (ClassNotFoundException e) {
-        e.printStackTrace();
-    } catch (IllegalAccessException e) {
-        e.printStackTrace();
-    } catch (InstantiationException e) {
-        e.printStackTrace();
-    }
-
-
-}
-
 /*
     Annotation BeanFromDataBase
 
  */
-public void getBean(String url , Class clazz , Object objectTarget) throws IllegalAccessException, InstantiationException {
+public static void getBean(String url , Class clazz , Object objectTarget) throws IllegalAccessException, InstantiationException {
     try {
         Field[] tabField = clazz.getDeclaredFields();
         objectTarget = clazz.newInstance();
@@ -58,7 +27,7 @@ public void getBean(String url , Class clazz , Object objectTarget) throws Illeg
             Class<?> fieldType = field.getType();
             String jsonObject = new ControllerApi().get(url);
             Object newObject = new Gson().fromJson(jsonObject,fieldType);
-            field.set(this,newObject);
+            field.set(objectTarget,newObject);
 
         }
     }

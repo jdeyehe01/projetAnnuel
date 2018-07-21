@@ -5,7 +5,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 
-<MenuBar fx:id="navBar" prefHeight="26.0" prefWidth="833.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerNavBar">
+<MenuBar fx:id="navBar" prefHeight="26.0" prefWidth="833.0" styleClass="text-field" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerNavBar">
    <menus>
       <Menu fx:id="navHome" mnemonicParsing="false" text="Accueil">
          <items>

@@ -1,7 +1,7 @@
 package Controller.updateController;
 
 import Controller.ControllerApi;
-import Controller.showController.ControllerInitShow;
+import Controller.showController.ControllerInitConference;
 import Model.Conference;
 import Model.Locate;
 import Annotation.BeanFromDataBase;
@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UpdateLocate extends ControllerInitShow implements Initializable {
+public class UpdateLocate extends ControllerInitConference implements Initializable {
 
     @FXML
     private TextField tfName;
@@ -152,27 +152,6 @@ public class UpdateLocate extends ControllerInitShow implements Initializable {
 
     }
 
-/*
-    public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
-        String url = "user/lastUser";
-        ControllerAnnotation.getBean(url, this.getClass(), user);
-
-        String allConference = new ControllerApi().get("conference/getAllByUser/" + user.getId());
-        System.out.println(allConference);
-        Conference[] tabConference = new Gson().fromJson(allConference, Conference[].class);
-
-        List<Conference> listConference = Arrays.asList(tabConference);
-        ArrayList<String> listIdName = new ArrayList<String>();
-
-        for (Conference c : listConference) {
-            listIdName.add(c.getId() + "-" + c.getName());
-        }
-
-        cbListConference.getItems().addAll(listIdName);
-
-
-    }
-*/
     @FXML
     public void deleteTask() throws IOException, IllegalAccessException, InstantiationException {
         String idTask = cbListLocate.getValue().toString().split("-")[0];
