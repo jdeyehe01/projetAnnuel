@@ -4,6 +4,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -33,5 +35,10 @@
       <Button fx:id="btnSave" disable="true" layoutX="263.0" layoutY="350.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" text="Enregistrer" />
       <fx:include source="navBarView.fxml" />
       <ComboBox fx:id="cbListConference" layoutX="221.0" layoutY="103.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
+      <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
     </children>
 </Pane>

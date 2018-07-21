@@ -2,6 +2,8 @@
 
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 
 <Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="600.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.showController.ControllerShowView">
@@ -9,5 +11,10 @@
       <Label fx:id="labelTitleView" alignment="CENTER" layoutX="185.0" layoutY="51.0" styleClass="label-header" text="Vos conférences" />
       <Accordion fx:id="accordionView" layoutX="190.0" layoutY="105.0" prefHeight="244.0" prefWidth="248.0" />
       <fx:include source="navBarView.fxml" />
+      <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

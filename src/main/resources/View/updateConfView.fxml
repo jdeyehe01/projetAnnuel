@@ -6,14 +6,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="600.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdateConference">
+<Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="640.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdateConference">
    <children>
-      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="113.0" layoutY="33.0" styleClass="label-header" text="Modifier votre conférence" />
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="143.0" layoutY="33.0" styleClass="label-header" text="Modifier votre conférence" />
       <GridPane fx:id="gpForm" layoutX="46.0" layoutY="154.0" prefHeight="260.0" prefWidth="509.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
@@ -41,5 +43,10 @@
       <Button fx:id="btnDelete" layoutX="245.0" layoutY="459.0" mnemonicParsing="false" onAction="#delete" styleClass="windows7-default" text="Supprimer" visible="false" />
       <fx:include source="navBarView.fxml" />
       <ComboBox layoutX="226.0" layoutY="95.0" promptText="Liste des conférences" styleClass="label" />
+      <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>

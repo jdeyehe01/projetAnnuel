@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -40,6 +42,11 @@
       <ComboBox fx:id="cbListConference" layoutX="228.0" layoutY="87.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" />
       <Button fx:id="btnDelete" layoutX="450.0" layoutY="108.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="25.0" prefWidth="94.0" text="Supprimer" visible="false" />
       <fx:include source="navBarView.fxml" />
+      <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
    </children>
    <styleClass>
       <String fx:value="windows7-default" />
