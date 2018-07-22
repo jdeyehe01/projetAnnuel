@@ -51,10 +51,6 @@ taskRouter.post('/', function(req, res) {
 
 });
 
-
-
-
-
 taskRouter.post('/:idConference', function(req, res) {
   const title = req.body.title;
   const duration = req.body.duration;

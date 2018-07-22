@@ -81,7 +81,7 @@
             </div>
 
           </form>
-           <button type="button" value="retour" id="retour">Retour</button>
+           <button type="button" value="retour" id="retour">Terminer</button>
         </div>
       <br/>
       <hr/>
@@ -120,7 +120,9 @@
 $(document).ready(function(){
   alert("Taches créés! Maintenant les invités ! ");
 });
-
+$('#submit').on('click', function(){
+  document.location.href="index.html";
+});
   $('#submit').on('click', function(){
     var fnameG = document.getElementById("fname").value;
     var lnameG = document.getElementById("lname").value;

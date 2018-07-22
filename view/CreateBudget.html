@@ -29,9 +29,9 @@
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Tâche</h1>
+        <h1 class="mb-1  text-center ">Budget</h1>
         <h3 class="mb-5  text-center ">
-          <em>Dans cette rubrique veuillez entrer les différentes informations de votre tâche.</em>
+          <em>Dans cette rubrique veuillez entrer les différentes informations de votre budget.</em>
         </h3>
       </div>
     </header>
@@ -62,12 +62,12 @@
               <div class="col-lg-8">
                     <div class="form-group">
                       <div>
-                        <label for="title">Titre de la tâche</label>
+                        <label for="title">Titre du budget :</label>
                         <input class="form-control" type="text" name="title" id="tilte">
                       </div>
                       <div>
-                        <label for="duration">Durée de la tâche :  </label>
-                        <input class="form-control" type="time" name="duration" id="duration">
+                        <label for="amount"> Montant du budget :  </label>
+                        <input class="form-control" type="number" name="amount" id="amount">
                     </div>
                    </div>
             </div>
@@ -92,7 +92,7 @@
                 <th></th>
               </tr>
             </thead>
-            <tbody id="listTask">
+            <tbody id="listBudg">
 
             </tbody>
           </table>
@@ -112,24 +112,21 @@
 $(document).ready(function(){
   alert("Lieu créé ! Maintenant les tâches ! ");
 });
-
 $('#go').on('click', function(){
-  document.location.href="CreateBudget.html";
+  document.location.href="CreateGuestList.html";
 });
 
-
-
   $('#submit').on('click', function(){
-    var tilteTask = document.getElementById("tilte").value;
-    var durationTask = document.getElementById("duration").value;
+    var tilteBudg = document.getElementById("tilte").value;
+    var amountBudg = document.getElementById("amount").value;
 
-     if(durationTask.length !=0 && tilteTask.length != 0 ){
+     if(amountBudg.length !=0 && tilteBudg.length != 0 ){
         $.ajax({
           type: 'POST',
-          url: "http://sebastiendelbeportfolio.alwaysdata.net/task/",
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/",
           data: {
-            title: tilteTask,
-            duration: durationTask
+            title: tilteBudg,
+            amount: amountBudg
           },
           success: function(data) {
             
@@ -138,41 +135,42 @@ $('#go').on('click', function(){
             alert(errormessage.responseText);
           }
         });
-        FindLastConf();
+        $.ajax({
+	      type: "GET",
+	      url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/lastConf",
+	      contentType: "application/json; charset=utf-8",
+	      dataType: "json",
+	      success: function(data){
+	        RefreshDiv(data.id);
+	        
+	      },
+	      error: function (errormessage) {
+	          alert(errormessage.responseText);
+	      }
+	  	});
       }else{
          alert("veuillez remplir les champs !");
       }
   });
 
+
 function FindLastConf(){
-  $.ajax({
-      type: "GET",
-      url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/lastConf",
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      success: function( result){
-        RefreshDiv($(result).id);
-        
-      },
-      error: function (errormessage) {
-          alert(errormessage.responseText);
-      }
-  });
+  
 };
 
 function RefreshDiv(idLastconf){
   $.ajax({
       type: "GET",
-      url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idLastconf,
+      url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/getAllBudgetForConference/"+idLastconf,
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
         $(result).each(function (index, m){
           var ligne = $("<tr> </tr>");
             ligne.append($("<td>" + m.title + "</td>"));
-            ligne.append($("<td>" + m.duration + "</td>"));
+            ligne.append($("<td>" + m.amount + "</td>"));
             ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
-            $('#listTask').append(ligne);
+            $('#listBudg').append(ligne);
             $('#madivdelist').html(retour);
           });
       },

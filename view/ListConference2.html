@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Before Show</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/style-css.min.css" rel="stylesheet">
+  </head>
+
+ 
+
+  <body id="page-top">
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Index</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des Conférences</a>
+        </li>
+      </ul>
+    </nav>
+
+       <!-- Header -->
+    <header class="masthead d-flex">
+      <div class="container my-auto">
+        <h1 class="mb-1  text-center ">Voici la liste de vos conférences</h1>
+        <h3 class="mb-5  text-center ">
+          <em></em>
+        </h3>
+      </div>
+    </header>
+
+        <div class="width:50%" >
+          <table class="table table-striped" >
+            <thead>
+              <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th>Date</th>
+                <th>Description</th>            
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="displayconf">
+
+            </tbody>
+          </table>
+        </div>
+      
+  </body>
+
+</html>
+
+
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/stylish-portfolio.min.js"></script>
+<script type="text/javascript">
+  var url = window.location.href;
+  var id = url.split("?");
+$.ajax({
+      type: "GET",
+      url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/getAllByUser/" + id[1];,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+        $(result).each(function (index, m){
+          var ligne = $("<tr> </tr>");
+          ligne.append($("<td>" + m.id + "</td>"));
+            ligne.append($("<td>" + m.name + "</td>"));
+            ligne.append($("<td>" + m.date + "</td>"));
+            ligne.append($("<td>" + m.description + "</td>"));
+            ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"Details("+m.id+")\"> </td>"));
+            ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"modifier\" onClick=\"Modif("+m.id+")\"> </td>"));
+            $('#displayconf').append(ligne);
+          });
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
+
+
+function Details(id){
+  document.location.href="ConfDetail.html?"+id;
+};
+
+function Modif(id){
+  document.location.href="ModifyConference.html?"+id;
+};
+</script>

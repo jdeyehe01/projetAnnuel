@@ -124,11 +124,11 @@
 
 <script type="text/javascript">
   var url = window.location.href;
-  var idconf = url.split("?");
+  var id = url.split("?");
 
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idconf[1],
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+id[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
@@ -147,7 +147,7 @@
 
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/getAll/"+idconf[1],
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/getAll/"+id[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
@@ -168,7 +168,7 @@
 
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/guest/getAllGuest/"+idconf[1],
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/guest/getAllGuest/"+id[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
@@ -212,6 +212,10 @@ function DeleteGuest(idGuest) {
 function AddLocate(){
 
 };
+function AddTask(){
+
+};
+
 
 function DeleteTask(idtask){
   $.ajax({

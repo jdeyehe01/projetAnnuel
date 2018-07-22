@@ -230,15 +230,15 @@ conferenceRouter.get('/lastConf' , function(req,res){
 
 
 conferenceRouter.get('/conferenceById/:idConference' , function(req,res){
-  const idConf = req.params.idConference;
-  if(idConf === undefined ){
-    res.status(400).end();
+  const idConf = parseInt(req.params.idConference);
+  if(idConf === undefined || idConference <=0){
+    res.status(401).end();
     return;
   }
 
   ConferenceController.getOneConference(idConf)
-  .then((conf)=>{
-    res.status(200).json(conf);
+  .then((conference)=>{
+    res.status(200).json(conference);
   })
   .catch((err)=>{
     res.status(404).end();
