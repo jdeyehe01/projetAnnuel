@@ -16,8 +16,8 @@ import java.net.URLConnection;
 
 public class ControllerApi {
 
-    //private String http = "http://sebastiendelbeportfolio.alwaysdata.net/";
-    private String http = "http://localhost:8080/";
+    private String http = "http://sebastiendelbeportfolio.alwaysdata.net/";
+
     public String get(String url) throws IOException {
         String source = "";
         URL oracle = new URL(http+url);
