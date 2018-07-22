@@ -6,5 +6,5 @@ public interface IPlugin {
 
     public String getDescription();
 
-    public void runPlugin();
+    public boolean runPlugin();
 }

@@ -8,18 +8,26 @@ import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.stream.Stream;
+
+import Model.Guest;
 
 public class PluginManager {
 	
 	private Path path = getLocalDirectory();
+	
+	public static ArrayList<IPlugin> plugins;
 	
 	/**
 	 * Load all jar files in MyPlugins directory
 	 * @return boolean
 	 */
 	public boolean loadPlugins() {
+		
+		plugins = new ArrayList<IPlugin>();
 		
 		boolean result = true;
 		
@@ -40,11 +48,32 @@ public class PluginManager {
 						Class<?> cls = cl.loadClass("Plugin.Plugin");
 						
 						if(validInterface(cls)) {
-							IPlugin plugin = (IPlugin) cls.newInstance();
+							Object obj = (Object) cls.newInstance();
+							IPlugin myPlugin = (IPlugin) obj;
+							plugins.add(myPlugin);
+							
+							/*Method[] m = obj.getClass().getDeclaredMethods();
+							int i = 0;
+							for(Method my : m) {
+								System.out.println(i + ": " + my.getName());
+								i++;
+							}
+							Method getPath = obj.getClass().getMethod("getPath");
+							Method setPath = obj.getClass().getMethod("setPath", String.class);
+							Method getListOfGuest= obj.getClass().getMethod("getListOfGuest");
+
+							setPath.invoke(obj, "C:\\Users\\Protek\\Desktop\\file1.csv");
+							//System.out.println(getPath.invoke(o));
+							myPlugin.runPlugin();
+							ArrayList<Guest> array = (ArrayList<Guest>) getListOfGuest.invoke(obj);
+							//String retValue=(String)method.invoke(o);
+							System.out.println("Number : " + array.size());
+							array.forEach(guest -> System.out.println(guest));*/
 						}
 					}
 				}
 				catch(Exception e) {
+					System.out.println(e.fillInStackTrace());
 					result = false;
 				}
 			}

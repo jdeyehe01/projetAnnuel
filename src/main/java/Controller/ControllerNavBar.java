@@ -415,12 +415,25 @@ Guest
         stage.show();
 
     }
+    
+    @FXML
+    public void showPlugin(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/ShowPlugin.fxml"));
 
+        Stage stage = (Stage) navBar.getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Plugins");
+        stage.setResizable(false);
 
+        stage.setScene(new Scene(root));
+        stage.show();
+        
+    }
+    
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        navBar.autosize();
+        //navBar.autosize();
     }
 }
