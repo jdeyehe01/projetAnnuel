@@ -42,36 +42,20 @@ public class ControllerConf implements Initializable {
     @FXML
     private Button btnSave;
 
+
+
    @BeanFromDataBase
    private static User user;
 
     @FXML
-    public void signIn(ActionEvent event) throws IOException, ParseException {
+    public void save(ActionEvent event) throws IOException, ParseException {
 
         btnSave.setVisible(false);
         btnNext.setVisible(true);
 
 
         Conference conference = new Conference(tfName.getText(),tfDate.getValue().toString(),tfTime.getText(),tfDesc.getText(),user);
-        System.out.println(conference.getDate());
         ControllerApi api = new ControllerApi();
-
-        Gson gson = new Gson();
-        System.out.println(gson.toJson(conference));
-        System.out.println("Object java to object json :" + gson.toJson(conference));
-        FileOutputStream f = new FileOutputStream("Toto.txt");
-        ObjectOutputStream o = new ObjectOutputStream(f);
-        o.writeObject(user);
-        o.close();
-
-        FileInputStream fi = new FileInputStream("Toto.txt");
-        ObjectInputStream oi = new ObjectInputStream(fi);
-        try {
-            Object ob = oi.readObject();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        o.close();
 
         api.post("conference/",new Gson().toJson(conference));
 
@@ -79,11 +63,11 @@ public class ControllerConf implements Initializable {
 
     @FXML
     public void navigateTo(ActionEvent event) throws IOException {
-        Parent createConf = FXMLLoader.load(getClass().getResource("../View/locateConfView.fxml"));
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/createGuestView.fxml"));
 
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
-        stage.setTitle("Before Show - Créer une conférence ");
+        stage.setTitle("Before Show - Ajouter un invité ");
         stage.setResizable(false);
 
         stage.setScene(new Scene(createConf));
@@ -93,8 +77,7 @@ public class ControllerConf implements Initializable {
 
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 

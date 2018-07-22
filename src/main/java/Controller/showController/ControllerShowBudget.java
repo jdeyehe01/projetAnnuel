@@ -23,6 +23,9 @@ public class ControllerShowBudget extends ControllerInitConference implements In
     @FXML
     private ComboBox cbListConference;
 
+    @FXML
+    private Label lbAmount;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -33,6 +36,7 @@ public class ControllerShowBudget extends ControllerInitConference implements In
     public void initialisationBudget(ActionEvent event) {
 
         try {
+            float amount =0 ;
             VBox content = new VBox();
 
             accordionView.setVisible(true);
@@ -43,7 +47,6 @@ public class ControllerShowBudget extends ControllerInitConference implements In
             String url = "budget/getAllBudgetForConference/" + idConference;
 
             String jsonBudget = new ControllerApi().get(url);
-
             Budget[] tabBudget = new Gson().fromJson(jsonBudget, Budget[].class);
 
             for (Budget budget : tabBudget) {
@@ -52,7 +55,7 @@ public class ControllerShowBudget extends ControllerInitConference implements In
 
                 content.getChildren().add(new Label("Nom: " + budget.getTitle()));
                 content.getChildren().add(new Label("Montant: " + budget.getAmount()));
-
+                amount += budget.getAmount();
                 t.setContent(content);
                 t.setExpanded(true);
 
@@ -62,7 +65,7 @@ public class ControllerShowBudget extends ControllerInitConference implements In
 
             accordionView.autosize();
 
-
+            lbAmount.setText(amount + " €");
         } catch (IOException e) {
             e.printStackTrace();
         }

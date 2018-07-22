@@ -38,11 +38,11 @@
                 <TextField fx:id="tfCityCode" disable="true" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button fx:id="btnNext" layoutX="336.0" layoutY="425.0" mnemonicParsing="false" onAction="#saveInBdd" styleClass="windows7-default" text="Suivant" visible="false" />
+        <Button fx:id="btnNext" layoutX="336.0" layoutY="425.0" mnemonicParsing="false" onAction="#navigateTo" styleClass="windows7-default" text="Suivant" visible="false" />
         <Button fx:id="btnAddLocate" disable="true" layoutX="233.0" layoutY="372.0" mnemonicParsing="false" onAction="#newLocate" styleClass="windows7-default" text="Ajouter un nouveau lieu" />
       <fx:include source="navBarView.fxml" />
-      <Button disable="true" layoutX="206.0" layoutY="425.0" mnemonicParsing="false" styleClass="windows7-default" text="Enregistrer" />
-      <ComboBox fx:id="cbListConference" layoutX="250.0" layoutY="115.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
+      <Button fx:id="btnSave" disable="true" layoutX="206.0" layoutY="425.0" mnemonicParsing="false" onAction="#saveInBdd" styleClass="windows7-default" text="Enregistrer" />
+      <ComboBox fx:id="cbListConference" layoutX="250.0" layoutY="115.0" onAction="#initFormCreate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
       <ScrollPane fx:id="listLocate" layoutX="584.0" layoutY="131.0" prefHeight="200.0" prefWidth="150.0">
          <content>
             <VBox fx:id="contentLocate" prefHeight="200.0" prefWidth="131.0" />

@@ -4,7 +4,7 @@ public class Task {
 	
 	private int id;
 	private String title;
-	private float amount;
+
 	private String duration;
 	private Conference conference;
 
@@ -16,9 +16,8 @@ public class Task {
 		this.conference = conference;
 	}
 
-	public Task(String title, float amount, String duration, Conference conference) {
+	public Task(String title, String duration, Conference conference) {
 		this.title = title;
-		this.amount = amount;
 		this.duration = duration;
 		this.conference = conference;
 	}
@@ -29,14 +28,6 @@ public class Task {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public float getAmount() {
-		return amount;
-	}
-
-	public void setAmount(float amount) {
-		this.amount = amount;
 	}
 
 	public String getDuration() {

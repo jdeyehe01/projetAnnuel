@@ -1,5 +1,8 @@
 package Controller;
 
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
+import Controller.showController.ControllerInitConference;
 import Model.Budget;
 import Model.Conference;
 import Model.Task;
@@ -11,9 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -22,7 +23,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-public class ControllerBudget implements Initializable {
+public class ControllerBudget extends ControllerInitConference implements Initializable {
 
     @FXML
     private TextField tfName;
@@ -33,48 +34,70 @@ public class ControllerBudget implements Initializable {
     @FXML
     private ScrollPane listBudgetPan;
 
-    private Conference conference;
+    @FXML
+    private Button btnAddBudget;
 
     @FXML
-    private VBox verticalBox;
-
-   private ControllerApi api;
-   private ArrayList<Budget> listBudget;
+    private Button btnSave;
 
 
+    @FXML
+    private Button btnNext;
 
-   private Label label;
+    @BeanFromDataBase
+    private static Conference conference;
+
+    @FXML
+    private VBox content;
+
+    private ControllerApi api;
+    private ArrayList<Budget> listBudget;
 
 
+    @FXML
+    private ComboBox cbListConference;
+
+    @FXML
+   public void initFormCreate(){
+        tfAmount.setDisable(false);
+        tfName.setDisable(false);
+        btnAddBudget.setDisable(false);
+        btnSave.setDisable(false);
+    }
 
     @FXML
     public void save() throws IOException {
+        try {
+            btnNext.setVisible(true);
+            String idConference = cbListConference.getValue().toString().split("-")[0];
+            String url = "conference/conferenceById/" + idConference;
 
-        Budget budget = new Budget(tfName.getText(), Float.parseFloat(tfAmount.getText()), conference);
+            ControllerAnnotation.getBean(url, this.getClass(), conference);
+            Budget budget = new Budget(tfName.getText(), Float.parseFloat(tfAmount.getText()), conference);
 
-        String jsonBudget= new Gson().toJson(budget);
+            String jsonBudget = new Gson().toJson(budget);
+            content.getChildren().add(new Label(budget.getTitle()));
+            listBudgetPan.setContent(content);
+            listBudgetPan.setVisible(true);
+            api.post("budget/"+idConference, jsonBudget);
 
-        verticalBox.getChildren().add(new Label(budget.getTitle()));
 
-        listBudgetPan.setContent(verticalBox);
-        listBudgetPan.setVisible(true);
-        api.post("budget",jsonBudget);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void initialize(URL location, ResourceBundle resources) {
 
-        try {
-            api = new ControllerApi();
-            String jsonConf = api.get("conference/lastConf");
-            conference = new Gson().fromJson(jsonConf,Conference.class);
-            listBudget = new ArrayList<Budget>();
-
-            if(verticalBox.getChildren().size() <=0){
-                listBudgetPan.setVisible(false);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        cbListConference = super.ComboBoxInitConference(cbListConference);
+        api = new ControllerApi();
+        listBudget = new ArrayList<Budget>();
+        content = new VBox(1);
+        if (content.getChildren().size() <= 0) {
+            listBudgetPan.setVisible(false);
         }
 
 
@@ -85,7 +108,6 @@ public class ControllerBudget implements Initializable {
     public void newBudget() throws IOException {
 
         this.save();
-
         tfName.clear();
         tfAmount.clear();
 
@@ -93,9 +115,9 @@ public class ControllerBudget implements Initializable {
 
     @FXML
     public void navigate(ActionEvent event) throws IOException {
-        Parent createConf = FXMLLoader.load(getClass().getResource("View/beforeShowWelcomeView.fxml"));
+        Parent createConf = FXMLLoader.load(getClass().getResource("../View/beforeShowWelcomeView.fxml"));
 
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Accueil ");
 

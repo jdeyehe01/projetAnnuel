@@ -9,6 +9,7 @@ import Annotation.ControllerAnnotation;
 import Model.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -54,8 +55,6 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
     @FXML
     private Button btnSave;
 
-    @FXML
-    private Button btnNext;
 
     @FXML
     private ComboBox cbListConference;
@@ -66,8 +65,10 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
 
     @FXML
     public void updateLocate() throws IOException, InstantiationException, IllegalAccessException {
-        cbListLocate.getItems().clear();
 
+        if(cbListLocate.getItems().size()>0){
+            cbListLocate.getProperties().clear();
+        }
         String idConference = cbListConference.getValue().toString().split("-")[0];
 
         String allLocate = new ControllerApi().get("locate/getAll/"+idConference);
@@ -107,8 +108,6 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
             btnSave.setVisible(true);
         }
 
-
-
         new ControllerAnnotation().getBean(url,this.getClass(),l);
 
         tfName.setText(l.getName());
@@ -132,31 +131,13 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
 
         new ControllerApi().put("locate/update/"+l.getId(),jsonLocate);
 
-        btnNext.setVisible(true);
     }
 
     @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        System.out.println("Entrer");
-        // Parent root = FXMLLoader.load(getClass().getResource("/View/UpdateViews/updateConfView.fxml"));
-        Parent root  = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
+    public void deleteLocate() throws IOException, IllegalAccessException, InstantiationException {
+        String idLocate = cbListLocate.getValue().toString().split("-")[0];
 
-        System.out.println("Sortie");
-
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Modifier une presentation ");
-
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
-        stage.show();
-
-    }
-
-    @FXML
-    public void deleteTask() throws IOException, IllegalAccessException, InstantiationException {
-        String idTask = cbListLocate.getValue().toString().split("-")[0];
-
-        String url = "task/deleteTaskById/"+idTask;
+        String url = "locate/deleteLocateById/"+idLocate;
         int code = new ControllerApi().delete(url);
 
         this.updateLocate();
@@ -164,14 +145,8 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
         tfAddress.clear();
         tfCity.clear();
         tfCityCode.clear();
+        updateLocate();
 
-
-        if(code <=200) {
-            System.out.println("Delete !");
-        }
-        else {
-            System.out.println("No delete");
-        }
 
     }
 
@@ -186,5 +161,7 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
 
 
     }
+
+
 
 }

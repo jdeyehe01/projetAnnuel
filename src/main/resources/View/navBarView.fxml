@@ -66,7 +66,7 @@
          </items></Menu>
       <Menu mnemonicParsing="false" text="Plugins">
          <items>
-            <MenuItem fx:id="loadPlugin" mnemonicParsing="false" onAction="#showPlugin" text="Utiliser des plugins" />
+            <MenuItem fx:id="loadPlugin" mnemonicParsing="false" onAction="#loadPlugins" text="Utiliser des plugins" />
          </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Profile">

@@ -24,11 +24,11 @@ public class ControllerNavBar implements Initializable {
 
     @FXML
     public void backToHome(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/beforShowWelcomeView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../View/beforeShowWelcomeView.fxml"));
 
         Stage stage = (Stage) navBar.getScene().getWindow();
 
-          stage.close();
+        stage.close();
         stage.setTitle("Before Show - Accueil ");
         stage.setResizable(false);
 
@@ -74,7 +74,7 @@ public class ControllerNavBar implements Initializable {
     public void updateConference(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Modifier une conférence ");
         stage.setResizable(false);
@@ -93,6 +93,8 @@ public class ControllerNavBar implements Initializable {
         TextArea tfDesc = (TextArea) root.lookup("#tfDesc");
         TextField tfTime = (TextField) root.lookup("#tfTime");
         Label title = (Label) root.lookup("#labelTitleView");
+        Button btnSave = (Button) root.lookup("#btnSave");
+
         title.setText("Supprimer une conference");
 
 
@@ -100,8 +102,7 @@ public class ControllerNavBar implements Initializable {
         tfDate.setEditable(false);
         tfDesc.setEditable(false);
         tfTime.setEditable(false);
-
-
+        btnSave.setVisible(false);
         btnDelete.setVisible(true);
 
         Stage stage = (Stage) navBar.getScene().getWindow();
@@ -168,10 +169,13 @@ Guest
         TextField tfLastName = (TextField) root.lookup("#tfLastName");
         TextField tfFirstName = (TextField) root.lookup("#tfFirstName");
         TextField tfEmail = (TextField) root.lookup("#tfEmail");
+        Label l = (Label) root.lookup("#labelTitleView");
 
         tfFirstName.setEditable(false);
         tfLastName.setEditable(false);
         tfEmail.setEditable(false);
+        l.setText("Supprimer un invité");
+
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
@@ -240,16 +244,15 @@ Guest
         btnDelete.setVisible(true);
 
         TextField titleField = (TextField) root.lookup("#tfTitle");
-        TextField amountField = (TextField) root.lookup("#tfAmount");
         TextField timeField = (TextField) root.lookup("#tfTime");
+        Label label = (Label) root.lookup("#labelTitleView");
 
-        amountField.setEditable(false);
         titleField.setEditable(false);
         timeField.setEditable(false);
 
-        amountField.setDisable(true);
         titleField.setDisable(true);
         timeField.setDisable(true);
+        label.setText("Supprimer une tâche");
 
 
         Stage stage = (Stage) navBar.getScene().getWindow();
@@ -323,11 +326,14 @@ Guest
         TextField tfAddress = (TextField) root.lookup("#tfAddress");
         TextField tfCity = (TextField) root.lookup("#tfCity");
         TextField tfCityCode = (TextField) root.lookup("#tfCityCode");
+        Label label = (Label) root.lookup("#labelTitleView");
 
         tfName.setEditable(false);
         tfAddress.setEditable(false);
         tfCity.setEditable(false);
         tfCityCode.setEditable(false);
+
+        label.setText("Supprimer un lieu");
 
         tfName.setDisable(true);
         tfAddress.setDisable(true);
@@ -396,13 +402,17 @@ Guest
     public void deleteBudget(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../View/updateBudget.fxml"));
         Button btnDelete = (Button) (root.lookup("#btnDelete"));
+        Button btnUpdate = (Button) (root.lookup("#btnUpdate"));
+        btnUpdate.setVisible(false);
         btnDelete.setVisible(true);
 
         TextField tfLastName = (TextField) root.lookup("#tfName");
         TextField tfFirstName = (TextField) root.lookup("#tfAmount");
+        Label labelTitle = (Label) root.lookup("#labelTitleView");
 
         tfFirstName.setEditable(false);
         tfLastName.setEditable(false);
+        labelTitle.setText("Supprimer un budget");
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
@@ -415,8 +425,8 @@ Guest
     }
     
     @FXML
-    public void showPlugin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/ShowPlugin.fxml"));
+    public void loadPlugins(ActionEvent event) throws IOException {
+    	Parent root = FXMLLoader.load(getClass().getResource("../View/showPlugin.fxml"));
 
         Stage stage = (Stage) navBar.getScene().getWindow();
         stage.close();
@@ -425,13 +435,11 @@ Guest
 
         stage.setScene(new Scene(root));
         stage.show();
-        
     }
-    
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //navBar.autosize();
+        navBar.autosize();
     }
 }

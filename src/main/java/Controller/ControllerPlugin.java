@@ -4,6 +4,7 @@ import Model.Budget;
 import Model.Conference;
 import Model.Guest;
 import Model.Locate;
+import Model.Task;
 import Plugin.IPlugin;
 import Plugin.PluginManager;
 import Annotation.BeanFromDataBase;
@@ -54,98 +55,167 @@ public class ControllerPlugin extends ControllerInitShow implements Initializabl
 	@FXML
 	private ComboBox cbListConf;
 	
+	@FXML
+	private Button btnSave;
+	
+	private String idConference;
+	
 	private int pluginSelected = Controller.showController.ControllerShowPlugin.pluginSelected;
 	
 
+	/**
+	 * Cette méthode est appeler lorsque l'on clique sur importer ou exporter les données dans le plugin.
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 * @throws IOException
+	 */
     @FXML
-    public void save() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    public void save() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
     	
-    	boolean result = true;
     	IPlugin myPlugin = PluginManager.plugins.get(pluginSelected);
     	
-    	
-    	if(myPlugin.getName().equals("Plugin CSV")) {
-    	
-	    	if(tfPath.getText().trim().length() > 1 && tfPath.getText().endsWith(".csv")) {
-	    		
-	    		Method setPath = myPlugin.getClass().getMethod("setPath", String.class);
-	    		Method getListOfGuest = myPlugin.getClass().getMethod("getListOfGuest");
-	    		ArrayList<Guest> guests = (ArrayList<Guest>) getListOfGuest.invoke(myPlugin);
-	        	
-	    		setPath.invoke(myPlugin, tfPath.getText());
-	    		boolean runPlugin = myPlugin.runPlugin();
-	    		
-	    		if(runPlugin) {
-	    			try {
-	    				//String jsonGuest = new Gson().toJson("");
-		    			for(Guest guest : guests) {
-		    					//guest.setConf(cbListConf.getSelectionModel().getSelectedItem());
-		            	        String jsonGuest = new Gson().toJson(guest);
-		            	        
-		    					System.out.println(cbListConf.getSelectionModel().getSelectedItem().toString());
-		    			}
-		    			//String jsonGuest = new Gson().toJson(guests);
-		    			//new ControllerApi().post("guest", jsonGuest);
-		    			//System.out.println(jsonGuest);
-	    			} 
-					catch(Exception e) {
-						result = false;
-					}
-	    			labelMsg.setText("L'import des " + guests.size() + " invités a été effectué avec succès.");
-	    		}
-	    		
-	    		if(!runPlugin || result) {
-	    			labelMsg.setText("Une erreur est survenue durant l'import, veuillez vérifier le fichier CSV.");
-	    		}
-	    	} 
-	    	else {
-	    		labelMsg.setText("Vous devez sélectionner un fichier CSV avant de pouvoir importer.");
-	    	}
+    	if(idConference != null) {
+    		if(myPlugin.getName().equals("Plugin CSV")) {
+        		saveForCSV();
+        	} else {
+        		saveForDoc();
+        	}
+    	} else {
+    		labelMsg.setText("Vous devez sélectionner une conférence avant de pouvoir " + btnSave.getText() + ".");
+
     	}
-    	else { // Plugin d'export
-    		if(tfPath.getText().trim().length() > 1 && tfPath.getText().endsWith(".doc")) {
-	    		
-	    		Method setPath = myPlugin.getClass().getMethod("setPath", String.class);
-	    		Method setBudget = myPlugin.getClass().getMethod("setBudget", Budget.class);
-	    		Method setConference = myPlugin.getClass().getMethod("setConference", Conference.class);
-	    		Method setListOfGuest = myPlugin.getClass().getMethod("setListOfGuest", ArrayList.class);
-	    		Method setListOfTask = myPlugin.getClass().getMethod("setListOfTask", ArrayList.class);
-	    		Method setLocate = myPlugin.getClass().getMethod("setLocate", Locate.class);
-	    		
-	    		//Method getListOfGuest = myPlugin.getClass().getMethod("getListOfGuest");
-	    		//ArrayList<Guest> guests = (ArrayList<Guest>) getListOfGuest.invoke(myPlugin);
-	        	
-	    		setPath.invoke(myPlugin, tfPath.getText());
-	    		//setBudget.invoke(myPlugin, )
-	    		//setConference.invoke(myPlugin, args);
-	    		//setListOfGuest.invoke(myPlugin, args);
-	    		//setListOfTask.invoke(myPlugin, args);
-	    		//setLocate.invoke(myPlugin, args);
-	    		
-	    		boolean runPlugin = myPlugin.runPlugin();
-	    		
-	    		if(runPlugin) {
-	    			labelMsg.setText("La conférence a été exportée avec succès.");
-	    		}
-	    		
-	    		if(!runPlugin || result) {
-	    			labelMsg.setText("Une erreur est survenue durant l'export, veuillez vérifier le dossier ou le fichier de destination.");
-	    		}
-	    	} 
-	    	else {
-	    		labelMsg.setText("Vous devez exporter au format '.doc'.");
-	    	}
-    	}
-    	
+
     }
     
+    /**
+     * Méthode permettant d'importer les invités via le plugin.
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     */
+    public void saveForCSV() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+    	boolean result = true;
+    	
+    	if(tfPath.getText().trim().length() > 1 && tfPath.getText().endsWith(".csv")) {
+    		
+        	IPlugin myPlugin = PluginManager.plugins.get(pluginSelected);
+        	
+    		Method setPath = myPlugin.getClass().getMethod("setPath", String.class);
+    		Method getListOfGuest = myPlugin.getClass().getMethod("getListOfGuest");
+    		ArrayList<Guest> guests = (ArrayList<Guest>) getListOfGuest.invoke(myPlugin);
+        	
+    		setPath.invoke(myPlugin, tfPath.getText());
+    		boolean runPlugin = myPlugin.runPlugin();
+    		
+    		if(runPlugin) {
+    			try {
+	    			for(Guest guest : guests) {
+	    				String jsonGuest = new Gson().toJson(guest);
+		    			new ControllerApi().post("guest", jsonGuest);
+	    			}
+    			} 
+				catch(Exception e) {
+					result = false;
+				}
+    			labelMsg.setText("L'import des " + guests.size() + " invités a été effectué avec succès.");
+    		}
+    		
+    		if(!runPlugin || !result) {
+    			labelMsg.setText("Une erreur est survenue durant l'import, veuillez vérifier le fichier CSV.");
+    		}
+    	} 
+    	else {
+    		labelMsg.setText("Vous devez sélectionner un fichier CSV avant de pouvoir importer.");
+    	}
+    }
+    
+    /**
+     * Méthode permettant d'exporter les infos des conférences via le plugin.
+     * @throws NoSuchMethodException
+     * @throws SecurityException
+     * @throws IllegalAccessException
+     * @throws IllegalArgumentException
+     * @throws InvocationTargetException
+     * @throws IOException
+     */
+    public void saveForDoc() throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, IOException {
+    	boolean result = true;
+    	
+    	if(tfPath.getText().trim().length() > 1 && tfPath.getText().endsWith(".doc")) {
+    		
+    		IPlugin myPlugin = PluginManager.plugins.get(pluginSelected);
+    		
+    		String jsonConf = new ControllerApi().get("conference/getById/" + idConference);
+            Conference conf = new Gson().fromJson(jsonConf, Conference.class);
+    		
+            String jsonBudget = new ControllerApi().get("budget/getAllBudgetForConference/" + idConference);
+            Budget[] tabBudget = new Gson().fromJson(jsonBudget, Budget[].class);
+            
+            String jsonGuest = new ControllerApi().get("guest/getAllGuest/" + idConference);
+            Guest[] tabGuest = new Gson().fromJson(jsonGuest, Guest[].class);
+            
+            String jsonTask = new ControllerApi().get("task/getAllTaskForConference/" + idConference);
+            Task[] tabTask = new Gson().fromJson(jsonTask, Task[].class);
+            
+            String jsonLocate = new ControllerApi().get("locate/getAll/" + idConference);
+            Locate[] tabLocate = new Gson().fromJson(jsonLocate, Locate[].class);
+    		
+    		Method setPath = myPlugin.getClass().getMethod("setPath", String.class);
+    		Method setBudget = myPlugin.getClass().getMethod("setListOfBudget", Budget[].class);
+    		Method setConference = myPlugin.getClass().getMethod("setConference", Conference.class);
+    		Method setListOfGuest = myPlugin.getClass().getMethod("setListOfGuest", Guest[].class);
+    		Method setListOfTask = myPlugin.getClass().getMethod("setListOfTask", Task[].class);
+    		Method setLocate = myPlugin.getClass().getMethod("setListOfLocate", Locate[].class);
+        	
+    		setPath.invoke(myPlugin, tfPath.getText());
+    		setBudget.invoke(myPlugin, new Object[]{tabBudget});
+    		setConference.invoke(myPlugin, conf);
+    		setListOfGuest.invoke(myPlugin, new Object[]{tabGuest});
+    		setListOfTask.invoke(myPlugin, new Object[]{tabTask});
+    		setLocate.invoke(myPlugin, new Object[]{tabLocate});
+    		
+    		boolean runPlugin = myPlugin.runPlugin();
+    		System.out.println("run : " + runPlugin);
+    		
+    		if(runPlugin) {
+    			labelMsg.setText("La conférence a été exportée avec succès.");
+    		}
+    		
+    		if(!runPlugin || !result) {
+    			labelMsg.setText("Une erreur est survenue durant l'export, veuillez vérifier le dossier ou le fichier de destination.");
+    		}
+    	}
+    	else {
+    		labelMsg.setText("Vous devez sauvegarder le fichier sous format '.doc' avant de pouvoir exporter.");
+    	}
+    }
+    
+    /**
+     * Cette méthode est appeler pour choisir un fichier avec le composant File Chooser.
+     * @param event
+     */
     @FXML
     public void addFile(ActionEvent event) {
     	
     	FileChooser fc = new FileChooser();
-    	fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
+    	IPlugin myPlugin = PluginManager.plugins.get(pluginSelected);
+    	File file = null;
     	
-    	File file = fc.showOpenDialog((Stage)((Node) event.getSource()).getScene().getWindow());
+    	if(myPlugin.getName().equals("Plugin CSV")) {
+    		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV File", "*.csv"));
+        	
+        	file = fc.showOpenDialog((Stage)((Node) event.getSource()).getScene().getWindow());
+        	
+    	} else {
+    		fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Document File", "*.doc"));
+        	
+        	file = fc.showSaveDialog(((Stage)((Node) event.getSource()).getScene().getWindow()));
+    	}
     	
     	if(file != null) {
     		tfPath.setText(file.getAbsolutePath());
@@ -155,12 +225,22 @@ public class ControllerPlugin extends ControllerInitShow implements Initializabl
     }
     
     @FXML
-    public void initConf() {
-    	cbListConf = super.ComboBoxInitConference(cbListConf);
+    public void initConf(ActionEvent event) {
+    	idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
     }
 
-    public void initialize(URL location, ResourceBundle resources) {    	
+    public void initialize(URL location, ResourceBundle resources) {    
+    	IPlugin myPlugin = PluginManager.plugins.get(pluginSelected);
+    	
         labelTitleView.setText(PluginManager.plugins.get(pluginSelected).getName());
         labelDescription.setText(PluginManager.plugins.get(pluginSelected).getDescription());
+        
+        cbListConf = super.ComboBoxInitConference(cbListConf);
+        
+        if(myPlugin.getName().equals("Plugin CSV")) {
+        	btnSave.setText("Importer");
+        } else {
+        	btnSave.setText("Exporter");
+        }
     }
 }

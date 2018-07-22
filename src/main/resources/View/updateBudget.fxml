@@ -31,11 +31,11 @@
             <TextField fx:id="tfAmount" prefHeight="35.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="btnUpdate" layoutX="210.0" layoutY="336.0" mnemonicParsing="false" onAction="#updateDataBase" styleClass="windows7-default" text="Modifier" />
+      <Button fx:id="btnUpdate" disable="true" layoutX="210.0" layoutY="336.0" mnemonicParsing="false" onAction="#updateDataBase" styleClass="windows7-default" text="Modifier" />
       <ComboBox fx:id="cbListBudget" disable="true" layoutX="191.0" layoutY="154.0" onAction="#initialisationForm" prefHeight="29.0" prefWidth="161.0" promptText="Liste des budgets" />
       <fx:include source="navBarView.fxml" />
       <ComboBox fx:id="cbListConference" layoutX="191.0" layoutY="106.0" onAction="#updateBudget" promptText="Liste des conférences" />
-      <Button fx:id="btnDelete" layoutX="203.0" layoutY="320.0" mnemonicParsing="false" styleClass="windows7-default" text="Supprimer" visible="false" />
+      <Button fx:id="btnDelete" layoutX="203.0" layoutY="320.0" mnemonicParsing="false" onAction="#deleteBudget" styleClass="windows7-default" text="Supprimer" visible="false" />
       <ImageView fitHeight="67.0" fitWidth="101.0" layoutX="2.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../logo.png" />

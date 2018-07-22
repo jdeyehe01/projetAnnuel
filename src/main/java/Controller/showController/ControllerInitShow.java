@@ -7,7 +7,7 @@ import javafx.scene.control.ComboBox;
 
 import java.io.IOException;
 
-public abstract class ControllerInitConference {
+public abstract class ControllerInitShow {
     public ComboBox ComboBoxInitConference(ComboBox cb) {
         try {
             String jsonConferences = new ControllerApi().get("conference/getAllByUser/1");

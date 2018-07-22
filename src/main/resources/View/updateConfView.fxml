@@ -39,10 +39,9 @@
          </children>
       </GridPane>
       <Button fx:id="btnSave" disable="true" layoutX="245.0" layoutY="430.0" mnemonicParsing="false" onAction="#updateDataBase" styleClass="windows7-default" text="Modifier" />
-      <ComboBox fx:id="cbConference" layoutX="391.0" layoutY="45.0" onAction="#initialisationForm" prefHeight="25.0" prefWidth="150.0" promptText="Liste des conférence" visible="false" />
       <Button fx:id="btnDelete" layoutX="245.0" layoutY="459.0" mnemonicParsing="false" onAction="#delete" styleClass="windows7-default" text="Supprimer" visible="false" />
       <fx:include source="navBarView.fxml" />
-      <ComboBox layoutX="226.0" layoutY="95.0" promptText="Liste des conférences" styleClass="label" />
+      <ComboBox fx:id="cbConference" onAction="#initialisationForm" layoutX="226.0" layoutY="95.0" promptText="Liste des conférences" styleClass="label" />
       <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../logo.png" />

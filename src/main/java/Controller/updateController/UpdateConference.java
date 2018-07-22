@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -43,8 +45,6 @@ public class UpdateConference extends ControllerInitConference implements Initia
     @FXML
     private TextArea tfDesc;
 
-    @FXML
-    private Button btnNext;
 
     @FXML
     private Button btnSave;
@@ -52,42 +52,14 @@ public class UpdateConference extends ControllerInitConference implements Initia
     @FXML
     private ComboBox cbConference;
 
-
     @FXML
-    public void updateConference() throws IOException, InstantiationException, IllegalAccessException {
-
-        tfName.clear();
-        tfTime.clear();
-        tfDesc.clear();
-        tfDate.getEditor().clear();
-        cbConference.getItems().clear();
-        String url = "user/lastUser";
-        new ControllerAnnotation().getBean(url,this.getClass(),user);
-
-        cbConference.setVisible(true);
-
-        String allConference = new ControllerApi().get("conference/getAllByUser/"+user.getId());
-        System.out.println(allConference);
-        Conference[] tabConference =  new Gson().fromJson(allConference, Conference[].class);
-
-        List<Conference> listConference = Arrays.asList(tabConference);
-        ArrayList<String> listIdName = new ArrayList<String>();
-
-        for(Conference c : listConference){
-            listIdName.add(c.getId() + "-" +c.getName());
-        }
-
-        cbConference.getItems().addAll(listIdName);
-
-
-    }
-
+    private Button btnDelete;
 
     @FXML
     public void navigate(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
 
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Modifier les informations sur un invité ");
 
@@ -97,36 +69,61 @@ public class UpdateConference extends ControllerInitConference implements Initia
 
     @FXML
     public void updateDataBase() throws IOException {
+
+
         conference.setName(tfName.getText());
         conference.setTime(tfTime.getText());
         conference.setDescription(tfDesc.getText());
         conference.setDate(tfDate.getValue().toString());
 
-        String jsonConference = new Gson().toJson(conference,Conference.class);
+        String jsonConference = new Gson().toJson(conference, Conference.class);
 
-        new ControllerApi().put("conference/update/"+conference.getId(),jsonConference);
-
-        btnNext.setVisible(true);
-    }
-
+        new ControllerApi().put("conference/update/" + conference.getId(), jsonConference);
+        }
 
 
     @FXML
     public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
-        tfName.clear();
-        tfTime.clear();
-        tfDesc.clear();
-        tfDate.getEditor().clear();
+        try {
 
 
-        String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        System.out.println("id: "+idConference);
+            tfName.clear();
+            tfTime.clear();
+            tfDesc.clear();
+            tfDate.getEditor().clear();
 
-        String url = "conference/getById/"+idConference;
-        btnSave.setVisible(true);
-        new ControllerAnnotation().getBean(url,this.getClass(),conference);
 
-        cbConference = super.ComboBoxInitConference(cbConference);
+            String idConference = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
+
+            String url = "conference/getById/" + idConference;
+            btnSave.setVisible(true);
+            new ControllerAnnotation().getBean(url, this.getClass(), conference);
+
+            tfName.setText(conference.getName());
+            tfTime.setText(conference.getTime());
+            tfDesc.setText(conference.getDescription());
+
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String dateInString = conference.getDate().split("T")[0];
+
+
+            Date date = formatter.parse(dateInString);
+
+            formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+            tfDate.getEditor().setText(formatter.format(date));
+
+            btnSave.setDisable(false);
+
+            if(btnDelete.isVisible()){
+                btnSave.setVisible(false);
+            }else{
+                btnSave.setVisible(true);
+            }
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
     }
@@ -137,32 +134,26 @@ public class UpdateConference extends ControllerInitConference implements Initia
 
         String idConference = cbConference.getValue().toString().split("-")[0];
 
-        String url ="conference/deleteConference/"+idConference;
+        String url = "conference/deleteConference/" + idConference;
         int code = new ControllerApi().delete(url);
 
-        this.updateConference();
 
-
-        if(code <= 200){
+        if (code <= 200) {
             System.out.println("Delete ! ");
 
-        }else{
+        } else {
             System.out.println("no delete ! ");
 
         }
+        cbConference = super.ComboBoxInitConference(cbConference);
+
     }
+
     public void initialize(URL location, ResourceBundle resources) {
 
-        try {
-           this.updateConference();
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
+        cbConference = super.ComboBoxInitConference(cbConference);
+
 
     }
 }

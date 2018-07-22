@@ -50,94 +50,98 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
     private Button btnUpdate;
 
     @FXML
-    private Button btnNext;
-
-    @FXML
     private Button btnDelete;
 
 
     @FXML
     public void updateBudget() throws IOException, InstantiationException, IllegalAccessException {
 
-        cbListBudget.setVisible(true);
+        if(cbListBudget.getItems().size()>0){
+            cbListBudget.setDisable(false);
+
+        }
         String idConference = cbListConference.getValue().toString().split("-")[0];
-        String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/"+idConference);
-        Budget[] tabBudget =  new Gson().fromJson(allBudget, Budget[].class);
+        String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/" + idConference);
+        Budget[] tabBudget = new Gson().fromJson(allBudget, Budget[].class);
 
         List<Budget> listBudget = Arrays.asList(tabBudget);
         ArrayList<String> listTitle = new ArrayList<String>();
 
-        for(Budget b : listBudget){
-            listTitle.add(b.getId()+"-"+b.getTitle());
+        for (Budget b : listBudget) {
+            listTitle.add(b.getId() + "-" + b.getTitle());
         }
 
-        cbListBudget.getItems().addAll(listTitle);
+        cbListBudget.getItems().setAll(listTitle);
+
+
     }
 
 
     @FXML
-    public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
+    public void initialisationForm() throws InstantiationException, IllegalAccessException {
 
         tfName.clear();
         tfAmount.clear();
-
-        String idBudget = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "budget/getBudgetById/"+idBudget+"/"+c.getId();
+        String idConference = cbListConference.getValue().toString().split("-")[0];
+        String idBudget = cbListBudget.getValue().toString().split("-")[0];
+        String url = "budget/getBudgetById/" + idBudget + "/" + idConference;
         btnUpdate.setVisible(true);
-       new  ControllerAnnotation().getBean(url,this.getClass(),budget);
 
+        ControllerAnnotation.getBean(url, this.getClass(), budget);
+        System.out.println(budget.toString());
         tfName.setText(budget.getTitle());
         tfAmount.setText(String.valueOf(budget.getAmount()));
+
+        cbListBudget.setDisable(false);
+
+
+        if (btnDelete.isVisible()) {
+            btnUpdate.setVisible(false);
+        } else {
+            btnUpdate.setVisible(true);
+            btnUpdate.setDisable(false);
+        }
 
     }
 
     @FXML
     public void updateDataBase() throws IOException {
-        budget.setTitle(tfName.getText());
-        budget.setAmount(Float.parseFloat(tfAmount.getText()));
+        try {
+            budget.setTitle(tfName.getText());
+            budget.setAmount(Float.parseFloat(tfAmount.getText()));
 
-        String jsonBudget = new Gson().toJson(budget,Budget.class);
+            String jsonBudget = new Gson().toJson(budget, Budget.class);
 
-        new ControllerApi().put("budget/updateBudget/"+budget.getId(),jsonBudget);
+            new ControllerApi().put("budget/updateBudget/" + budget.getId(), jsonBudget);
 
-        btnNext.setVisible(true);
+            updateBudget();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
     @FXML
     public void deleteBudget() throws IOException, IllegalAccessException, InstantiationException {
 
-            String idBudget = cbListBudget.getValue().toString().split("-")[0];
+        String idBudget = cbListBudget.getValue().toString().split("-")[0];
 
-            String url = "budget/deleteBudgetById/"+idBudget;
-            int code = new ControllerApi().delete(url);
+        String url = "budget/deleteBudgetById/" + idBudget;
+        int code = new ControllerApi().delete(url);
 
-            this.updateBudget();
-            tfName.clear();
-            tfAmount.clear();
+        this.updateBudget();
+        tfName.clear();
+        tfAmount.clear();
 
-
-
-            if(code <=200) {
-                System.out.println("Delete !");
-            }
-            else {
-                System.out.println("No delete");
-            }
-
+        updateBudget();
+        if (code <= 200) {
+            System.out.println("Delete !");
+        } else {
+            System.out.println("No delete");
         }
-
-
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        System.out.println("Entrer");
-        Parent root  = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
-
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Modifier une budget ");
-
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
-        stage.show();
 
     }
 
@@ -145,19 +149,9 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //this.updateBudget();
         cbListConference = super.ComboBoxInitConference(cbListConference);
 
-        try {
-            new ControllerAnnotation().getBean("conference/lastConf",this.getClass(),c);
-            System.out.println(c.toString());
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
     }
-
 
 
 }

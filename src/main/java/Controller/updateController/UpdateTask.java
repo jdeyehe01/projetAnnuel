@@ -45,10 +45,7 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
     @FXML
     private TextField tfTitle;
 
-    @FXML
-    private TextField tfAmount;
-
-    @FXML
+     @FXML
     private TextField tfTime;
 
     @FXML
@@ -57,18 +54,20 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
     @FXML
     private Button btnUpdate;
 
-    @FXML
-    private Button btnNext;
 
     @FXML
     private Button btnDelete;
 
 
     @FXML
-    public void updateLocate() throws IOException, InstantiationException, IllegalAccessException {
-        cbListTask.getItems().clear();
+    public void updateTask() throws IOException, InstantiationException, IllegalAccessException {
         String idConference = cbListConference.getValue().toString().split("-")[0];
         cbListTask.setVisible(true);
+
+        if(cbListTask.getItems().size()>0){
+            cbListTask.getProperties().clear();
+
+        }
 
         String allTask = new ControllerApi().get("task/getAllTaskForConference/" + idConference);
         Task[] tabTask = new Gson().fromJson(allTask, Task[].class);
@@ -83,24 +82,16 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
         cbListTask.getItems().addAll(listTitle);
 
 
-        if(cbListTask.getItems().isEmpty()){
-            cbListTask.setDisable(true);
-        }else{
-            cbListTask.setDisable(false);
-        }
     }
 
 
     @FXML
     public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
         tfTitle.clear();
-        tfAmount.clear();
         tfTime.clear();
         String idConference = cbListConference.getValue().toString().split("-")[0];
-        if (cbListTask.isDisable()){
-            return;
-        }
-        String idTask = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
+
+        String idTask = cbListTask.getValue().toString().split("-")[0];
         String url = "task/getTaskById/" + idTask + "/" + idConference;
 
         if(btnDelete.isVisible()){
@@ -111,7 +102,6 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
        new  ControllerAnnotation().getBean(url, this.getClass(), task);
 
         tfTitle.setText(task.getTitle());
-        tfAmount.setText(String.valueOf(task.getAmount()));
         tfTime.setText(task.getDuration());
 
     }
@@ -119,16 +109,21 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
 
     @FXML
     public void updateDataBase() throws IOException {
+        try {
         task.setTitle(tfTitle.getText());
-        task.setAmount(Float.parseFloat(tfAmount.getText()));
         task.setDuration(tfTime.getText());
-
 
         String jsonTask = new Gson().toJson(task, Task.class);
 
         new ControllerApi().put("task/updateTask/" + task.getId(), jsonTask);
 
-        btnNext.setVisible(true);
+
+            updateTask();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -154,9 +149,8 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
         String url = "task/deleteTaskById/"+idTask;
         int code = new ControllerApi().delete(url);
 
-        this.updateLocate();
+        this.updateTask();
         tfTitle.clear();
-        tfAmount.clear();
         tfTime.clear();
 
         if(code <=200) {

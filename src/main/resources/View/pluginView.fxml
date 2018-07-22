@@ -9,15 +9,15 @@
 
 <Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerPlugin">
    <children>
-      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="27.0" layoutY="42.0" prefHeight="62.0" prefWidth="551.0" styleClass="label-header" text="Plugin" />
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="34.0" layoutY="47.0" prefHeight="62.0" prefWidth="526.0" styleClass="label-header" text="Plugin" />
       <Accordion fx:id="accordionView" layoutX="176.0" layoutY="135.0" prefHeight="244.0" prefWidth="248.0" stylesheets="@../style.css" visible="false" />
       <fx:include source="navBarView.fxml" />
       <Label id="labelDesc" fx:id="labelDescription" focusTraversable="false" layoutX="46.0" layoutY="135.0" prefHeight="51.0" prefWidth="510.0" wrapText="true" />
       <Label id="labelDesc" focusTraversable="false" layoutX="64.0" layoutY="242.0" prefHeight="31.0" prefWidth="136.0" text="Chemin du fichier :" wrapText="true" />
-      <Button fx:id="btnCreateConference" layoutX="240.0" layoutY="332.0" mnemonicParsing="false" onAction="#save" prefHeight="31.0" prefWidth="120.0" styleClass="windows7-default" text="Importer" />
+      <Button fx:id="btnSave" layoutX="240.0" layoutY="332.0" mnemonicParsing="false" onAction="#save" prefHeight="31.0" prefWidth="120.0" styleClass="windows7-default" text="Importer" />
       <TextField fx:id="tfPath" editable="false" layoutX="204.0" layoutY="239.0" prefHeight="37.0" prefWidth="237.0" />
       <Button layoutX="441.0" layoutY="239.0" minWidth="-Infinity" mnemonicParsing="false" onAction="#addFile" prefHeight="37.0" prefWidth="25.0" />
-      <Label fx:id="labelMsg" alignment="CENTER" layoutX="64.0" layoutY="292.0" prefHeight="21.0" prefWidth="475.0" />
+      <Label fx:id="labelMsg" alignment="CENTER" layoutX="64.0" layoutY="276.0" prefHeight="51.0" prefWidth="475.0" wrapText="true" />
       <ComboBox fx:id="cbListConf" layoutX="204.0" layoutY="200.0" onAction="#initConf" promptText="Choisir une conférence" styleClass="label" />
       <Label id="labelDesc" focusTraversable="false" layoutX="64.0" layoutY="200.0" prefHeight="31.0" prefWidth="136.0" text="Conférence :" wrapText="true" />
    </children>

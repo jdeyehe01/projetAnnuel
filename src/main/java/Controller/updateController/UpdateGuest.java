@@ -42,9 +42,6 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
     private Button btnSave;
 
     @FXML
-    private Button btnNext;
-
-    @FXML
     private ComboBox cbListConference;
 
     @BeanFromDataBase
@@ -60,24 +57,28 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
     private ComboBox cbListGuest;
 
     @FXML
+    private Button btnDelete;
+
+    @FXML
     public void updateGuest() throws IOException, InstantiationException, IllegalAccessException {
-        cbListGuest.getItems().clear();
-        cbListGuest.getEditor().setDisable(false);
-        String url = "conference/getById/";
-        cbListGuest.setVisible(true);
+        cbListGuest.setDisable(false);
+
+        if (cbListGuest.getItems().size() > 0) {
+            cbListGuest.getProperties().clear();
+        }
 
         String idConference = cbListConference.getValue().toString().split("-")[0];
 
-        String allGuest = new ControllerApi().get("guest/getAllGuest/"+idConference);
+        String allGuest = new ControllerApi().get("guest/getAllGuest/" + idConference);
 
-        Guest[] tabGuest =  new Gson().fromJson(allGuest, Guest[].class);
+        Guest[] tabGuest = new Gson().fromJson(allGuest, Guest[].class);
 
 
         List<Guest> listGuest = Arrays.asList(tabGuest);
         ArrayList<String> listNameGuset = new ArrayList<String>();
 
-        for(Guest guest : listGuest){
-            listNameGuset.add(guest.getId()+"-"+guest.getlname()+ " " +guest.getfname());
+        for (Guest guest : listGuest) {
+            listNameGuset.add(guest.getId() + "-" + guest.getlname() + " " + guest.getfname());
         }
 
         cbListGuest.getItems().addAll(listNameGuset);
@@ -90,41 +91,54 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
         tfLastName.clear();
         tfEmail.clear();
 
-        String idGuest = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "guest/guestById/"+idGuest;
+        String idGuest = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
+        String url = "guest/guestById/" + idGuest;
         btnSave.setVisible(true);
-        new ControllerAnnotation().getBean(url,this.getClass(),guest);
+        new ControllerAnnotation().getBean(url, this.getClass(), guest);
 
         tfFirstName.setText(guest.getfname());
         tfLastName.setText(guest.getlname());
         tfEmail.setText(guest.getEmail());
 
+        if (btnDelete.isVisible()) {
+            btnSave.setVisible(false);
+        } else {
+            btnSave.setVisible(true);
+        }
 
 
     }
-
 
 
     @FXML
     public void updateDataBase() throws IOException {
-        String id = guest.getId();
-        guest.setlname(tfLastName.getText());
-        guest.setEmail(tfEmail.getText());
-        guest.setfname(tfFirstName.getText());
 
-        String jsonGuest = new Gson().toJson(guest,Guest.class);
+        try {
+            String id = guest.getId();
+            guest.setlname(tfLastName.getText());
+            guest.setEmail(tfEmail.getText());
+            guest.setfname(tfFirstName.getText());
 
-        new ControllerApi().put("guest/update/"+guest.getId(),jsonGuest);
+            String jsonGuest = new Gson().toJson(guest, Guest.class);
 
-        btnNext.setVisible(true);
+            new ControllerApi().put("guest/update/" + guest.getId(), jsonGuest);
+
+
+            this.updateGuest();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
     }
 
     @FXML
     public void navigate(ActionEvent event) throws IOException {
-        Parent root  = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
 
 
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
         stage.setTitle("Before Show - Modifier une presentation ");
 
@@ -136,17 +150,14 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
 
     @FXML
     public void deleteGuest() throws IOException {
-
-        String idGuest = cbListGuest.getValue().toString().split("-")[0];
-
-        String url = "guest/deleteGuest/"+idGuest;
-        int code = new ControllerApi().delete(url);
-
-        if(code <=202) {
-            System.out.println("Delete !");
-        }
-        else {
-            System.out.println("No delete");
+        try {
+            String idGuest = cbListGuest.getValue().toString().split("-")[0];
+            String url = "guest/deleteGuest/" + idGuest;
+            this.updateGuest();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
         }
 
     }

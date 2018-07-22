@@ -33,11 +33,10 @@
             <TextField fx:id="tfEmail" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button fx:id="btnNext" layoutX="332.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
-      <Button fx:id="btnSave" layoutX="232.0" layoutY="355.0" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
+      <Button fx:id="btnSave" layoutX="232.0" layoutY="355.0" mnemonicParsing="false" onAction="#updateDataBase" styleClass="windows7-default" text="Modifier" visible="false" />
       <ComboBox fx:id="cbListGuest" disable="true" layoutX="221.0" layoutY="122.0" onAction="#initialisationForm" prefHeight="32.0" prefWidth="183.0" promptText="Liste des invités" styleClass="text-field" />
       <ComboBox fx:id="cbListConference" layoutX="221.0" layoutY="79.0" onAction="#updateGuest" promptText="Liste des conférences" styleClass="text-field" />
-      <Button fx:id="btnDelete" layoutX="425.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteGuest" text="Supprimer" visible="false" />
+      <Button fx:id="btnDelete" layoutX="425.0" layoutY="105.0" mnemonicParsing="false" onAction="#deleteGuest" styleClass="windows7-default" text="Supprimer" visible="false" />
       <fx:include source="navBarView.fxml" />
       <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>

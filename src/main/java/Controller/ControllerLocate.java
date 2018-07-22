@@ -1,5 +1,8 @@
 package Controller;
 
+import Annotation.BeanFromDataBase;
+import Annotation.ControllerAnnotation;
+import Controller.showController.ControllerInitConference;
 import Model.Conference;
 import Model.Locate;
 import com.google.gson.Gson;
@@ -10,10 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerLocate implements Initializable {
+public class ControllerLocate extends ControllerInitConference implements Initializable {
 
     @FXML
     private TextField tfName;
@@ -44,46 +44,88 @@ public class ControllerLocate implements Initializable {
     @FXML
     private Button btnNext;
 
+    @FXML
+    private ComboBox cbListConference;
+
+    @FXML
+    private Button btnAddLocate;
+
+    @BeanFromDataBase
+    private static Conference conference;
+
+    @FXML
+    private Button btnSave;
 
     @FXML
     public void saveInBdd() throws IOException {
+        try {
+            String idConf = cbListConference.getValue().toString().split("-")[0];
+            ControllerAnnotation.getBean("conference/conferenceById/" + idConf, this.getClass(), conference);
+            Locate location = new Locate(tfName.getText(), tfAddress.getText(), Integer.parseInt(tfCityCode.getText()), tfCity.getText(), conference);
 
-        ControllerApi api = new ControllerApi();
-        String jsonConf = api.get("conference/lastConf");
+            String jsonLocate = new Gson().toJson(location,Locate.class);
 
-        Conference conference = new Gson().fromJson(jsonConf,Conference.class);
+            int codeResponse = new ControllerApi().post("locate/" + conference.getId(), jsonLocate);
 
-        Locate location = new Locate(tfName.getText(),tfAddress.getText(),Integer.parseInt(tfCityCode.getText()),tfCity.getText(), conference);
+            if (codeResponse <= 201) {
+                btnNext.setVisible(true);
+                contentLocate.getChildren().add(new Label(tfName.getText()));
+                listLocate.setContent(contentLocate);
+            }else{
+                System.out.println(codeResponse);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
 
-        String jsonLocate = new Gson().toJson(location);
 
-       int codeResponse = api.post("locate/",jsonLocate);
-
-       if(codeResponse <=201){
-           btnNext.setVisible(true);
-           contentLocate.getChildren().add(new Label(tfName.getText()));
-           listLocate.setContent(contentLocate);
-       }
-       }
-
+    @FXML
+    public void initFormCreate() {
+        tfName.setDisable(false);
+        tfCity.setDisable(false);
+        tfCityCode.setDisable(false);
+        tfAddress.setDisable(false);
+        btnNext.setDisable(false);
+        btnSave.setDisable(false);
+        btnAddLocate.setDisable(false);
+    }
 
 
     @FXML
     public void newLocate() throws IOException {
+        contentLocate.getChildren().add(new Label(tfName.getText() + " - " + tfCity.getText()));
+        listLocate.setContent(contentLocate);
         this.saveInBdd();
 
         tfAddress.clear();
         tfCity.clear();
         tfCityCode.clear();
         tfName.clear();
-
-
     }
-
-
 
 
     public void initialize(URL location, ResourceBundle resources) {
+        cbListConference = super.ComboBoxInitConference(cbListConference);
+    }
+
+
+    @FXML
+    public void navigateTo(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/taskView.fxml"));
+
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
+        stage.setTitle("Before Show - Ajouter une tâche ");
+
+        stage.setResizable(false);
+        stage.setScene(new Scene(root));
+
+        stage.show();
 
     }
+
+
 }

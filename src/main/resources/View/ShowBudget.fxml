@@ -19,6 +19,8 @@
             <Image url="@../logo.png" />
          </image>
       </ImageView>
+      <Label layoutX="418.0" layoutY="191.0" text="Budget total:" />
+      <Label fx:id="lbAmount" layoutX="441.0" layoutY="210.0" text="0.0 €" />
    </children>
    <styleClass>
       <String fx:value="windows7-default" />

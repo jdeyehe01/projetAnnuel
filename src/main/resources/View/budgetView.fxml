@@ -41,7 +41,7 @@
       </ScrollPane>
       <Button fx:id="btnSave" disable="true" layoutX="210.0" layoutY="336.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" stylesheets="@../style.css" text="Enregistrer" />
       <fx:include source="navBarView.fxml" />
-      <ComboBox fx:id="cbListConference" layoutX="254.0" layoutY="100.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
+      <ComboBox fx:id="cbListConference" layoutX="254.0" layoutY="100.0" onAction="#initFormCreate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
       <ImageView fitHeight="103.0" fitWidth="151.0" layoutX="8.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../logo.png" />

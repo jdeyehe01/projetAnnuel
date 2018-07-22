@@ -46,29 +46,26 @@ public class ControllerShowGuest extends ControllerInitConference implements Ini
 
             String idConference = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
             String url = "guest/getAllGuest/"+idConference;
-
             String jsonGuest = new ControllerApi().get(url);
-
             Guest[] tabGuest = new Gson().fromJson(jsonGuest, Guest[].class);
 
             for (Guest g : tabGuest) {
                 TitledPane t = new TitledPane();
+                VBox content = new VBox();
+
                 t.setText(g.getfname());
 
-                VBox content = new VBox();
                 content.getChildren().add(new Label("First name: " + g.getfname()));
                 content.getChildren().add(new Label("Last name: " + g.getlname()));
                 content.getChildren().add(new Label("Email: " + g.getEmail()));
 
                 t.setContent(content);
-                t.setExpanded(true);
 
 
                 accordionView.getPanes().add(t);
 
             }
 
-            accordionView.autosize();
 
 
         } catch (IOException e) {

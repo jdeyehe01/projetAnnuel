@@ -37,13 +37,11 @@ public class ControllerShowPlugin implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    	
     	if(Plugin.PluginManager.plugins == null) {
     		loadPlugins();
     	} else {
     		Plugin.PluginManager.plugins.forEach(plugin -> cbListPlugin.getItems().add(plugin.getName()));
     	}
-    		
     }
     
     @FXML
@@ -59,14 +57,9 @@ public class ControllerShowPlugin implements Initializable {
     @FXML
     public void usePlugin(ActionEvent event) throws IOException {
     	
-    	Parent root;
     	this.pluginSelected = cbListPlugin.getSelectionModel().getSelectedIndex();
     	
-    	if(PluginManager.plugins.get(pluginSelected).getName().equals("Plugin CSV") ) {
-    		root = FXMLLoader.load(getClass().getResource("/View/pluginCSV.fxml"));
-    	} else {
-    		root = FXMLLoader.load(getClass().getResource("/View/pluginDOC.fxml"));
-    	}
+    	Parent root = FXMLLoader.load(getClass().getResource("/View/pluginView.fxml"));
         
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         stage.close();
