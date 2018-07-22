@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.showController.ControllerShowGuest">
+   <children>
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="38.0" prefHeight="35.0" prefWidth="229.0" styleClass="label-header" text="Vos invités" />
+      <ComboBox fx:id="cbListConference" layoutX="210.0" layoutY="106.0" onAction="#initialisationGuest" promptText="Choisir une conférence" styleClass="label" />
+      <fx:include source="navBarView.fxml" />
+      <ImageView fitHeight="103.0" fitWidth="151.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
+      <ScrollPane layoutX="112.0" layoutY="149.0" prefHeight="230.0" prefWidth="378.0">
+         <content>
+            <Accordion fx:id="accordionView" prefHeight="229.0" prefWidth="377.0" stylesheets="@../style.css" visible="false" />
+         </content>
+      </ScrollPane>
+   </children>
+</Pane>
