@@ -24,7 +24,9 @@
         <link href="css/style-css.min.css" rel="stylesheet">
 
   </head>
-<!-- Header -->
+
+  <body id="page-top">
+    <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
         <h1 class="mb-1  text-center ">Tâche</h1>
@@ -33,7 +35,6 @@
         </h3>
       </div>
     </header>
-  <body id="page-top">
     <!-- Navigation -->
 
     <a class="menu-toggle rounded" href="#">
@@ -65,10 +66,6 @@
                         <input class="form-control" type="text" name="title" id="tilte">
                       </div>
                       <div>
-                        <label for="amount">Montant de la tâche :</label>
-                        <input class="form-control" type="number" name="amount" id="amount">
-                      </div>
-                      <div>
                         <label for="duration">Durée de la tâche :  </label>
                         <input class="form-control" type="time" name="duration" id="duration">
                     </div>
@@ -91,7 +88,6 @@
             <thead>
               <tr>
                 <th>Titre</th>
-                <th>Montant</th>
                 <th>Durée</th>            
                 <th></th>
               </tr>
@@ -113,36 +109,33 @@
 <script src="js/stylish-portfolio.min.js"></script>
 
 <script type="text/javascript">
-
-
+$(document).ready(function(){
+  alert("Lieu créé ! Maintenant les tâches ! ");
+});
 
   $('#submit').on('click', function(){
     var tilteTask = document.getElementById("tilte").value;
-    var amountTask = document.getElementById("amount").value;
     var durationTask = document.getElementById("duration").value;
 
-     if(durationTask.length !=0 && amountTask.length != 0 && tilteTask.length != 0 ){
+     if(durationTask.length !=0 && tilteTask.length != 0 ){
         $.ajax({
           type: 'POST',
           url: "http://sebastiendelbeportfolio.alwaysdata.net/task/",
           data: {
             title: tilteTask,
-            amount: amountTask,
             duration: durationTask
           },
           success: function(data) {
             
           },
-          error: function(){
+          error: function(errormessage){
             alert(errormessage.responseText);
           }
         });
         FindLastConf();
-        
       }else{
          alert("veuillez remplir les champs !");
       }
-
   });
 
 function FindLastConf(){
@@ -173,7 +166,6 @@ function RefreshDiv(idLastconf){
         $(result).each(function (index, m){
           var ligne = $("<tr> </tr>");
             ligne.append($("<td>" + m.title + "</td>"));
-            ligne.append($("<td>" + m.amount + "</td>"));
             ligne.append($("<td>" + m.duration + "</td>"));
             ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
             $('#listTask').append(ligne);
