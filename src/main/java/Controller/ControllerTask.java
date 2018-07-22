@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Conference;
-import Model.Presentation;
 import Model.Task;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;

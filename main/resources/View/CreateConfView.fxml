@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="471.0" prefWidth="665.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerConf">
+   <children>
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="213.0" layoutY="48.0" styleClass="label-header" text="Créer votre conférence" />
+      <GridPane layoutX="78.0" layoutY="128.0" prefHeight="260.0" prefWidth="509.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="415.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="121.0" minHeight="10.0" prefHeight="33.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="137.0" minHeight="10.0" prefHeight="137.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="tfName" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
+            <Label fx:id="labelName" alignment="CENTER" prefHeight="40.0" prefWidth="94.0" text="Nom : " />
+            <Label fx:id="labelHoure" alignment="CENTER" prefHeight="44.0" prefWidth="92.0" text="Heure :" GridPane.rowIndex="1" />
+            <DatePicker fx:id="tfDate" prefHeight="31.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="labelDate" alignment="CENTER" prefHeight="44.0" prefWidth="82.0" text="Date :" GridPane.rowIndex="2" />
+            <TextField fx:id="tfTime" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="labelDesc" alignment="CENTER" prefHeight="44.0" prefWidth="98.0" text="Description : " GridPane.rowIndex="3" />
+            <TextArea fx:id="tfDesc" prefHeight="105.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+         </children>
+      </GridPane>
+      <Button fx:id="btnNext" layoutX="448.0" layoutY="413.0" mnemonicParsing="false" onAction="#navigateTo" styleClass="windows7-default" text="Suivant" visible="false" />
+      <Button fx:id="btnSave" layoutX="271.0" layoutY="415.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" stylesheets="@../style.css" text="Enregistrer" />
+      <ComboBox fx:id="cbConference" layoutX="391.0" layoutY="45.0" prefHeight="25.0" prefWidth="150.0" visible="false" />
+      <fx:include maxWidth="1.7976931348623157E308" scaleX="1.03" source="navBarView.fxml" />
+      <ImageView fitHeight="80.0" fitWidth="124.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</Pane>

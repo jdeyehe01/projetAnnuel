@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -12,8 +14,8 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="616.0" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdateLocate">
    <children>
-      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="23.0" prefHeight="44.0" prefWidth="229.0" text="Modifier un lieu" />
-      <GridPane layoutX="59.0" layoutY="150.0" prefHeight="190.0" prefWidth="509.0">
+      <Label fx:id="labelTitleView" alignment="CENTER" layoutX="186.0" layoutY="23.0" styleClass="label-header" text="Modifier un lieu" />
+      <GridPane layoutX="54.0" layoutY="177.0" prefHeight="190.0" prefWidth="509.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="415.0" />
@@ -35,12 +37,16 @@
             <TextField fx:id="tfCityCode" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <Button fx:id="btnNext" layoutX="350.0" layoutY="350.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
-      <Button fx:id="btnSave" layoutX="300.0" layoutY="350.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
-      <ComboBox fx:id="cbListLocate" layoutX="228.0" layoutY="110.0" onAction="#initialisationForm" prefHeight="29.0" prefWidth="160.0" promptText="Liste des lieux" />
-      <ComboBox fx:id="cbListConference" layoutX="228.0" layoutY="67.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" />
+      <Button fx:id="btnSave" layoutX="260.0" layoutY="367.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
+      <ComboBox fx:id="cbListLocate" disable="true" layoutX="228.0" layoutY="127.0" onAction="#initialisationForm" prefHeight="29.0" prefWidth="160.0" promptText="Liste des lieux" />
+      <ComboBox fx:id="cbListConference" layoutX="228.0" layoutY="87.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" />
       <Button fx:id="btnDelete" layoutX="450.0" layoutY="108.0" mnemonicParsing="false" onAction="#deleteTask" prefHeight="25.0" prefWidth="94.0" text="Supprimer" visible="false" />
       <fx:include source="navBarView.fxml" />
+      <ImageView fitHeight="116.0" fitWidth="128.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
    </children>
    <styleClass>
       <String fx:value="windows7-default" />

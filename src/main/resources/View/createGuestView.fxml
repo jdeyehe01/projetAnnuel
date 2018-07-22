@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="822.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerGuest">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="822.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerGuest">
     <children>
-        <Label fx:id="labelTitleView" alignment="CENTER" layoutX="209.0" layoutY="41.0" styleClass="label-header" stylesheets="@../style.css" text="Ajouer un invité" />
-        <GridPane layoutX="46.0" layoutY="105.0" prefHeight="190.0" prefWidth="509.0">
+        <Label fx:id="labelTitleView" alignment="CENTER" layoutX="280.0" layoutY="54.0" styleClass="label-header" stylesheets="@../style.css" text="Ajouer un invité" />
+        <GridPane layoutX="59.0" layoutY="175.0" prefHeight="190.0" prefWidth="509.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="415.0" />
@@ -24,22 +27,28 @@
                 <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="49.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="tfLastName" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
+                <TextField fx:id="tfLastName" disable="true" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
                 <Label fx:id="labelName" alignment="CENTER" prefHeight="40.0" prefWidth="94.0" stylesheets="@../style.css" text="Nom : " />
                 <Label fx:id="labelHoure" alignment="CENTER" prefHeight="44.0" prefWidth="92.0" text="Prénom : " GridPane.rowIndex="1" />
-                <TextField fx:id="tfFirstName" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="tfFirstName" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label fx:id="labelDesc" alignment="CENTER" prefHeight="44.0" prefWidth="98.0" text="Email : " GridPane.rowIndex="2" />
-            <TextField fx:id="tfEmail" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="tfEmail" disable="true" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
         <Button fx:id="btnNext" layoutX="358.0" layoutY="355.0" mnemonicParsing="false" onAction="#navigate" styleClass="windows7-default" stylesheets="@../style.css" text="Suivant" visible="false" />
-      <Button fx:id="btnNext1" layoutX="232.0" layoutY="304.0" mnemonicParsing="false" onAction="#newGuest" styleClass="windows7-default" stylesheets="@../style.css" text="Ajouter un nouvel invité" />
-      <ScrollPane fx:id="scrollPaneGuest" layoutX="599.0" layoutY="105.0" prefHeight="200.0" prefWidth="200.0">
+      <Button fx:id="btnNext1" disable="true" layoutX="218.0" layoutY="384.0" mnemonicParsing="false" onAction="#newGuest" styleClass="windows7-default" stylesheets="@../style.css" text="Ajouter un nouvel invité" />
+      <ScrollPane fx:id="scrollPaneGuest" layoutX="597.0" layoutY="170.0" prefHeight="200.0" prefWidth="200.0">
          <content>
             <VBox fx:id="verticalBox" prefHeight="195.0" prefWidth="195.0" visible="false" />
          </content>
       </ScrollPane>
-      <Button fx:id="btnSave" layoutX="204.0" layoutY="355.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" stylesheets="@../style.css" text="Enregistrer" />
+      <Button fx:id="btnSave" disable="true" layoutX="190.0" layoutY="435.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" stylesheets="@../style.css" text="Enregistrer" />
       <fx:include source="navBarView.fxml" />
+      <ComboBox fx:id="cbListConference" layoutX="324.0" layoutY="130.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
+      <ImageView fitHeight="103.0" fitWidth="151.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
     </children>
 </Pane>

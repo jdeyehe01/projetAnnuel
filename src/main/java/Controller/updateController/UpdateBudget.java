@@ -1,7 +1,7 @@
 package Controller.updateController;
 
 import Controller.ControllerApi;
-import Controller.showController.ControllerInitShow;
+import Controller.showController.ControllerInitConference;
 import Model.Conference;
 import Model.Budget;
 import Annotation.BeanFromDataBase;
@@ -26,7 +26,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UpdateBudget extends ControllerInitShow implements Initializable {
+public class UpdateBudget extends ControllerInitConference implements Initializable {
     @BeanFromDataBase
     private static Conference c;
 

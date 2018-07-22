@@ -5,6 +5,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -29,12 +31,16 @@
             <TextField fx:id="tfAmount" prefHeight="35.0" prefWidth="415.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
-      <Button fx:id="btnNext" layoutX="310.0" layoutY="336.0" mnemonicParsing="false" onAction="#navigate" text="Suivant" visible="false" />
-      <Button fx:id="btnUpdate" layoutX="210.0" layoutY="336.0" mnemonicParsing="false" onAction="#updateDataBase" text="Modifier" visible="false" />
-      <ComboBox fx:id="cbListBudget" layoutX="191.0" layoutY="154.0" onAction="#initialisationForm" prefHeight="29.0" prefWidth="161.0" promptText="Liste des budgets" />
+      <Button fx:id="btnUpdate" layoutX="210.0" layoutY="336.0" mnemonicParsing="false" onAction="#updateDataBase" styleClass="windows7-default" text="Modifier" />
+      <ComboBox fx:id="cbListBudget" disable="true" layoutX="191.0" layoutY="154.0" onAction="#initialisationForm" prefHeight="29.0" prefWidth="161.0" promptText="Liste des budgets" />
       <fx:include source="navBarView.fxml" />
       <ComboBox fx:id="cbListConference" layoutX="191.0" layoutY="106.0" onAction="#updateBudget" promptText="Liste des conférences" />
-      <Button fx:id="btnDelete" layoutX="355.0" layoutY="135.0" mnemonicParsing="false" text="Supprimer" visible="false" />
+      <Button fx:id="btnDelete" layoutX="203.0" layoutY="320.0" mnemonicParsing="false" styleClass="windows7-default" text="Supprimer" visible="false" />
+      <ImageView fitHeight="67.0" fitWidth="101.0" layoutX="2.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
    </children>
    <styleClass>
       <String fx:value="windows7-default" />

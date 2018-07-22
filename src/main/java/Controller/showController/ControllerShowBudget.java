@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerShowBudget extends ControllerInitShow implements Initializable {
+public class ControllerShowBudget extends ControllerInitConference implements Initializable {
     @FXML
     private Accordion accordionView;
 

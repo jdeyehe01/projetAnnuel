@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ControllerShowGuest extends ControllerInitShow implements Initializable {
+public class ControllerShowGuest extends ControllerInitConference implements Initializable {
 
     @FXML
     private Accordion accordionView;

@@ -7,10 +7,10 @@ import javafx.scene.control.ComboBox;
 
 import java.io.IOException;
 
-public abstract class ControllerInitShow {
+public abstract class ControllerInitConference {
     public ComboBox ComboBoxInitConference(ComboBox cb) {
         try {
-            String jsonConferences = new ControllerApi().get("conference/getAllByUser/1");
+            String jsonConferences = new ControllerApi().get("conference/getAllByUser/13");
             Conference[] tabConference = new Gson().fromJson(jsonConferences, Conference[].class);
 
             for (Conference c : tabConference) {

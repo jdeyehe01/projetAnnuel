@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -40,6 +41,9 @@ public class ControllerLocate implements Initializable {
     @FXML
     private VBox contentLocate;
 
+    @FXML
+    private Button btnNext;
+
 
     @FXML
     public void saveInBdd() throws IOException {
@@ -53,11 +57,16 @@ public class ControllerLocate implements Initializable {
 
         String jsonLocate = new Gson().toJson(location);
 
-        api.post("locate/",jsonLocate);
+       int codeResponse = api.post("locate/",jsonLocate);
 
-        contentLocate.getChildren().add(new Label(tfName.getText()));
-        listLocate.setContent(contentLocate);
-    }
+       if(codeResponse <=201){
+           btnNext.setVisible(true);
+           contentLocate.getChildren().add(new Label(tfName.getText()));
+           listLocate.setContent(contentLocate);
+       }
+       }
+
+
 
     @FXML
     public void newLocate() throws IOException {

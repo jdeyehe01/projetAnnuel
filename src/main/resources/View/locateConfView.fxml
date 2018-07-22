@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="737.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerLocate">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="508.0" prefWidth="737.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerLocate">
     <children>
-        <Label fx:id="labelTitleView" alignment="CENTER" layoutX="214.0" layoutY="40.0" prefHeight="44.0" prefWidth="229.0" styleClass="label-header" text="Localisation" />
-        <GridPane layoutX="46.0" layoutY="105.0" prefHeight="190.0" prefWidth="509.0">
+        <Label fx:id="labelTitleView" alignment="CENTER" layoutX="222.0" layoutY="46.0" prefHeight="44.0" prefWidth="229.0" styleClass="label-header" text="Localisation" />
+        <GridPane layoutX="44.0" layoutY="170.0" prefHeight="190.0" prefWidth="509.0">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="249.0" minWidth="10.0" prefWidth="94.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.0" minWidth="10.0" prefWidth="415.0" />
@@ -25,24 +28,30 @@
                 <RowConstraints maxHeight="137.0" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
             </rowConstraints>
             <children>
-                <TextField fx:id="tfName" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
+                <TextField fx:id="tfName" disable="true" prefHeight="26.0" prefWidth="196.0" GridPane.columnIndex="1" />
                 <Label fx:id="labelName" alignment="CENTER" prefHeight="40.0" prefWidth="94.0" text="Nom : " />
                 <Label fx:id="labelHoure" alignment="CENTER" prefHeight="44.0" prefWidth="92.0" text="Adresse :" GridPane.rowIndex="1" />
                 <Label fx:id="labelDate" alignment="CENTER" prefHeight="44.0" prefWidth="95.0" text="Ville" GridPane.rowIndex="2" />
-                <TextField fx:id="tfAddress" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="tfAddress" disable="true" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label fx:id="labelDesc" alignment="CENTER" prefHeight="44.0" prefWidth="98.0" text="Code postal" GridPane.rowIndex="3" />
-                <TextField fx:id="tfCity" layoutX="104.0" layoutY="49.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                <TextField fx:id="tfCityCode" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <TextField fx:id="tfCity" disable="true" layoutX="104.0" layoutY="49.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="tfCityCode" disable="true" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             </children>
         </GridPane>
-        <Button fx:id="btnNext" layoutX="348.0" layoutY="357.0" mnemonicParsing="false" onAction="#saveInBdd" styleClass="windows7-default" text="Suivant" visible="false" />
-        <Button fx:id="btnAddLocate" layoutX="232.0" layoutY="304.0" mnemonicParsing="false" onAction="#newLocate" styleClass="windows7-default" text="Ajouter un nouveau lieu" />
+        <Button fx:id="btnNext" layoutX="336.0" layoutY="425.0" mnemonicParsing="false" onAction="#saveInBdd" styleClass="windows7-default" text="Suivant" visible="false" />
+        <Button fx:id="btnAddLocate" disable="true" layoutX="233.0" layoutY="372.0" mnemonicParsing="false" onAction="#newLocate" styleClass="windows7-default" text="Ajouter un nouveau lieu" />
       <fx:include source="navBarView.fxml" />
-      <ScrollPane fx:id="listLocate" layoutX="573.0" layoutY="100.0" prefHeight="200.0" prefWidth="150.0">
+      <Button disable="true" layoutX="206.0" layoutY="425.0" mnemonicParsing="false" styleClass="windows7-default" text="Enregistrer" />
+      <ComboBox fx:id="cbListConference" layoutX="250.0" layoutY="115.0" onAction="#updateLocate" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
+      <ScrollPane fx:id="listLocate" layoutX="584.0" layoutY="131.0" prefHeight="200.0" prefWidth="150.0">
          <content>
             <VBox fx:id="contentLocate" prefHeight="200.0" prefWidth="131.0" />
          </content>
       </ScrollPane>
-      <Button layoutX="205.0" layoutY="357.0" mnemonicParsing="false" styleClass="windows7-default" text="Enregistrer" />
+      <ImageView fitHeight="103.0" fitWidth="151.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
     </children>
 </Pane>

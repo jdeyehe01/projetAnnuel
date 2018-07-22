@@ -1,6 +1,7 @@
 package Controller.updateController;
 
 import Controller.ControllerApi;
+import Controller.showController.ControllerInitConference;
 import Model.Conference;
 import Model.Guest;
 import Annotation.BeanFromDataBase;
@@ -26,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class UpdateGuest implements Initializable {
+public class UpdateGuest extends ControllerInitConference implements Initializable {
 
 
     @FXML
@@ -98,6 +99,8 @@ public class UpdateGuest implements Initializable {
         tfLastName.setText(guest.getlname());
         tfEmail.setText(guest.getEmail());
 
+
+
     }
 
 
@@ -130,23 +133,6 @@ public class UpdateGuest implements Initializable {
 
     }
 
-    public void initListConference() throws InstantiationException, IllegalAccessException, IOException {
-        String url = "user/lastUser";
-        new ControllerAnnotation().getBean(url,this.getClass(),user);
-
-        String allConference = new ControllerApi().get("conference/getAllByUser/"+user.getId());
-        Conference[] tabConference =  new Gson().fromJson(allConference, Conference[].class);
-
-        List<Conference> listConference = Arrays.asList(tabConference);
-        ArrayList<String> listIdName = new ArrayList<String>();
-
-        for(Conference c : listConference){
-            listIdName.add(c.getId() + "-" +c.getName());
-        }
-
-        cbListConference.getItems().addAll(listIdName);
-
-    }
 
     @FXML
     public void deleteGuest() throws IOException {
@@ -167,14 +153,6 @@ public class UpdateGuest implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            this.initListConference();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+        cbListConference = super.ComboBoxInitConference(cbListConference);
     }
 }

@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
@@ -32,11 +34,18 @@
         </GridPane>
       <VBox layoutX="166.0" layoutY="203.0" prefHeight="65.0" prefWidth="126.0" spacing="10.0">
          <children>
-              <Button fx:id="btnSignUp" mnemonicParsing="false" prefHeight="26.0" prefWidth="130.0" text="S'inscrire" />
+              <Button fx:id="btnSignUp" mnemonicParsing="false" onAction="#signUp" prefHeight="26.0" prefWidth="130.0" text="S'inscrire" />
               <Button fx:id="btnSignIn" mnemonicParsing="false" onAction="#signIn" prefHeight="26.0" prefWidth="126.0" text="Se connecter" />
          </children>
       </VBox>
       <Button fx:id="btnNext" layoutX="319.0" layoutY="223.0" mnemonicParsing="false" onAction="#navigateTo" text="Suivant" visible="false" />
+      <Button fx:id="btnEnrollement" layoutX="160.0" layoutY="200.0" mnemonicParsing="false" onAction="#enrollment" prefHeight="35.0" prefWidth="142.0" text="Je m'inscris" visible="false" />
+      <Label fx:id="lbInfoCheck" layoutX="94.0" layoutY="49.0" prefHeight="19.0" prefWidth="275.0" text="Un email de confirmation vous a été envoyé" visible="false" />
+      <ImageView fitHeight="59.0" fitWidth="118.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logo.png" />
+         </image>
+      </ImageView>
 
     </children>
    <styleClass>
