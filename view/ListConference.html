@@ -22,15 +22,7 @@
     <link href="css/style-css.min.css" rel="stylesheet">
   </head>
 
-    <!-- Header -->
-    <header class="masthead d-flex">
-      <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Voici la liste de vos conférences</h1>
-        <h3 class="mb-5  text-center ">
-          <em></em>
-        </h3>
-      </div>
-    </header>
+ 
 
   <body id="page-top">
     <!-- Navigation -->
@@ -40,19 +32,23 @@
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Menu1</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Index</a>
         </li>
         <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#page-top">Menu2</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#about">Menu3</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#services">Menu4</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des Conférences</a>
         </li>
       </ul>
     </nav>
+
+       <!-- Header -->
+    <header class="masthead d-flex">
+      <div class="container my-auto">
+        <h1 class="mb-1  text-center ">Voici la liste de vos conférences</h1>
+        <h3 class="mb-5  text-center ">
+          <em></em>
+        </h3>
+      </div>
+    </header>
 
         <div class="width:50%" >
           <table class="table table-striped" >
@@ -99,7 +95,7 @@ $.ajax({
             ligne.append($("<td>" + m.date + "</td>"));
             ligne.append($("<td>" + m.description + "</td>"));
             ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"Details("+m.id+")\"> </td>"));
-            ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"Modif("+m.id+")\"> </td>"));
+            ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"modifier\" onClick=\"Modif("+m.id+")\"> </td>"));
             $('#displayconf').append(ligne);
           });
       },

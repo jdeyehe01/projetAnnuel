@@ -236,13 +236,12 @@ conferenceRouter.get('/conferenceById/:idConference' , function(req,res){
     return;
   }
 
-  ConferenceController.findConference(idConf)
+  ConferenceController.getOneConference(idConf)
   .then((conf)=>{
-    return conf;
+    res.status(200).json(conf);
   })
   .catch((err)=>{
-    console.error(err);
-    return;
+    res.status(404).end();
   })
 
 });
@@ -286,9 +285,6 @@ if(idUser === undefined ) {
   .catch((err)=>{
     console.error(err);
   })
-
-
-
 });
 
 

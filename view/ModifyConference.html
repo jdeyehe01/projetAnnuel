@@ -11,15 +11,14 @@
     <title>Before Show</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom Fonts -->
-    <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
-    <link href="../vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="../css/style-css.min.css" rel="stylesheet">
+    <link href="css/style-css.min.css" rel="stylesheet">
 
   </head>
 
@@ -60,13 +59,13 @@
                     <div class="form-group">
                       <div>
                         <label for="name" >Nom de la conference :</label>
-                        <input class="form-control" type="text" placeholder="Entrer le nom" name="name" id="name">
+                        <input class="form-control" type="text" name="name" id="name">
                       </div>
 
                      <div>
                       <label for="date">La date :</label>
                       <input class="form-control" type="datetime-local" name="date" id="date">
-                      </div>
+                    </div>
                      <div>
                       <label for="time">La durée :</label>
                       <input class="form-control" type="time" name="time" id="time">
@@ -84,8 +83,6 @@
             </div>
 
           </form>
-
-          <button type="button" value="retour" id="retour" >Retour</button>
         </div>
         </div>
 
@@ -106,23 +103,57 @@
 <script type="text/javascript">
   var url = window.location.href;
   var idconf = url.split("?");
-  
-  $.ajax({
+$(document).ready(function(){
+    $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/getAllTaskForConference/"+idconf[1],
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/conferenceById/"+idconf[1],
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-    success: function( result){
+      success: function( result){
         $(result).each(function (index, m){
-          var ligne = $("<tr> </tr>");
-            ligne.append($("<td>" + m.title + "</td>"));
-            ligne.append($("<td>" + m.duration + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
-            $('#displaytask').append(ligne);
+            var elemName = document.getElementById("name");
+            elemName.value = m.name;
+            var elemDate = document.getElementById("time");
+            elemDate.value = m.time;
+            var elemDuration = document.getElementById("duration");
+            elemDuration.value = m.duration;
+            var elemDescription = document.getElementById("description");
+            elemDescription.value = m.description;
           });
-      },
+       },
       error: function (errormessage) {
           alert(errormessage.responseText);
       }
-  });
+    });
+});
+
+  $('#submit').on('click', function(){
+    var nameConf = document.getElementById("name").value;
+    var dateConf = document.getElementById("date").value;
+    var timeConf = document.getElementById("time").value;
+    var descriConf = document.getElementById("description").value;
+    if(nameConf.length !=0 && dateConf.length != 0 && timeConf.length != 0 && descriConf.length !=0 ){
+      var request = $.ajax({
+          type: 'PUT',
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/update" + idconf[1],
+          data: {
+            name: nameConf,
+            date: dateConf,
+            time: timeConf,
+            description: descriConf
+          }
+        });
+      request.done(function() {
+            
+          });
+      request.fail(function(errormessage){
+            alert(errormessage.responseText);
+          });
+      document.location.href="ModifyLocate.html";
+    }
+    else{
+      alert("veuillez remplir les champs !");
+    }
+});
+  
 </script>

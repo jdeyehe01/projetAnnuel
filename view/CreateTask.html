@@ -74,7 +74,7 @@
 
             <div class="form-group">
               <input type="button" value="Enregistrer" id="submit">
-
+              <input type="button" value="étape suivante" id="go">
             </div>
 
           </form>
@@ -112,6 +112,11 @@
 $(document).ready(function(){
   alert("Lieu créé ! Maintenant les tâches ! ");
 });
+$(#'go')..on('click', function(){
+  document.location.href="CreateGuestList.html";
+});
+
+
 
   $('#submit').on('click', function(){
     var tilteTask = document.getElementById("tilte").value;
@@ -141,19 +146,17 @@ $(document).ready(function(){
 function FindLastConf(){
   $.ajax({
       type: "GET",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/lastConf",
+      url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/lastConf",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-    success: function( result){
-        $(result).each(function (index, m){
-         RefreshDiv(m.id);
-        });
+      success: function( result){
+        RefreshDiv($(result).id);
+        }
       },
       error: function (errormessage) {
           alert(errormessage.responseText);
       }
   });
-
 };
 
 function RefreshDiv(idLastconf){

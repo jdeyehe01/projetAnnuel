@@ -136,7 +136,7 @@ $(document).ready(function(){
             email: emailG
           },
           success: function(data) {
-            
+
           },
           error: function(errormessage){
             alert(errormessage.responseText);
@@ -179,7 +179,7 @@ function RefreshDiv(idLastconf){
             ligne.append($("<td>" + m.email + "</td>"));
             ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
             $('#listGuest').append(ligne);
-            //$('#madivdelist').html(retour);
+            $('#madivdelist').html(retour);
           });
       },
       error: function (errormessage) {
