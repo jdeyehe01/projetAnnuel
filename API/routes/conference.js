@@ -14,13 +14,14 @@ conferenceRouter.use(express.static(path.join(__dirname + '../../../style')));
 
 
 
-conferenceRouter.post('/', function(req, res) {
+conferenceRouter.post('/:idUser', function(req, res) {
   const name = req.body.name;
   const date = req.body.date;
   const time = req.body.time;
   const description = req.body.description;
+  const idUser = req.params.idUser;
 
-  if(name === undefined || date === undefined || description === undefined || time === undefined) {
+  if(name === undefined || date === undefined || description === undefined || time === undefined || idUser===undefined) {
     res.status(400).end();
 
     notifier.notify({
@@ -40,9 +41,10 @@ conferenceRouter.post('/', function(req, res) {
       'sound' : false,
       'wait' : false
     });
-    UserController.findLast()
+    UserController.getUser(idUser)
     .then((user)=>{
       ConferenceController.addUser(conference.id ,user.id);
+      res.status(200).end();
 
     })
     .catch((err)=>{
@@ -112,6 +114,7 @@ conferenceRouter.get('/getAllByGuest/:idGuest' , function(req,res){
 
 conferenceRouter.get('/getById/:idConf' , function(req,res){
   const idConference = req.params.idConf;
+  const idUser = req.params.idUser;
     if(idConference === undefined ) {
     res.status(400).end();
 
@@ -123,27 +126,14 @@ conferenceRouter.get('/getById/:idConf' , function(req,res){
     });
     return;
   }
-
-  UserController.findLast()
-  .then((user)=>{
-    ConferenceController.getConferenceById(idConference,user.id)
+  ConferenceController.getConferenceById(idConference)
     .then((conference)=>{
       res.status(200).json(conference);
     })
     .catch((err)=>{
       res.status(400).end();
       console.error(err);
-    })
-  })
-  .catch((err)=>{
-    res.status(400).end();
-    console.error(err);
-  })
-
-
-
-
-
+    });
 });
 
 conferenceRouter.get('/getAllGuest/:conferenceId' , function(req,res){
@@ -201,19 +191,6 @@ conferenceRouter.delete('/deleteConference/:idConf' , function(req,res){
 
 
 
-conferenceRouter.get('/nameConf' , function(req,res){
-
-  ConferenceController.findLast()
-  .then((conference) =>{
-      console.log('Lecture...');
-      res.render('ListConference.ejs' , {nameConf: conference.name  });
-      res.status(200).end();
-  })
-  .catch((err)=>{
-    console.error(err);
-  });
-
-} );
 
 
 conferenceRouter.get('/lastConf' , function(req,res){
@@ -230,18 +207,19 @@ conferenceRouter.get('/lastConf' , function(req,res){
 
 
 conferenceRouter.get('/conferenceById/:idConference' , function(req,res){
-  const idConf = parseInt(req.params.idConference);
-  if(idConf === undefined || idConference <=0){
-    res.status(401).end();
+  const idConf = req.params.idConference;
+  if(idConf === undefined ){
+    res.status(400).end();
     return;
   }
 
   ConferenceController.getOneConference(idConf)
-  .then((conference)=>{
-    res.status(200).json(conference);
+  .then((conf)=>{
+     res.status(200).json(conf);
   })
   .catch((err)=>{
-    res.status(404).end();
+    console.error(err);
+    return;
   })
 
 });

@@ -26,20 +26,6 @@
   </head>
 
   <body id="page-top">
-      <!-- Navigation -->
-    <a class="menu-toggle rounded" href="#">
-      <i class="fa fa-bars"></i>
-    </a>
-    <nav id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
-        </li>
-      </ul>
-    </nav>
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
@@ -88,27 +74,9 @@
 
             <div class="form-group">
               <input type="button" value="Enregistrer" id="submit">
-              <input type="button" value="étape suivante" id="go">
             </div>
-
+            <button type="button" value="retour" id="retour">Retour</button>
           </form>
-        </div>
-<br/>
-<hr/>
-        <h3> Liste des tâches ajoutées</h3>
-      <div class="width:50%"  id="madivdelist">
-          <table class="table table-striped" >
-            <thead>
-              <tr>
-                <th>Titre</th>
-                <th>Durée</th>            
-                <th></th>
-              </tr>
-            </thead>
-            <tbody id="listBudg">
-
-            </tbody>
-          </table>
         </div>
   </body>
 
@@ -122,91 +90,36 @@
 <script src="js/stylish-portfolio.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(function(){
-  alert("Lieu créé ! Maintenant les tâches ! ");
-});
-$('#go').on('click', function(){
-  document.location.href="CreateGuestList.html";
-});
-  $('#submit').on('click', function(){
+  var url = window.location.href;
+  var id = url.split("?");
+
+   $('#submit').on('click', function(){
     var tilteBudg = document.getElementById("tilte").value;
     var amountBudg = document.getElementById("amount").value;
 
      if(amountBudg.length !=0 && tilteBudg.length != 0 ){
         $.ajax({
           type: 'POST',
-          url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/",
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/"+id[1],
           data: {
             title: tilteBudg,
             amount: amountBudg
           },
           success: function(data) {
-            FindLastConf();
+            document.location.href="ConfDetail.html?"+id[1];
           },
           error: function(errormessage){
             alert(errormessage.responseText);
           }
         });
         
-	  	
+      
       }else{
          alert("veuillez remplir les champs !");
       }
   });
 
-
-function FindLastConf(){
-  $.ajax({
-        type: "GET",
-        url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/lastConf",
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data){
-          RefreshDiv(data.id);
-          
-        },
-        error: function (errormessage) {
-            alert(errormessage.responseText);
-        }
-      });
-};
-
-function RefreshDiv(idLastconf){
-  $.ajax({
-      type: "GET",
-      url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/getAllBudgetForConference/"+idLastconf,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    success: function( result){
-        $(result).each(function (index, m){
-          var ligne = $("<tr> </tr>");
-            ligne.append($("<td>" + m.title + "</td>"));
-            ligne.append($("<td>" + m.amount + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
-            $('#listBudg').append(ligne);
-            $('#madivdelist').html(retour);
-          });
-      },
-      error: function (errormessage) {
-          alert(errormessage.responseText);
-      }
-    });
-  
-};
-
-function DeleteTask(idtask){
-  $.ajax({
-      type: "DELETE",
-       url: "http://sebastiendelbeportfolio.alwaysdata.net/task/deleteTaskById/"+idtask,
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-    success: function( result){
-      alert("Tâche supprimée !");
-      window.location.reload(true);
-      },
-      error: function (errormessage) {
-          alert(errormessage.responseText);
-      }
+$('#retour').on('click', function(){
+    document.location.href="ConfDetail.html?"+id[1];
   });
-};
 </script>

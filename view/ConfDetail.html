@@ -22,12 +22,7 @@
     <link href="css/style-css.min.css" rel="stylesheet">
   </head>
 
-    <!-- Header -->
-    <header class="masthead d-flex">
-      <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Voici le détails de la conférence</h1>
-      </div>
-    </header>
+   
 
   <body id="page-top" >
     <!-- Navigation -->
@@ -37,21 +32,22 @@
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Menu1</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
         </li>
         <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#page-top">Menu2</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#about">Menu3</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#services">Menu4</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
         </li>
       </ul>
     </nav>
+     <!-- Header -->
+    <header class="masthead d-flex">
+      <div class="container my-auto">
+        <h1 class="mb-1  text-center ">Voici le détails de la conférence</h1>
+      </div>
+    </header>
 
     <h2 class="mb-1  text-center "> Liste des tâches de la conférence</h2>
+    <input type="button" value="Ajouter" onClick="AddTask()">
 
     <div class="width:50%" >
       <table class="table table-striped">
@@ -71,6 +67,8 @@
     <hr  width="70%"/>
     <br/>
  <h2 class="mb-1  text-center "> Le(s) lieu(x)</h2>
+
+    <input type="button" value="Ajouter" onClick="AddLocate()">
 
     <div class="width:50%" >
       <table class="table table-striped">
@@ -92,6 +90,7 @@
     <hr  width="70%"/>
     <br/>
  <h2 class="mb-1  text-center "> Les invités</h2>
+    <input type="button" value="Ajouter" onClick="AddGuest()">
 
     <div class="width:50%" >
       <table class="table table-striped">
@@ -109,9 +108,29 @@
         </tbody>
       </table>
     </div>
+
+    <hr  width="70%"/>
+    <br/>
+ <h2 class="mb-1  text-center "> Les budgets </h2>
+    <input type="button" value="Ajouter" onClick="AddBudget()">
+
+    <div class="width:50%" >
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Montant</th>
+            <th></th> 
+          </tr>
+        </thead>
+        <tbody id="displayBudget">
+          
+        </tbody>
+      </table>
+    </div>
     
   </body>
-
+<button type="button" value="retour" id="retour" >Retour</button>
 </html>
  <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -157,7 +176,7 @@
             ligne.append($("<td>" + m.address + "</td>"));
             ligne.append($("<td>" + m.city + "</td>"));
             ligne.append($("<td>" + m.cityCode + "</td>"));
-            ligne.append($("<td> <input type=\"button\" value=\"Ajouter\" onClick=\" AddLocate("+m.id+")\"> </td>"));
+            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\" DeleteLocate("+m.id+")\"> </td>"));
             $('#displayLocate').append(ligne);
           });
       },
@@ -192,6 +211,25 @@
       }
   });
 
+  $.ajax({
+      type: "GET",
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/getAllBudgetForConference/"+id[1],
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+        $(result).each(function (index, m){
+          var ligne = $("<tr> </tr>");
+            ligne.append($("<td>" + m.title + "</td>"));
+            ligne.append($("<td>" + m.amount + "</td>"));
+            ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteBudget("+m.id+")\"> </td>"));
+            $('#displayBudget').append(ligne);
+          });
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
+
 
 function DeleteGuest(idGuest) {
   $.ajax({
@@ -200,7 +238,7 @@ function DeleteGuest(idGuest) {
       contentType: "application/json; charset=utf-8",
       dataType: "json",
     success: function( result){
-      alert("invités supprimée !");
+      alert("invité supprimée !");
       window.location.reload(true);
       },
       error: function (errormessage) {
@@ -208,12 +246,47 @@ function DeleteGuest(idGuest) {
       }
   });
 };
-
+function AddGuest(){
+  document.location.href="AddGuest.html?"+id[1];
+};
 function AddLocate(){
-
+  document.location.href="AddLocate.html?"+id[1];
 };
 function AddTask(){
-
+   document.location.href="AddTask.html?"+id[1];
+};
+function AddBudget(){
+   document.location.href="AddBudget.html?"+id[1];
+};
+function DeleteBudget(idbudget){
+  $.ajax({
+      type: "DELETE",
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/budget/deleteBudgetById/"+idbudget,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+      alert("Budget supprimée !");
+      window.location.reload(true);
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
+};
+function DeleteLocate(idlocate){
+  $.ajax({
+      type: "DELETE",
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/deleteLocateById/"+idlocate,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+      alert("Lieu supprimée !");
+      window.location.reload(true);
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
 };
 
 
@@ -232,6 +305,10 @@ function DeleteTask(idtask){
       }
   });
 };
+
+$('#retour').on('click', function(){
+  document.location.href="ListConference.html";
+});
 
 
 function Reload(){

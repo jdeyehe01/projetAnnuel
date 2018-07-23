@@ -24,7 +24,20 @@
   </head>
 
   <body id="page-top">
-
+<!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
+        </li>
+      </ul>
+    </nav>
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
@@ -120,7 +133,7 @@
 $(document).ready(function(){
   alert("Taches créés! Maintenant les invités ! ");
 });
-$('#submit').on('click', function(){
+$('#retour').on('click', function(){
   document.location.href="index.html";
 });
   $('#submit').on('click', function(){

@@ -42,14 +42,17 @@ taskRouter.post('/', function(req, res) {
       ConferenceController.findLast()
       .then((conference) => {
         TaskController.addConference(task.id , conference.id);
+        res.status(200).end();
       });
   })
   .catch((err) => {
     res.status(500).end();
   })
-
-
 });
+
+
+
+
 
 taskRouter.post('/:idConference', function(req, res) {
   const title = req.body.title;
@@ -67,6 +70,7 @@ taskRouter.post('/:idConference', function(req, res) {
     ConferenceController.getOneConference(idConf)
     .then((conference) => {
         TaskController.addConference(task.id , conference.id);
+        res.status(200).end();
       });
   })
   .catch((err) => {
@@ -109,7 +113,7 @@ taskRouter.post('/:idConference', function(req, res) {
     const idConference = parseInt(req.params.idConference);
 
     if(idTask === undefined || idTask <=0 || idConference === undefined || idConference <=0){
-      res.status(401).end();
+      res.status(400).end();
       return;
     }
 
@@ -123,7 +127,7 @@ taskRouter.post('/:idConference', function(req, res) {
     const idConference = parseInt(req.params.idConference);
 
     if(idTask === undefined || idTask <=0 || idConference === undefined || idConference <=0){
-      res.status(401).end();
+      res.status(400).end();
       return;
     }
 
@@ -141,7 +145,7 @@ taskRouter.post('/:idConference', function(req, res) {
     const idConference = parseInt(req.params.idConference);
 
     if( idConference === undefined || idConference <=0){
-      res.status(401).end();
+      res.status(400).end();
       return;
     }
     TaskController.getAllTaskForConference(idConference)
@@ -161,7 +165,7 @@ taskRouter.post('/:idConference', function(req, res) {
     const idTask = parseInt(req.params.idTask);
 
     if( idTask === undefined || idTask <=0 || title ===undefined || duration === undefined){
-      res.status(403).end();
+      res.status(400).end();
       return;
     }
 

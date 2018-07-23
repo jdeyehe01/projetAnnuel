@@ -24,20 +24,6 @@
   </head>
 
   <body id="page-top">
-    <!-- Navigation -->
-    <a class="menu-toggle rounded" href="#">
-      <i class="fa fa-bars"></i>
-    </a>
-    <nav id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
-        </li>
-      </ul>
-    </nav>
 
     <!-- Header -->
     <header class="masthead d-flex">
@@ -95,11 +81,11 @@
 <script src="js/stylish-portfolio.min.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    alert("Conférence créée ! Maintenant le ou les lieux de celle-ci ! ");
-  });
+
+  var url = window.location.href;
+  var id = url.split("?");
+
    $('#submit').on('click', function(){
-    
     var nameLieu = document.getElementById("name").value;
     var addressLieu = document.getElementById("address").value;
     var cityLieu = document.getElementById("city").value;
@@ -108,7 +94,7 @@
      if(nameLieu.length !=0 && addressLieu.length != 0 && cityLieu.length != 0 && cpLieu.length !=0 ){
         $.ajax({
           type: 'POST',
-          url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/",
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/"+id[1],
           data: {
             name: nameLieu,
             address: addressLieu,
@@ -116,13 +102,12 @@
             cityCode: cpLieu
           },
           success: function(data) {
-            
+            document.location.href="ConfDetail.html?"+id[1];
           },
           error: function(errormessage){
             alert(errormessage.responseText);
           }
         });
-        document.location.href="CreateTask.html";
       }else{
          alert("veuillez remplir les champs !");
       }
@@ -131,6 +116,6 @@
     }
   });
    $('#retour').on('click', function(){
-    document.location.href="Modify.html";
+    document.location.href="ConfDetail.html?"+id[1];
   });
 </script>

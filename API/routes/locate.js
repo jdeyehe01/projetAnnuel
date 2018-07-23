@@ -18,13 +18,6 @@ locateRouter.post('/', function(req, res) {
   const cityCode = parseInt(req.body.cityCode);
 
   if(name === undefined || address === undefined || city === undefined || cityCode === undefined ) {
-
-    notifier.notify({
-      'title' : 'Champs incorrecte',
-      'message' : 'Veuillez remplir tous les champs svp',
-      'sound' : false,
-      'wait' : true
-    });
     res.status(400).end();
   }
 
@@ -41,6 +34,7 @@ locateRouter.post('/', function(req, res) {
       ConferenceController.findLast()
       .then((conference) => {
         LocateController.addConference(locate.id,conference.id);
+        res.status(200).end();
       });
 
 
@@ -60,7 +54,7 @@ locateRouter.post('/:idConference', function(req, res) {
   const city = req.body.city;
   const cityCode = parseInt(req.body.cityCode);
 
-  if(name === undefined || address === undefined || city === undefined || cityCode === undefined || idConf === idConference ) {
+  if(name === undefined || address === undefined || city === undefined || cityCode === undefined || idConf === undefined ) {
 
     res.status(400).end();
     return;
@@ -72,6 +66,7 @@ locateRouter.post('/:idConference', function(req, res) {
     ConferenceController.getOneConference(idConf)
     .then((conference) => {
         LocateController.addConference(locate.id,conference.id);
+        res.status(200).end();
       });
   })
   .catch((err) => {
@@ -102,7 +97,7 @@ locateRouter.get('/getLocateById/:idLocate' , function(req,res){
 
   locateRouter.delete('/deleteLocateById/:idLocate' , function(req,res){
 
-    const idLocate = parseInt(req.params.idLocate);
+    const idLocate = req.params.idLocate;
     if(idLocate === undefined || idLocate <= 0 ){
       res.status(500).end();
       return;
@@ -111,10 +106,11 @@ locateRouter.get('/getLocateById/:idLocate' , function(req,res){
     LocateController.deleteLocate(idLocate)
     .then(()=>{
       console.log('Delete');
-      res.status(202).end();
+      res.status(200).end();
     })
     .catch((err)=>{
       console.error(err);
+      return;
     })
   });
 
@@ -123,12 +119,12 @@ locateRouter.get('/getLocateById/:idLocate' , function(req,res){
     const idConference = parseInt(req.params.idConference);
 
     if(idLocate === undefined || idLocate <=0 || idConference === undefined || idConference <=0){
-      res.status(401).end();
+      res.status(400).end();
       return;
     }
 
     LocateController.addConference(idLocate , idConference);
-    res.status(201).end();
+    res.status(200).end();
   });
 
   locateRouter.get('/getAll/:idConference' , function(req,res){

@@ -26,6 +26,20 @@
   </head>
 
   <body id="page-top">
+    <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
+        </li>
+      </ul>
+    </nav>
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
@@ -36,23 +50,17 @@
       </div>
     </header>
     <!-- Navigation -->
-
+  <!-- Navigation -->
     <a class="menu-toggle rounded" href="#">
       <i class="fa fa-bars"></i>
     </a>
     <nav id="sidebar-wrapper">
       <ul class="sidebar-nav">
         <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Menu1</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
         </li>
         <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#page-top">Menu2</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#about">Menu3</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#services">Menu4</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
         </li>
       </ul>
     </nav>
@@ -67,7 +75,7 @@
                       </div>
                       <div>
                         <label for="duration">Durée de la tâche :  </label>
-                        <input class="form-control" type="time" name="duration" id="duration">
+                        <input class="form-control" type="text" name="duration" id="duration">
                     </div>
                    </div>
             </div>
@@ -132,13 +140,13 @@ $('#go').on('click', function(){
             duration: durationTask
           },
           success: function(data) {
-            
+            FindLastConf();
           },
           error: function(errormessage){
             alert(errormessage.responseText);
           }
         });
-        FindLastConf();
+        
       }else{
          alert("veuillez remplir les champs !");
       }

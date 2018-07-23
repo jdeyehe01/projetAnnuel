@@ -97,7 +97,7 @@ $.ajax({
             ligne.append($("<td>" + m.date + "</td>"));
             ligne.append($("<td>" + m.description + "</td>"));
             ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"Details("+m.id+")\"> </td>"));
-            ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"modifier\" onClick=\"Modif("+m.id+")\"> </td>"));
+            ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"supprimer\" onClick=\"Delete("+m.id+")\"> </td>"));
             $('#displayconf').append(ligne);
           });
       },
@@ -111,7 +111,19 @@ function Details(id){
   document.location.href="ConfDetail.html?"+id;
 };
 
-function Modif(id){
-  document.location.href="ModifyConference.html?"+id;
+function Delete(idconf){
+  $.ajax({
+      type: "DELETE",
+       url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/deleteConference/"+idconf,
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+    success: function( result){
+      alert("conference supprimée !");
+      window.location.reload(true);
+      },
+      error: function (errormessage) {
+          alert(errormessage.responseText);
+      }
+  });
 };
 </script>

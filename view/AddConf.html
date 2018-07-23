@@ -24,7 +24,7 @@
   </head>
 
   <body id="page-top">
-    <!-- Navigation -->
+  <!-- Navigation -->
     <a class="menu-toggle rounded" href="#">
       <i class="fa fa-bars"></i>
     </a>
@@ -38,36 +38,36 @@
         </li>
       </ul>
     </nav>
-
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
-        <h1 class="mb-1  text-center ">Nouveau lieu</h1>
+        <h1 class="mb-1  text-center ">Nouvelle conférence</h1>
         <h3 class="mb-5  text-center ">
-          <em>Dans cette rubrique veuillez entrer les différentes informations de votre lieu.</em>
+          <em>Dans cette rubrique veuillez entrer les différentes informations de votre conference.</em>
         </h3>
-      </div>
+    </div>
     </header>
+
         <div class="width:50%" >
           <form>
               <div class="col-lg-8">
                     <div class="form-group">
                       <div>
-                        <label for="name" >Nom du lieu :</label>
+                        <label for="name" >Nom de la conference :</label>
                         <input class="form-control" type="text" placeholder="Entrer le nom" name="name" id="name">
                       </div>
 
                      <div>
-                      <label for="address">Adresse :</label>
-                      <input class="form-control" type="text" placeholder="Enter l'adress"  name="address" id="address">
+                      <label for="date">La date :</label>
+                      <input class="form-control" type="datetime-local" name="date" id="date">
                       </div>
                      <div>
-                      <label for="city">Ville :</label>
-                      <input class="form-control" type="text" placeholder="Enter la ville"  name="city" id="city">
+                      <label for="time">La durée :</label>
+                      <input class="form-control" type="time" name="time" id="time">
                     </div>
                     <div class="form-group">
-                      <label for="cityCode">Code postal :</label>
-                      <input class="form-control" type="number" maxlength="5" name="cityCode" id="cityCode" pattern="[0-9]{5}" />
+                      <label for="description">Description :</label>
+                      <textarea class="form-control" rows="10" name="description" id="description"></textarea>
                     </div>
               </div>
             </div>
@@ -78,7 +78,8 @@
             </div>
 
           </form>
-           <button type="button" value="retour" id="retour" >Retour</button>
+
+          <button type="button" value="retour" id="retour" >Retour</button>
         </div>
 
 
@@ -88,49 +89,45 @@
 </html>
 
 <script src="vendor/jquery/jquery.min.js"></script>
-<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Plugin JavaScript -->
-<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-<!-- Custom scripts for this template -->
-<script src="js/stylish-portfolio.min.js"></script>
+        <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- Plugin JavaScript -->
+        <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+        <!-- Custom scripts for this template -->
+        <script src="js/stylish-portfolio.min.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function(){
-    alert("Conférence créée ! Maintenant le ou les lieux de celle-ci ! ");
-  });
-   $('#submit').on('click', function(){
-    
-    var nameLieu = document.getElementById("name").value;
-    var addressLieu = document.getElementById("address").value;
-    var cityLieu = document.getElementById("city").value;
-    var cpLieu = document.getElementById("cityCode").value;
-    if (cpLieu.length <=5 && cpLieu.length>=0) {
-     if(nameLieu.length !=0 && addressLieu.length != 0 && cityLieu.length != 0 && cpLieu.length !=0 ){
-        $.ajax({
+  var url = window.location.href;
+  var id = url.split("?");
+
+  $('#submit').on('click', function(){
+    var nameConf = document.getElementById("name").value;
+    var dateConf = document.getElementById("date").value;
+    var timeConf = document.getElementById("time").value;
+    var descriConf = document.getElementById("description").value;
+    if(nameConf.length !=0 && dateConf.length != 0 && timeConf.length != 0 && descriConf.length !=0 ){
+      var request = $.ajax({
           type: 'POST',
-          url: "http://sebastiendelbeportfolio.alwaysdata.net/locate/",
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/"+id[1],
           data: {
-            name: nameLieu,
-            address: addressLieu,
-            city: cityLieu,
-            cityCode: cpLieu
-          },
-          success: function(data) {
-            
-          },
-          error: function(errormessage){
-            alert(errormessage.responseText);
+            name: nameConf,
+            date: dateConf,
+            time: timeConf,
+            description: descriConf
           }
         });
-        document.location.href="CreateTask.html";
-      }else{
-         alert("veuillez remplir les champs !");
-      }
-    }else{
-      alert("je ne connais pas de code postal comme celui là");
+      request.done(function() {
+            alert("Conférence Créée !");
+          });
+      request.fail(function(errormessage){
+            alert(errormessage.responseText);
+          });
+    }
+    else{
+      alert("veuillez remplir les champs !");
     }
   });
-   $('#retour').on('click', function(){
-    document.location.href="Modify.html";
+
+  $('#retour').on('click', function(){
+    document.location.href="ListConference.html";
   });
 </script>

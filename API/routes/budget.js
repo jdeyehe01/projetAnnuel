@@ -48,7 +48,7 @@ budgetRouter.post('/', function(req, res) {
 budgetRouter.post('/:idConf', function(req, res) {
   const title = req.body.title;
   const amount = parseFloat(req.body.amount);
-  const idConf = req.body.idConf;
+  const idConf = req.params.idConf;
 
   if(title === undefined || amount === undefined) {
 
@@ -132,6 +132,7 @@ budgetRouter.post('/:idConf', function(req, res) {
     })
     .catch((err)=>{
       console.error(err);
+      return;
     })
 
   });
@@ -140,7 +141,7 @@ budgetRouter.post('/:idConf', function(req, res) {
     const idConference = parseInt(req.params.idConference);
 
     if( idConference === undefined || idConference <=0){
-      res.status(401).end();
+      res.status(400).end();
       return;
     }
     BudgetController.getAllBudgetForConference(idConference)
@@ -160,7 +161,7 @@ budgetRouter.post('/:idConf', function(req, res) {
     const idBudget = parseInt(req.params.idBudget);
 
     if( idBudget === undefined || idBudget <=0 || amount === undefined || amount <=0 || title ===undefined){
-      res.status(403).end();
+      res.status(400).end();
       return;
     }
 

@@ -22,6 +22,22 @@
     <link href="css/style-css.min.css" rel="stylesheet">
 
   </head>
+
+  <body id="page-top">
+  <!-- Navigation -->
+    <a class="menu-toggle rounded" href="#">
+      <i class="fa fa-bars"></i>
+    </a>
+    <nav id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li class="sidebar-brand">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
+        </li>
+        <li class="sidebar-nav-item">
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
+        </li>
+      </ul>
+    </nav>
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
@@ -31,28 +47,6 @@
         </h3>
     </div>
     </header>
-  <body id="page-top">
-    <!-- Navigation -->
-    <a class="menu-toggle rounded" href="#">
-      <i class="fa fa-bars"></i>
-    </a>
-    <nav id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="#page-top">Menu1</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#page-top">Menu2</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#about">Menu3</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="#services">Menu4</a>
-        </li>
-      </ul>
-    </nav>
-
 
         <div class="width:50%" >
           <form>
@@ -102,6 +96,9 @@
         <script src="js/stylish-portfolio.min.js"></script>
 
 <script type="text/javascript">
+  var url = window.location.href;
+  var id = url.split("?");
+
   $('#submit').on('click', function(){
     var nameConf = document.getElementById("name").value;
     var dateConf = document.getElementById("date").value;
@@ -110,7 +107,7 @@
     if(nameConf.length !=0 && dateConf.length != 0 && timeConf.length != 0 && descriConf.length !=0 ){
       var request = $.ajax({
           type: 'POST',
-          url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/",
+          url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/"+id[1],
           data: {
             name: nameConf,
             date: dateConf,
@@ -119,16 +116,18 @@
           }
         });
       request.done(function() {
-            
+            alert("Conférence Créée !");
+
           });
       request.fail(function(errormessage){
             alert(errormessage.responseText);
           });
-      document.location.href="CreateLieu.html";
     }
     else{
       alert("veuillez remplir les champs !");
     }
+
+      document.location.href="CreateLieu.html";s
   });
 
   $('#retour').on('click', function(){

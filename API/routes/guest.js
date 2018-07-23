@@ -40,6 +40,7 @@ guestRouter.post('/', function(req, res) {
     .then((conference) =>{
       GuestController.addConference(guest.id ,conference.id);
       GuestController.sendMail(guest.id ,conference.id);
+      res.status(200).end();
     });
 
 
@@ -62,17 +63,11 @@ guestRouter.post('/:idConference', function(req, res) {
   GuestController.newGuest(lname,fname,email)
   .then((guest) => {
 
-    notifier.notify({
-      'title' : 'Information',
-      'message' : 'Invité créé',
-      'sound' : false,
-      'wait' : true
-    });
-
     ConferenceController.getOneConference(idConf)
     .then((conference) =>{
       GuestController.addConference(guest.id ,conference.id);
       GuestController.sendMail(guest.id ,conference.id);
+      res.status(200).end();
     });
 
 
@@ -111,7 +106,7 @@ guestRouter.get('/getAllConference/:idGuest' , function(req,res){
 
 ConferenceController.getAllConferenceByGuest(guestId)
   .then((conferences) => {
-    res.status(201).json(conferences);
+    res.status(200).json(conferences);
   })
   .catch((err) => {
       res.status(500).end();
