@@ -49,7 +49,7 @@
         </h3>
       </div>
     </header>
-
+<input type="button" value="Ajouter" onClick="AddConf()">
         <div class="width:50%" >
           <table class="table table-striped" >
             <thead>
@@ -95,6 +95,7 @@ $.ajax({
           ligne.append($("<td>" + m.id + "</td>"));
             ligne.append($("<td>" + m.name + "</td>"));
             ligne.append($("<td>" + m.date + "</td>"));
+            ligne.append($("<td>" + m.time + "</td>"));
             ligne.append($("<td>" + m.description + "</td>"));
             ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"Details("+m.id+")\"> </td>"));
             ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"supprimer\" onClick=\"Delete("+m.id+")\"> </td>"));
@@ -106,6 +107,9 @@ $.ajax({
       }
   });
 
+function AddConf(){
+  document.location.href="AddConf.html";
+};
 
 function Details(id){
   document.location.href="ConfDetail.html?"+id;

@@ -103,6 +103,7 @@
 <script type="text/javascript">
   var url = window.location.href;
   var idconf = url.split("?");
+
 $(document).ready(function(){
     $.ajax({
       type: "GET",
@@ -111,14 +112,10 @@ $(document).ready(function(){
       dataType: "json",
       success: function( result){
         $(result).each(function (index, m){
-            var elemName = document.getElementById("name");
-            elemName.value = m.name;
-            var elemDate = document.getElementById("time");
-            elemDate.value = m.time;
-            var elemDuration = document.getElementById("duration");
-            elemDuration.value = m.duration;
-            var elemDescription = document.getElementById("description");
-            elemDescription.value = m.description;
+            document.getElementById("name").value = m.name;
+            document.getElementById("time").value = m.time;
+            document.getElementById("duration").value = m.duration;
+            document.getElementById("description").value = m.description;
           });
        },
       error: function (errormessage) {
