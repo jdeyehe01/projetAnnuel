@@ -35,7 +35,7 @@
           <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
         </li>
         <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
+          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference2.html?1">Liste des conférences</a>
         </li>
       </ul>
     </nav>
@@ -154,7 +154,7 @@
         $(result).each(function (index, m){
           var ligne = $("<tr> </tr>");
             ligne.append($("<td>" + m.title + "</td>"));
-            ligne.append($("<td>" + m.duration + "</td>"));
+            ligne.append($("<td>" + m.duration + " min</td>"));
             ligne.append($("<td> <input type=\"button\" value=\"Supprimer\" onClick=\"DeleteTask("+m.id+")\"> </td>"));
             $('#displaytask').append(ligne);
           });
@@ -245,6 +245,7 @@ function DeleteGuest(idGuest) {
           alert(errormessage.responseText);
       }
   });
+  document.location.href="ConfDetail.html?"+id[1];
 };
 function AddGuest(){
   document.location.href="AddGuest.html?"+id[1];
@@ -272,6 +273,7 @@ function DeleteBudget(idbudget){
           alert(errormessage.responseText);
       }
   });
+  document.location.href="ConfDetail.html?"+id[1];
 };
 function DeleteLocate(idlocate){
   $.ajax({
@@ -287,6 +289,7 @@ function DeleteLocate(idlocate){
           alert(errormessage.responseText);
       }
   });
+  document.location.href="ConfDetail.html?"+id[1];
 };
 
 
@@ -304,10 +307,11 @@ function DeleteTask(idtask){
           alert(errormessage.responseText);
       }
   });
+  document.location.href="ConfDetail.html?"+id[1];
 };
 
 $('#retour').on('click', function(){
-  document.location.href="ListConference.html";
+  document.location.href="ListConference2.html?1";
 });
 
 

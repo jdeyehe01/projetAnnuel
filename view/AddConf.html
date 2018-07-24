@@ -24,20 +24,7 @@
   </head>
 
   <body id="page-top">
-  <!-- Navigation -->
-    <a class="menu-toggle rounded" href="#">
-      <i class="fa fa-bars"></i>
-    </a>
-    <nav id="sidebar-wrapper">
-      <ul class="sidebar-nav">
-        <li class="sidebar-brand">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Accueil</a>
-        </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des conférences</a>
-        </li>
-      </ul>
-    </nav>
+  
     <!-- Header -->
     <header class="masthead d-flex">
       <div class="container my-auto">
@@ -121,13 +108,15 @@
       request.fail(function(errormessage){
             alert(errormessage.responseText);
           });
+
     }
     else{
       alert("veuillez remplir les champs !");
     }
+    document.location.href="ListConference2.html?"+id[1];
   });
 
   $('#retour').on('click', function(){
-    document.location.href="ListConference.html";
+    document.location.href="ListConference2.html?"+id[1];
   });
 </script>

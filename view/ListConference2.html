@@ -34,10 +34,6 @@
         <li class="sidebar-brand">
           <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/index.html">Index</a>
         </li>
-        <li class="sidebar-nav-item">
-          <a class="js-scroll-trigger" href="http://sebastiendelbeportfolio.alwaysdata.net/BeforeShow/ListConference.html">Liste des Conférences</a>
-        </li>
-      </ul>
     </nav>
 
        <!-- Header -->
@@ -95,7 +91,7 @@ $.ajax({
           ligne.append($("<td>" + m.id + "</td>"));
             ligne.append($("<td>" + m.name + "</td>"));
             ligne.append($("<td>" + m.date + "</td>"));
-            ligne.append($("<td>" + m.time + "</td>"));
+            ligne.append($("<td>" + m.time + " min</td>"));
             ligne.append($("<td>" + m.description + "</td>"));
             ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"details\" onClick=\"Details("+m.id+")\"> </td>"));
             ligne.append($("<td> <input id=\"btntask\"  type=\"button\" value=\"supprimer\" onClick=\"Delete("+m.id+")\"> </td>"));
@@ -108,7 +104,9 @@ $.ajax({
   });
 
 function AddConf(){
-  document.location.href="AddConf.html";
+  var url = window.location.href;
+  var id = url.split("?");
+  document.location.href="AddConf.html?"+id[1];
 };
 
 function Details(id){
@@ -116,6 +114,8 @@ function Details(id){
 };
 
 function Delete(idconf){
+  var url = window.location.href;
+  var id = url.split("?");
   $.ajax({
       type: "DELETE",
        url: "http://sebastiendelbeportfolio.alwaysdata.net/conference/deleteConference/"+idconf,
@@ -123,11 +123,12 @@ function Delete(idconf){
       dataType: "json",
     success: function( result){
       alert("conference supprimée !");
-      window.location.reload(true);
       },
       error: function (errormessage) {
           alert(errormessage.responseText);
       }
+    
   });
+  document.location.href="ListConference2.html?"+id[1];
 };
 </script>

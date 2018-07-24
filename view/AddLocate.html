@@ -40,20 +40,20 @@
                     <div class="form-group">
                       <div>
                         <label for="name" >Nom du lieu :</label>
-                        <input class="form-control" type="text" placeholder="Entrer le nom" name="name" id="name">
+                        <input class="form-control" type="text" placeholder="Le Parc des Princes" name="name" id="name">
                       </div>
 
                      <div>
                       <label for="address">Adresse :</label>
-                      <input class="form-control" type="text" placeholder="Enter l'adress"  name="address" id="address">
+                      <input class="form-control" type="text" placeholder="24 Rue du Commandant Guilbaud"  name="address" id="address">
                       </div>
                      <div>
                       <label for="city">Ville :</label>
-                      <input class="form-control" type="text" placeholder="Enter la ville"  name="city" id="city">
+                      <input class="form-control" type="text" placeholder="Paris"  name="city" id="city">
                     </div>
                     <div class="form-group">
                       <label for="cityCode">Code postal :</label>
-                      <input class="form-control" type="number" maxlength="5" name="cityCode" id="cityCode" pattern="[0-9]{5}" />
+                      <input class="form-control" type="number" maxlength="5" name="cityCode" id="cityCode" pattern="[0-9]{5}" placeholder="75016" />
                     </div>
               </div>
             </div>
@@ -115,6 +115,7 @@
       alert("je ne connais pas de code postal comme celui là");
     }
   });
+   
    $('#retour').on('click', function(){
     document.location.href="ConfDetail.html?"+id[1];
   });
