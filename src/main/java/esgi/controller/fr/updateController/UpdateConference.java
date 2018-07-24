@@ -53,21 +53,16 @@ public class UpdateConference extends ControllerInitConference implements Initia
     @FXML
     private Button btnDelete;
 
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
+    private AlertMessage alert;
 
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Modifier les informations sur un invité ");
-
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
 
     @FXML
     public void updateDataBase() throws IOException {
 
+        if(tfName.getText().isEmpty() || tfTime.getText().isEmpty() ||tfDesc.getText().isEmpty() ||tfDate.getEditor().getText().isEmpty() ){
+            alert.notificationAndWait("Tous les champs ne sont pas correctes");
+            return;
+        }
 
         conference.setName(tfName.getText());
         conference.setTime(tfTime.getText());
@@ -85,7 +80,6 @@ public class UpdateConference extends ControllerInitConference implements Initia
     @FXML
     public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
         try {
-
 
             tfName.clear();
             tfTime.clear();
@@ -138,14 +132,15 @@ public class UpdateConference extends ControllerInitConference implements Initia
         int code = new ControllerApi().delete(url);
 
 
-        if (code <= 200) {
-            System.out.println("Delete ! ");
+        cbConference = super.ComboBoxInitConference(cbConference);
 
-        } else {
-            System.out.println("no delete ! ");
+        if(code == 200){
+            alert.notificationAndWait("La conférence" + conference.getName() + " a été supprimé");
+
+        }else{
+            alert.notificationAndWait("La conférence" + conference.getName() + " n'a été supprimé");
 
         }
-        cbConference = super.ComboBoxInitConference(cbConference);
 
     }
 
@@ -153,6 +148,7 @@ public class UpdateConference extends ControllerInitConference implements Initia
 
 
         cbConference = super.ComboBoxInitConference(cbConference);
+        alert = new AlertMessage();
 
 
     }

@@ -42,8 +42,7 @@ public class ControllerHome extends ControllerLogin implements Initializable {
             ControllerAnnotation controllerA = new ControllerAnnotation();
             user = (User) controllerA.getBean("user/loggedInUser/" + ControllerLogin.emailCurrentUser, this.getClass(), User.class);
 
-
-            String url = "conference/getFiveLast/"+user.getId();
+            String url = "conference/getFiveLast/" + user.getId();
 
             tabConf = (Conference[]) controllerA.getBean(url, this.getClass(), Conference[].class);
             VBox vBox = new VBox();
@@ -69,34 +68,4 @@ public class ControllerHome extends ControllerLogin implements Initializable {
 
     }
 
-
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-
-        Parent createConference = FXMLLoader.load(getClass().getResource("../View/CreateConfView.fxml"));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        menuBar.prefWidthProperty().bind(stage.widthProperty());
-
-        stage.close();
-        stage.setTitle("Before Show - Créer une Conference ");
-        stage.setScene(new Scene(createConference));
-        stage.show();
-
-
-    }
-
-    @FXML
-    public void updateConference(ActionEvent event) throws IOException {
-
-        Parent root = FXMLLoader.load(getClass().getResource("../View/updateConfView.fxml"));
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Modifier votre conference ");
-
-        stage.setResizable(false);
-
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
 }

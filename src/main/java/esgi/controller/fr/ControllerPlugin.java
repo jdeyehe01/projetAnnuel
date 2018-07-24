@@ -1,5 +1,6 @@
 package esgi.controller.fr;
 
+import com.sun.istack.internal.NotNull;
 import esgi.controller.fr.showController.ControllerInitConference;
 import esgi.model.fr.Budget;
 import esgi.model.fr.Conference;
@@ -37,6 +38,7 @@ public class ControllerPlugin extends ControllerInitConference implements Initia
 	private Label labelTitleView;
 	
 	@FXML
+
 	private Label labelDescription;
 	
 	@FXML

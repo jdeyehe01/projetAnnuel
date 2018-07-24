@@ -2,6 +2,7 @@ package esgi.controller.fr;
 
 import esgi.annotation.fr.BeanFromDataBase;
 import esgi.annotation.fr.ControllerAnnotation;
+import esgi.annotation.fr.NumberValue;
 import esgi.controller.fr.showController.ControllerInitConference;
 import esgi.model.fr.Conference;
 import esgi.model.fr.Locate;
@@ -33,6 +34,7 @@ public class ControllerLocate extends ControllerInitConference implements Initia
     private TextField tfCity;
 
     @FXML
+    @NumberValue
     private TextField tfCityCode;
 
     @FXML
@@ -40,9 +42,6 @@ public class ControllerLocate extends ControllerInitConference implements Initia
 
     @FXML
     private VBox contentLocate;
-
-    @FXML
-    private Button btnNext;
 
     @FXML
     private ComboBox cbListConference;
@@ -59,6 +58,11 @@ public class ControllerLocate extends ControllerInitConference implements Initia
     @FXML
     public void saveInBdd() throws IOException {
         try {
+            if(!new ControllerAnnotation().isNumber(this.getClass(),tfCityCode) || tfName.getText().isEmpty() || tfAddress.getText().isEmpty() || tfCity.getText().isEmpty() || tfCityCode.getText().isEmpty() ){
+                new AlertMessage().notificationAndWait("Tous les champs ne sont pas correctes");
+                return;
+            }
+
             String idConf = cbListConference.getValue().toString().split("-")[0];
             conference = (Conference) new ControllerAnnotation().getBean("conference/conferenceById/" + idConf, this.getClass(), Conference.class);
             Locate location = new Locate(tfName.getText(), tfAddress.getText(), Integer.parseInt(tfCityCode.getText()), tfCity.getText(), conference);
@@ -67,8 +71,7 @@ public class ControllerLocate extends ControllerInitConference implements Initia
 
             int codeResponse = new ControllerApi().post("locate/" + conference.getId(), jsonLocate);
 
-            if (codeResponse <= 201) {
-                btnNext.setVisible(true);
+            if (codeResponse == 200) {
                 contentLocate.getChildren().add(new Label(tfName.getText()));
                 listLocate.setContent(contentLocate);
                 new AlertMessage().notificationAndWait("Le lieu " + location.getName() + " a été créé");
@@ -90,7 +93,6 @@ public class ControllerLocate extends ControllerInitConference implements Initia
         tfCity.setDisable(false);
         tfCityCode.setDisable(false);
         tfAddress.setDisable(false);
-        btnNext.setDisable(false);
         btnSave.setDisable(false);
         btnAddLocate.setDisable(false);
     }
@@ -111,23 +113,10 @@ public class ControllerLocate extends ControllerInitConference implements Initia
 
     public void initialize(URL location, ResourceBundle resources) {
         cbListConference = super.ComboBoxInitConference(cbListConference);
-    }
-
-
-    @FXML
-    public void navigateTo(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/taskView.fxml"));
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Ajouter une tâche ");
-
-        stage.setResizable(false);
-        stage.setScene(new Scene(root));
-
-        stage.show();
 
     }
+
+
 
 
 }

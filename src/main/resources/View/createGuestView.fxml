@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="822.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esgi.controller.fr.ControllerGuest">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="522.0" prefWidth="822.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esgi.controller.fr.ControllerGuest">
     <children>
         <Label fx:id="labelTitleView" alignment="CENTER" layoutX="280.0" layoutY="54.0" styleClass="label-header" stylesheets="@../style.css" text="Ajouer un invité" />
         <GridPane layoutX="59.0" layoutY="175.0" prefHeight="190.0" prefWidth="509.0">
@@ -35,14 +35,13 @@
             <TextField fx:id="tfEmail" disable="true" layoutX="104.0" layoutY="151.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             </children>
         </GridPane>
-        <Button fx:id="btnNext" layoutX="324.0" layoutY="435.0" mnemonicParsing="false" onAction="#navigate" styleClass="windows7-default" stylesheets="@../style.css" text="Suivant" visible="false" />
       <Button fx:id="btnNewGuest" disable="true" layoutX="218.0" layoutY="384.0" mnemonicParsing="false" onAction="#newGuest" styleClass="windows7-default" stylesheets="@../style.css" text="Ajouter un nouvel invité" />
       <ScrollPane fx:id="scrollPaneGuest" layoutX="597.0" layoutY="170.0" prefHeight="200.0" prefWidth="200.0">
          <content>
             <VBox fx:id="verticalBox" prefHeight="195.0" prefWidth="195.0" visible="false" />
          </content>
       </ScrollPane>
-      <Button fx:id="btnSave" disable="true" layoutX="190.0" layoutY="435.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" stylesheets="@../style.css" text="Enregistrer" />
+      <Button fx:id="btnSave" disable="true" layoutX="251.0" layoutY="435.0" mnemonicParsing="false" onAction="#save" styleClass="windows7-default" stylesheets="@../style.css" text="Enregistrer" />
       <fx:include source="navBarView.fxml" />
       <ComboBox fx:id="cbListConference" layoutX="324.0" layoutY="130.0" onAction="#initConferenceBean" prefHeight="25.0" prefWidth="160.0" promptText="Les conférences" styleClass="label" />
       <ImageView fitHeight="103.0" fitWidth="151.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">

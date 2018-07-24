@@ -2,6 +2,7 @@ package esgi.controller.fr;
 
 import esgi.annotation.fr.BeanFromDataBase;
 import esgi.annotation.fr.ControllerAnnotation;
+import esgi.annotation.fr.StringValue;
 import esgi.controller.fr.showController.ControllerInitConference;
 import esgi.model.fr.Conference;
 import esgi.model.fr.Task;
@@ -25,14 +26,13 @@ public class ControllerTask extends ControllerInitConference implements Initiali
 
     @FXML
     private TextField tfTitle;
+
     @FXML
     private TextField tfTime;
 
     @FXML
     private Button btnSave;
 
-    @FXML
-    private Button btnNext;
 
     @FXML
     private ComboBox cbListConference;
@@ -50,18 +50,22 @@ public class ControllerTask extends ControllerInitConference implements Initiali
 
     /*
 
-        Enregistre
+        Enregistrement dans la base de donnée
      */
     @FXML
     public void save() throws IOException {
         try {
+            if( tfTime.getText().isEmpty() || tfTitle.getText().isEmpty() ){
+                new AlertMessage().notificationAndWait("Tous les champs ne sont pas correctes");
+                return;
+            }
+
             String idConference = cbListConference.getValue().toString().split("-")[0];
             String url = "conference/conferenceById/" + idConference;
 
 
             conference = (Conference) new ControllerAnnotation().getBean(url, this.getClass(), Conference.class);
             btnSave.setVisible(false);
-            btnNext.setVisible(true);
             ControllerApi api = new ControllerApi();
             Task task = new Task(tfTitle.getText(), tfTime.getText(), conference);
             String jsonTask = new Gson().toJson(task, Task.class);
@@ -75,27 +79,11 @@ public class ControllerTask extends ControllerInitConference implements Initiali
 
     }
 
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-
-        Parent createConf = FXMLLoader.load(getClass().getResource("../View/budgetView.fxml"));
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Ajouter un budget ");
-
-        stage.setResizable(false);
-
-        stage.setScene(new Scene(createConf));
-        stage.show();
-
-    }
 
     @FXML
     public void initFormTask() {
         tfTitle.setDisable(false);
         tfTime.setDisable(false);
-        btnNext.setDisable(false);
         btnSave.setDisable(false);
         btnAddTask.setDisable(false);
         btnSave.setDisable(false);
@@ -107,6 +95,9 @@ public class ControllerTask extends ControllerInitConference implements Initiali
         content = new VBox();
     }
 
+    /*
+        Possibilité de créer une liste de tâche
+     */
     @FXML
     public void addNewTask() {
         content.getChildren().add(new Label(tfTitle.getText() + " " + tfTime.getText()));

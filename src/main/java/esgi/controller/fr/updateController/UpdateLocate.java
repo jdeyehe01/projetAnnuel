@@ -1,5 +1,6 @@
 package esgi.controller.fr.updateController;
 
+import esgi.annotation.fr.NumberValue;
 import esgi.controller.fr.AlertMessage;
 import esgi.controller.fr.ControllerApi;
 import esgi.controller.fr.showController.ControllerInitConference;
@@ -35,6 +36,7 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
     private TextField tfCity;
 
     @FXML
+    @NumberValue
     private TextField tfCityCode;
 
     @FXML
@@ -116,6 +118,11 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
 
     @FXML
     public void updateDataBase() throws IOException {
+
+        if(!new ControllerAnnotation().isNumber(this.getClass(),tfCityCode) || tfName.getText().isEmpty() || tfAddress.getText().isEmpty() || tfCity.getText().isEmpty() || tfCityCode.getText().isEmpty() ){
+            new AlertMessage().notificationAndWait("Tous les champs ne sont pas correctes");
+            return;
+        }
         locate.getId();
         locate.setName(tfName.getText());
         locate.setAddress(tfAddress.getText());
@@ -144,7 +151,15 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
         tfCityCode.clear();
         updateLocate();
 
+        if(code == 200){
+            new AlertMessage().notificationAndWait("Le lieu" + locate.getName() + " a été supprimé ");
 
+        }else{
+            if(code == 200){
+                new AlertMessage().notificationAndWait("Le lieu" + locate.getName() + " n'a été supprimé ");
+
+            }
+        }
     }
 
 

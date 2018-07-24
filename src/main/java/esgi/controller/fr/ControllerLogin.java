@@ -1,5 +1,7 @@
 package esgi.controller.fr;
 
+import esgi.annotation.fr.ControllerAnnotation;
+import esgi.annotation.fr.PasswordValue;
 import esgi.model.fr.User;
 import com.google.gson.Gson;
 import javafx.event.ActionEvent;
@@ -27,6 +29,7 @@ public class ControllerLogin implements Initializable {
     @FXML
     private TextField tfEmail;
 
+    @PasswordValue
     @FXML
     private TextField tfPw;
 
@@ -55,24 +58,25 @@ public class ControllerLogin implements Initializable {
     @FXML
     public void signIn(ActionEvent event) throws IOException {
 
-        User user = new User(tfEmail.getText(),tfPw.getText());
-        String jsonUser = new Gson().toJson(user,User.class);
-        String urlAuth = "user/auth";
-       int code = new ControllerApi().post(urlAuth,jsonUser);
-       if(code == 200){
-           emailCurrentUser = tfEmail.getText();
-           navigateTo(event);
-       }else{
-           notification.notificationAndWait("La combinaison email/mot de passe est incorrecte" );
 
-       }
+        User user = new User(tfEmail.getText(), tfPw.getText());
+        String jsonUser = new Gson().toJson(user, User.class);
+        String urlAuth = "user/auth";
+        int code = new ControllerApi().post(urlAuth, jsonUser);
+        if (code == 200) {
+            emailCurrentUser = tfEmail.getText();
+            navigateTo(event);
+        } else {
+            notification.notificationAndWait("La combinaison email/mot de passe est incorrecte");
+
+        }
 
     }
 
     public void navigateTo(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/View/beforeShowWelcomeView.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("./View/beforeShowWelcomeView.fxml"));
 
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
         stage.close();
         stage.setTitle("Before Show - Accueil ");
@@ -89,22 +93,22 @@ public class ControllerLogin implements Initializable {
         btnSignUp.setVisible(false);
         btnSignIn.setVisible(false);
         btnEnrollement.setVisible(true);
-        navigateTo(event);
     }
 
     @FXML
     public void enrollment() throws IOException {
-        if(tfEmail.getText().isEmpty() || tfPw.getText().isEmpty()){
+        if (tfEmail.getText().isEmpty() || tfPw.getText().isEmpty() || new ControllerAnnotation().verifyPassword(this.getClass(),tfPw)) {
 
-            notification.notificationAndWait("Veuillez remplir tous les champs svp ");
+            notification.notificationAndWait("Veuillez remplir tous les champs et respecter les critère");
+            return;
         }
 
-        User user = new User(tfEmail.getText(),tfPw.getText());
+        User user = new User(tfEmail.getText(), tfPw.getText());
 
-        String jsonUser = new Gson().toJson(user,User.class);
-        int responseCode = new ControllerApi().post("user/signUp" ,jsonUser );
+        String jsonUser = new Gson().toJson(user, User.class);
+        int responseCode = new ControllerApi().post("user/signUp", jsonUser);
 
-        if(responseCode <=201){
+        if (responseCode == 200) {
             lbInfoCheck.setVisible(true);
             tfPw.clear();
             tfEmail.clear();

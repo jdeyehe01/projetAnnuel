@@ -2,6 +2,7 @@ package esgi.controller.fr;
 
 import esgi.annotation.fr.BeanFromDataBase;
 import esgi.annotation.fr.ControllerAnnotation;
+import esgi.annotation.fr.NumberValue;
 import esgi.controller.fr.showController.ControllerInitConference;
 import esgi.model.fr.Budget;
 import esgi.model.fr.Conference;
@@ -27,6 +28,7 @@ public class ControllerBudget extends ControllerInitConference implements Initia
     @FXML
     private TextField tfName;
 
+    @NumberValue
     @FXML
     private TextField tfAmount;
 
@@ -39,10 +41,6 @@ public class ControllerBudget extends ControllerInitConference implements Initia
     @FXML
     private Button btnSave;
 
-
-    @FXML
-    private Button btnNext;
-
     @BeanFromDataBase
     private Conference conference;
 
@@ -51,6 +49,8 @@ public class ControllerBudget extends ControllerInitConference implements Initia
 
     private ControllerApi api;
     private ArrayList<Budget> listBudget;
+
+    private AlertMessage alert;
 
 
     @FXML
@@ -67,7 +67,10 @@ public class ControllerBudget extends ControllerInitConference implements Initia
     @FXML
     public void save() throws IOException {
         try {
-            btnNext.setVisible(true);
+
+            if(new ControllerAnnotation().isNumber(this.getClass(),tfAmount) || tfAmount.getText().isEmpty() || tfName.getText().isEmpty()){
+                alert.notificationAndWait("Tous les champs ne sont pas correcte");
+            }
             String idConference = cbListConference.getValue().toString().split("-")[0];
             String url = "conference/conferenceById/" + idConference;
 
@@ -80,7 +83,7 @@ public class ControllerBudget extends ControllerInitConference implements Initia
             listBudgetPan.setVisible(true);
             api.post("budget/"+idConference, jsonBudget);
 
-            new AlertMessage().notificationAndWait("Le budget " +budget.getTitle() + " a été créé");
+            alert.notificationAndWait("Le budget " +budget.getTitle() + " a été créé");
 
 
         } catch (IllegalAccessException e) {
@@ -97,6 +100,7 @@ public class ControllerBudget extends ControllerInitConference implements Initia
         api = new ControllerApi();
         listBudget = new ArrayList<Budget>();
         content = new VBox(1);
+        alert = new AlertMessage();
         if (content.getChildren().size() <= 0) {
             listBudgetPan.setVisible(false);
         }
@@ -112,18 +116,5 @@ public class ControllerBudget extends ControllerInitConference implements Initia
         tfName.clear();
         tfAmount.clear();
 
-    }
-
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        Parent createConf = FXMLLoader.load(getClass().getResource("../View/beforeShowWelcomeView.fxml"));
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Accueil ");
-
-        stage.setResizable(false);
-        stage.setScene(new Scene(createConf));
-        stage.show();
     }
 }

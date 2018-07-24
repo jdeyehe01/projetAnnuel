@@ -1,5 +1,6 @@
 package esgi.controller.fr.updateController;
 
+import esgi.annotation.fr.NumberValue;
 import esgi.controller.fr.AlertMessage;
 import esgi.controller.fr.ControllerApi;
 import esgi.controller.fr.showController.ControllerInitConference;
@@ -33,6 +34,7 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
     @FXML
     private TextField tfName;
 
+    @NumberValue
     @FXML
     private TextField tfAmount;
 
@@ -45,13 +47,17 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
     @FXML
     private Button btnDelete;
 
+    private AlertMessage alert;
 
+    /*
+           On récupère toutes les conférences qu'un utilisateur a pu créer puis on les place dans une combobox. Cela nous permet dans la suite de récupérer tous les budgets d'une conférence en fonction de son id
+
+     */
     @FXML
     public void updateBudget() throws IOException, InstantiationException, IllegalAccessException {
 
-        if(cbListBudget.getItems().size()>0){
+        if (cbListBudget.getItems().size() > 0) {
             cbListBudget.setDisable(false);
-
         }
         String idConference = cbListConference.getValue().toString().split("-")[0];
         String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/" + idConference);
@@ -69,6 +75,9 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
 
     }
 
+    /*
+        Nous initalisont les champs du formulaire budget avec les informations de la base de données avec le budget que l'utilisateur à choisi de modifier
+     */
 
     @FXML
     public void initialisationForm() throws InstantiationException, IllegalAccessException {
@@ -97,9 +106,18 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
 
     }
 
+    /*
+        Cette fonction est lancé au clique du bouton modifier. Elle permet d'effectué une requette http de type put pour modifier un budget dans la base de données en fonction de son id
+     */
+
     @FXML
     public void updateDataBase() throws IOException {
         try {
+
+            if (tfName.getText().isEmpty() || tfAmount.getText().isEmpty() || new ControllerAnnotation().isNumber(this.getClass(), tfAmount)) {
+                alert.notificationAndWait("Tous les champs ne sont pas correctes");
+                return;
+            }
             budget.setTitle(tfName.getText());
             budget.setAmount(Float.parseFloat(tfAmount.getText()));
 
@@ -108,7 +126,7 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
             new ControllerApi().put("budget/updateBudget/" + budget.getId(), jsonBudget);
 
             updateBudget();
-            new AlertMessage().notificationAndWait("Le budget " +budget.getTitle() + " a été mis à jour");
+            alert.notificationAndWait("Le budget " + budget.getTitle() + " a été mis à jour");
 
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -118,6 +136,10 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
 
 
     }
+
+    /*
+        La fonction est lancé au clique du bouton supprimer. Elle permet d'effectué une requête http de type delete et ainsi de supprimer le budget dans la base de données en fonction de son id
+     */
 
     @FXML
     public void deleteBudget() throws IOException, IllegalAccessException, InstantiationException {
@@ -132,19 +154,26 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
         tfAmount.clear();
 
         updateBudget();
-        if (code <= 200) {
-            System.out.println("Delete !");
+
+        if (code == 200) {
+            alert.notificationAndWait("Le budget " + budget.getTitle() + " a été supprimé");
+
         } else {
-            System.out.println("No delete");
+            alert.notificationAndWait("Le budget " + budget.getTitle() + " n'a pas été supprimé");
+
         }
 
     }
 
+    /*
+        On initialise la liste des conférences qui sont stocké dans la base ded données au chargement de la page
+     */
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         cbListConference = super.ComboBoxInitConference(cbListConference);
+        alert = new AlertMessage();
 
     }
 

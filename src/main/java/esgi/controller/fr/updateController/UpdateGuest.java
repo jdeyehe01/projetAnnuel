@@ -1,5 +1,6 @@
 package esgi.controller.fr.updateController;
 
+import esgi.annotation.fr.StringValue;
 import esgi.controller.fr.AlertMessage;
 import esgi.controller.fr.ControllerApi;
 import esgi.controller.fr.showController.ControllerInitConference;
@@ -32,8 +33,11 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
 
 
     @FXML
+    @StringValue
     private TextField tfLastName;
+
     @FXML
+    @StringValue
     private TextField tfFirstName;
 
     @FXML
@@ -46,7 +50,7 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
     private ComboBox cbListConference;
 
     @BeanFromDataBase
-     private Guest guest;
+    private Guest guest;
 
 
     @FXML
@@ -110,6 +114,10 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
     public void updateDataBase() throws IOException {
 
         try {
+            if (new ControllerAnnotation().isString(this.getClass(), tfFirstName) || new ControllerAnnotation().isString(this.getClass(), tfFirstName) || tfEmail.getText().isEmpty()) {
+                new AlertMessage().notificationAndWait("Les champs ne sont pas correctes");
+                return;
+            }
             guest.setlname(tfLastName.getText());
             guest.setEmail(tfEmail.getText());
             guest.setfname(tfFirstName.getText());
@@ -118,27 +126,13 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
 
             new ControllerApi().put("guest/update/" + guest.getId(), jsonGuest);
             this.updateGuest();
-            new AlertMessage().notificationAndWait("L'invité " +guest.getfname() + " a été mis à jour");
+            new AlertMessage().notificationAndWait("L'invité " + guest.getfname() + " a été mis à jour");
 
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
-
-    }
-
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
-
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Modifier une presentation ");
-
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
-        stage.show();
 
     }
 
@@ -149,6 +143,16 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
             String idGuest = cbListGuest.getValue().toString().split("-")[0];
             String url = "guest/deleteGuest/" + idGuest;
             this.updateGuest();
+
+            int responseCode = new ControllerApi().delete(url);
+            if(responseCode == 200){
+                new AlertMessage().notificationAndWait("L'invité " + guest.getfname() + " a été supprimé");
+
+            }else{
+                new AlertMessage().notificationAndWait("L'invité " + guest.getfname() + " n'a pas été supprimé");
+
+            }
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {

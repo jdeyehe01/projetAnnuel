@@ -103,6 +103,10 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
     @FXML
     public void updateDataBase() throws IOException {
         try {
+            if( tfTime.getText().isEmpty() || tfTitle.getText().isEmpty() ){
+                new AlertMessage().notificationAndWait("Tous les champs ne sont pas correctes");
+                return;
+            }
             task.setTitle(tfTitle.getText());
             task.setDuration(tfTime.getText());
 
@@ -119,19 +123,6 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
         }
     }
 
-    @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        System.out.println("Entrer");
-        Parent root = FXMLLoader.load(getClass().getResource("../updateGuest.fxml"));
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Modifier une task ");
-
-        stage.setScene(new Scene(root, root.getLayoutX(), root.getLayoutY()));
-        stage.show();
-
-    }
 
     @FXML
     public void deleteTask() throws IOException, IllegalAccessException, InstantiationException {
@@ -144,6 +135,13 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
         this.updateTask();
         tfTitle.clear();
         tfTime.clear();
+
+        if(code == 200){
+            new AlertMessage().notificationAndWait("La tâche " + task.getTitle() + " a été supprimé");
+        }else{
+            new AlertMessage().notificationAndWait("La tâche " + task.getTitle() + " n'a pas été supprimé");
+
+        }
 
     }
 

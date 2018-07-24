@@ -1,5 +1,6 @@
 package esgi.controller.fr;
 
+import esgi.annotation.fr.StringValue;
 import esgi.controller.fr.showController.ControllerInitConference;
 import esgi.model.fr.Conference;
 import esgi.model.fr.Guest;
@@ -23,9 +24,11 @@ import java.util.ResourceBundle;
 
 public class ControllerGuest extends ControllerInitConference implements Initializable {
 
+    @StringValue
     @FXML
     private TextField tfLastName;
 
+    @StringValue
     @FXML
     private TextField tfFirstName;
 
@@ -35,8 +38,6 @@ public class ControllerGuest extends ControllerInitConference implements Initial
     @FXML
     private VBox verticalBox;
 
-    @FXML
-    private Button btnNext;
 
     @FXML
     private Button btnNewGuest;
@@ -57,22 +58,27 @@ public class ControllerGuest extends ControllerInitConference implements Initial
 
     private VBox content;
 
+    private AlertMessage alert;
+
 
     @FXML
     public void save() throws IOException {
 
+        if(new ControllerAnnotation().isString(this.getClass(),tfFirstName) || new ControllerAnnotation().isString(this.getClass(),tfFirstName) || tfEmail.getText().isEmpty()){
+            alert.notificationAndWait("Les champs ne sont pas correctes");
+            return;
+        }
         guest = new Guest(tfFirstName.getText(), tfLastName.getText(), tfEmail.getText(), conference);
         String jsonGuest = new Gson().toJson(guest);
         int responseCode = new ControllerApi().post("guest/" + conference.getId(), jsonGuest);
-        if (responseCode <= 201) {
+        if (responseCode == 200) {
             verticalBox.getChildren().add(new Label(tfFirstName.getText() + "-" + tfLastName.getText()));
             scrollPaneGuest.setContent(verticalBox);
             scrollPaneGuest.setVisible(true);
             verticalBox.setVisible(true);
-            btnNext.setVisible(true);
         }
 
-        new AlertMessage().notificationAndWait(guest.getfname() + " a été invité");
+        alert.notificationAndWait(guest.getfname() + " a été invité");
 
     }
 
@@ -86,21 +92,6 @@ public class ControllerGuest extends ControllerInitConference implements Initial
     }
 
     @FXML
-    public void navigate(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/locateConfView.fxml"));
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
-        stage.setTitle("Before Show - Ajouter un lieu ");
-
-        stage.setResizable(false);
-        stage.setScene(new Scene(root));
-
-        stage.show();
-
-    }
-
-    @FXML
     public void initConferenceBean() {
 
         try {
@@ -111,7 +102,6 @@ public class ControllerGuest extends ControllerInitConference implements Initial
             tfEmail.setDisable(false);
             tfFirstName.setDisable(false);
             btnNewGuest.setDisable(false);
-            btnNext.setDisable(false);
             btnSave.setDisable(false);
 
 
@@ -128,6 +118,7 @@ public class ControllerGuest extends ControllerInitConference implements Initial
 
         cbListConference = super.ComboBoxInitConference(cbListConference);
         content = new VBox();
+        alert = new AlertMessage();
 
 
     }
