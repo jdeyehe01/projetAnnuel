@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="Projet Annuel:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/Projet_Annuel_jar</output-path>
-    <root id="archive" name="Projet Annuel.jar">
-      <element id="module-output" name="Projet Annuel" />
-      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

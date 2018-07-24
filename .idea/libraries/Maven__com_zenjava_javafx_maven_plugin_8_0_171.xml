@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.zenjava:javafx-maven-plugin:8.0.171">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/zenjava/javafx-maven-plugin/8.0.171/javafx-maven-plugin-8.0.171.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/zenjava/javafx-maven-plugin/8.0.171/javafx-maven-plugin-8.0.171-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/zenjava/javafx-maven-plugin/8.0.171/javafx-maven-plugin-8.0.171-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

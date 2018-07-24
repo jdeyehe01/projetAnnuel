@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="640.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.updateController.UpdateConference">
+<Pane fx:id="windowCreateConference" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="502.0" prefWidth="640.0" styleClass="windows7-default" stylesheets="@../style.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="esgi.controller.fr.updateController.UpdateConference">
    <children>
       <Label fx:id="labelTitleView" alignment="CENTER" layoutX="143.0" layoutY="33.0" styleClass="label-header" text="Modifier votre conférence" />
       <GridPane fx:id="gpForm" layoutX="46.0" layoutY="154.0" prefHeight="260.0" prefWidth="509.0">
