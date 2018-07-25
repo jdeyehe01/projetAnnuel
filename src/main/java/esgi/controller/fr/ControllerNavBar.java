@@ -437,6 +437,20 @@ Guest
         stage.show();
     }
 
+    @FXML
+    public void logout() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/View/loginView.fxml"));
+
+        Stage stage = (Stage) navBar.getScene().getWindow();
+
+        stage.close();
+        stage.setTitle("Before Show - Accueil ");
+        stage.setResizable(false);
+
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

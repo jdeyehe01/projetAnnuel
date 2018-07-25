@@ -26,7 +26,7 @@ public class ControllerAnnotation {
             Field[] tabField = clazz.getDeclaredFields();
             for (Field field : tabField) {
                 BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
-
+                field.setAccessible(true);
                 if (aBean != null && field.getType().getName().equals(objectTargetClass.getName())) {
 
                     Class<?> fieldType = field.getType();
@@ -53,13 +53,16 @@ public class ControllerAnnotation {
         Field[] tabField = clazz.getDeclaredFields();
         for (Field field : tabField) {
             BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
-            try {
-                TextField textF = (TextField) field.get(txtField);
-                return textF.getText().matches("[0-9]+(.[0-9])*");
+            if (aBean != null && field.getType().getName().equals(txtField.getClass().getName())) {
+                field.setAccessible(true);
+                try {
+                    TextField textF = (TextField) field.get(txtField);
+                    return textF.getText().matches("[0-9]+(.[0-9])*");
 
-            } catch (IllegalAccessException e) {
+            } catch(IllegalAccessException e){
                 e.printStackTrace();
             }
+        }
         }
         return false;
     }
@@ -77,13 +80,16 @@ public class ControllerAnnotation {
         Field[] tabField = clazz.getDeclaredFields();
         for (Field field : tabField) {
             BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
+            if (aBean != null && field.getType().getName().equals(tf.getClass().getName())) {
+                field.setAccessible(true);
 
-            try {
-                TextField textF = (TextField) field.get(tf);
-                return textF.getText().matches("[A-Za-z-_]+");
+                try {
+                    TextField textF = (TextField) field.get(tf);
+                    return textF.getText().matches("[A-Za-z-_]+");
 
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -96,13 +102,15 @@ public class ControllerAnnotation {
         Field[] tabField = clazz.getDeclaredFields();
         for (Field field : tabField) {
             BeanFromDataBase aBean = field.getAnnotation(BeanFromDataBase.class);
+            if (aBean != null && field.getType().getName().equals(textField.getClass().getName())) {
 
-            try {
-                TextField textF = (TextField) field.get(textField);
-                return textF.getText().matches("[A-Za-z-_]+");
+                try {
+                    TextField textF = (TextField) field.get(textField);
+                    return textF.getText().matches("[A-Za-z-0-9]+");
 
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
             }
         }
 

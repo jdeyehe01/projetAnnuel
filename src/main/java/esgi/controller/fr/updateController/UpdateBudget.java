@@ -55,10 +55,10 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
      */
     @FXML
     public void updateBudget() throws IOException, InstantiationException, IllegalAccessException {
-
-        if (cbListBudget.getItems().size() > 0) {
+        cbListBudget.getItems().clear();
+        if (cbListBudget.getItems().size() == 0) {
             cbListBudget.setDisable(false);
-        }
+
         String idConference = cbListConference.getValue().toString().split("-")[0];
         String allBudget = new ControllerApi().get("budget/getAllBudgetForConference/" + idConference);
         Budget[] tabBudget = new Gson().fromJson(allBudget, Budget[].class);
@@ -71,8 +71,7 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
         }
 
         cbListBudget.getItems().setAll(listTitle);
-
-
+        }
     }
 
     /*
@@ -84,19 +83,20 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
 
         tfName.clear();
         tfAmount.clear();
-        String idConference = cbListConference.getValue().toString().split("-")[0];
-        String idBudget = cbListBudget.getValue().toString().split("-")[0];
-        String url = "budget/getBudgetById/" + idBudget + "/" + idConference;
-        btnUpdate.setVisible(true);
+        if(cbListBudget.getItems().size() != 0) {
+            String idConference = cbListConference.getValue().toString().split("-")[0];
+            String idBudget = cbListBudget.getValue().toString().split("-")[0];
+            String url = "budget/getBudgetById/" + idBudget + "/" + idConference;
+            btnUpdate.setVisible(true);
 
-        budget = (Budget) new ControllerAnnotation().getBean(url, this.getClass(), Budget.class);
-        System.out.println(budget.toString());
-        tfName.setText(budget.getTitle());
-        tfAmount.setText(String.valueOf(budget.getAmount()));
+            budget = (Budget) new ControllerAnnotation().getBean(url, this.getClass(), Budget.class);
+            System.out.println(budget.toString());
+            tfName.setText(budget.getTitle());
+            tfAmount.setText(String.valueOf(budget.getAmount()));
 
-        cbListBudget.setDisable(false);
+            cbListBudget.setDisable(false);
 
-
+        }
         if (btnDelete.isVisible()) {
             btnUpdate.setVisible(false);
         } else {
@@ -126,6 +126,8 @@ public class UpdateBudget extends ControllerInitConference implements Initializa
             new ControllerApi().put("budget/updateBudget/" + budget.getId(), jsonBudget);
 
             updateBudget();
+            tfName.clear();
+            tfAmount.clear();
             alert.notificationAndWait("Le budget " + budget.getTitle() + " a été mis à jour");
 
         } catch (InstantiationException e) {

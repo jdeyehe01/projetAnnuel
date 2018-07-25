@@ -49,8 +49,9 @@ public class ControllerHome extends ControllerLogin implements Initializable {
 
             if (tabConf.length > 0) {
                 for (Conference c : tabConf) {
-                    String confInfo = c.getId() + "-" + c.getName() + " le " + c.getDate().split("T")[0];
+                   String confInfo = c.getId() + "-" + c.getName() + " le " + c.getDate().split("T")[0];
                     vBox.getChildren().add(new Label(confInfo));
+
 
                     fiveLast.setVisible(true);
                 }

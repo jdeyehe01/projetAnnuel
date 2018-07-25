@@ -74,7 +74,13 @@ public class UpdateConference extends ControllerInitConference implements Initia
         new ControllerApi().put("conference/update/" + conference.getId(), jsonConference);
         new AlertMessage().notificationAndWait("La conférence " +conference.getName() + " a été mis à jour");
 
+        tfDate.getEditor().clear();
+        tfDesc.clear();
+        tfTime.clear();
+        tfName.clear();
+
     }
+
 
 
     @FXML
@@ -136,6 +142,11 @@ public class UpdateConference extends ControllerInitConference implements Initia
 
         if(code == 200){
             alert.notificationAndWait("La conférence" + conference.getName() + " a été supprimé");
+            tfDate.getEditor().clear();
+            tfDesc.clear();
+            tfTime.clear();
+            tfName.clear();
+
 
         }else{
             alert.notificationAndWait("La conférence" + conference.getName() + " n'a été supprimé");

@@ -43,7 +43,7 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
     private ComboBox cbListLocate;
 
     @BeanFromDataBase
-     private Locate locate;
+    private Locate locate;
 
 
     @BeanFromDataBase
@@ -63,27 +63,26 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
     @FXML
     public void updateLocate() throws IOException, InstantiationException, IllegalAccessException {
 
-        if(cbListLocate.getItems().size()>0){
-            cbListLocate.getProperties().clear();
-        }
+        cbListLocate.getItems().clear();
+
         String idConference = cbListConference.getValue().toString().split("-")[0];
 
-        String allLocate = new ControllerApi().get("locate/getAll/"+idConference);
+        String allLocate = new ControllerApi().get("locate/getAll/" + idConference);
         System.out.println(allLocate);
-        Locate[] tabLocate =  new Gson().fromJson(allLocate, Locate[].class);
+        Locate[] tabLocate = new Gson().fromJson(allLocate, Locate[].class);
 
         List<Locate> listLocate = Arrays.asList(tabLocate);
         ArrayList<String> listNameLocate = new ArrayList<String>();
 
-        for(Locate locate : listLocate){
-            listNameLocate.add(locate.getId()+"-"+locate.getName());
+        for (Locate locate : listLocate) {
+            listNameLocate.add(locate.getId() + "-" + locate.getName());
         }
 
         cbListLocate.getItems().addAll(listNameLocate);
 
-        if(cbListLocate.getItems().isEmpty()){
+        if (cbListLocate.getItems().isEmpty()) {
             cbListLocate.setDisable(true);
-        }else{
+        } else {
             cbListLocate.setDisable(false);
         }
     }
@@ -95,31 +94,32 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
         tfAddress.clear();
         tfCity.clear();
         tfCityCode.clear();
+        if (cbListLocate.getItems().size() != 0) {
 
-        String idLocate = ((ComboBox)event.getSource()).getValue().toString().split("-")[0];
-        String url = "locate/getLocateById/"+idLocate;
+            String idLocate = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
+            String url = "locate/getLocateById/" + idLocate;
 
-        if(btnDelete.isVisible()){
-            btnSave.setVisible(false);
-        }else{
-            btnSave.setVisible(true);
+            if (btnDelete.isVisible()) {
+                btnSave.setVisible(false);
+            } else {
+                btnSave.setVisible(true);
+            }
+
+            locate = (Locate) new ControllerAnnotation().getBean(url, this.getClass(), Locate.class);
+
+            tfName.setText(locate.getName());
+            tfAddress.setText(locate.getAddress());
+            tfCity.setText(locate.getCity());
+            tfCityCode.setText(String.valueOf(locate.getCityCode()));
         }
-
-       locate = (Locate) new ControllerAnnotation().getBean(url,this.getClass(),Locate.class);
-
-        tfName.setText(locate.getName());
-        tfAddress.setText(locate.getAddress());
-        tfCity.setText(locate.getCity());
-        tfCityCode.setText(String.valueOf(locate.getCityCode()));
 
     }
 
 
-
     @FXML
-    public void updateDataBase() throws IOException {
+    public void updateDataBase() throws IOException, IllegalAccessException, InstantiationException {
 
-        if(!new ControllerAnnotation().isNumber(this.getClass(),tfCityCode) || tfName.getText().isEmpty() || tfAddress.getText().isEmpty() || tfCity.getText().isEmpty() || tfCityCode.getText().isEmpty() ){
+        if (!new ControllerAnnotation().isNumber(this.getClass(), tfCityCode) || tfName.getText().isEmpty() || tfAddress.getText().isEmpty() || tfCity.getText().isEmpty() || tfCityCode.getText().isEmpty()) {
             new AlertMessage().notificationAndWait("Tous les champs ne sont pas correctes");
             return;
         }
@@ -129,10 +129,18 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
         locate.setCity(tfCity.getText());
         locate.setCityCode(Integer.parseInt(tfCityCode.getText()));
 
-        String jsonLocate = new Gson().toJson(locate,Locate.class);
+        String jsonLocate = new Gson().toJson(locate, Locate.class);
 
-        new ControllerApi().put("locate/update/"+locate.getId(),jsonLocate);
-        new AlertMessage().notificationAndWait("Le lieu " +locate.getName() + " a été mis à jour");
+        new ControllerApi().put("locate/update/" + locate.getId(), jsonLocate);
+        new AlertMessage().notificationAndWait("Le lieu " + locate.getName() + " a été mis à jour");
+
+
+        tfName.clear();
+        tfAddress.clear();
+        tfCity.clear();
+        tfCityCode.clear();
+        cbListLocate.getItems().clear();
+        updateLocate();
 
 
     }
@@ -141,7 +149,7 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
     public void deleteLocate() throws IOException, IllegalAccessException, InstantiationException {
         String idLocate = cbListLocate.getValue().toString().split("-")[0];
 
-        String url = "locate/deleteLocateById/"+idLocate;
+        String url = "locate/deleteLocateById/" + idLocate;
         int code = new ControllerApi().delete(url);
 
         this.updateLocate();
@@ -151,11 +159,18 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
         tfCityCode.clear();
         updateLocate();
 
-        if(code == 200){
+        if (code == 200) {
             new AlertMessage().notificationAndWait("Le lieu" + locate.getName() + " a été supprimé ");
+            tfName.clear();
+            tfAddress.clear();
+            tfCity.clear();
+            tfCityCode.clear();
+            cbListLocate.getItems().clear();
+            updateLocate();
 
-        }else{
-            if(code == 200){
+
+        } else {
+            if (code == 200) {
                 new AlertMessage().notificationAndWait("Le lieu" + locate.getName() + " n'a été supprimé ");
 
             }
@@ -167,13 +182,12 @@ public class UpdateLocate extends ControllerInitConference implements Initializa
     public void initialize(URL location, ResourceBundle resources) {
 
 
-           // this.initListConference();
-            cbListConference = super.ComboBoxInitConference(cbListConference);
-            this.cbListLocate.setDisable(true);
+        // this.initListConference();
+        cbListConference = super.ComboBoxInitConference(cbListConference);
+        this.cbListLocate.setDisable(true);
 
 
     }
-
 
 
 }

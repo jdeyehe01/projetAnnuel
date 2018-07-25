@@ -76,7 +76,7 @@ public class Conference {
 	@Override
 	public String toString() {
 		return "Conference{" +
-				", name='" + name + '\'' +
+				" name='" + name + '\'' +
 				", date=" + date +
 				", time='" + time + '\'' +
 				", description='" + description + '\'' +

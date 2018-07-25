@@ -63,10 +63,6 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
     public void updateGuest() throws IOException, InstantiationException, IllegalAccessException {
         cbListGuest.setDisable(false);
 
-        if (cbListGuest.getItems().size() > 0) {
-            cbListGuest.getProperties().clear();
-        }
-
         String idConference = cbListConference.getValue().toString().split("-")[0];
 
         String allGuest = new ControllerApi().get("guest/getAllGuest/" + idConference);
@@ -91,21 +87,22 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
         tfLastName.clear();
         tfEmail.clear();
 
-        String idGuest = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
-        String url = "guest/guestById/" + idGuest;
-        btnSave.setVisible(true);
-        guest = (Guest) new ControllerAnnotation().getBean(url, this.getClass(), Guest.class);
-
-        tfFirstName.setText(guest.getfname());
-        tfLastName.setText(guest.getlname());
-        tfEmail.setText(guest.getEmail());
-
-        if (btnDelete.isVisible()) {
-            btnSave.setVisible(false);
-        } else {
+        if (cbListGuest.getItems().size() > 0) {
+            String idGuest = ((ComboBox) event.getSource()).getValue().toString().split("-")[0];
+            String url = "guest/guestById/" + idGuest;
             btnSave.setVisible(true);
-        }
+            guest = (Guest) new ControllerAnnotation().getBean(url, this.getClass(), Guest.class);
 
+            tfFirstName.setText(guest.getfname());
+            tfLastName.setText(guest.getlname());
+            tfEmail.setText(guest.getEmail());
+
+            if (btnDelete.isVisible()) {
+                btnSave.setVisible(false);
+            } else {
+                btnSave.setVisible(true);
+            }
+        }
 
     }
 
@@ -125,8 +122,13 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
             String jsonGuest = new Gson().toJson(guest, Guest.class);
 
             new ControllerApi().put("guest/update/" + guest.getId(), jsonGuest);
+            cbListGuest.getItems().clear();
             this.updateGuest();
             new AlertMessage().notificationAndWait("L'invité " + guest.getfname() + " a été mis à jour");
+
+            tfFirstName.clear();
+            tfLastName.clear();
+            tfEmail.clear();
 
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -145,10 +147,13 @@ public class UpdateGuest extends ControllerInitConference implements Initializab
             this.updateGuest();
 
             int responseCode = new ControllerApi().delete(url);
-            if(responseCode == 200){
+            if (responseCode == 200) {
                 new AlertMessage().notificationAndWait("L'invité " + guest.getfname() + " a été supprimé");
+                tfFirstName.clear();
+                tfLastName.clear();
+                tfEmail.clear();
 
-            }else{
+            } else {
                 new AlertMessage().notificationAndWait("L'invité " + guest.getfname() + " n'a pas été supprimé");
 
             }

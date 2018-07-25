@@ -74,7 +74,7 @@ public class ControllerLogin implements Initializable {
     }
 
     public void navigateTo(ActionEvent event) throws IOException {
-       Parent root = FXMLLoader.load(getClass().getResource("./View/beforeShowWelcomeView.fxml"));
+       Parent root = FXMLLoader.load(getClass().getResource("/View/beforeShowWelcomeView.fxml"));
 
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

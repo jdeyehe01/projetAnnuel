@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 public class UpdateTask extends ControllerInitConference implements Initializable {
 
     @BeanFromDataBase
-   private Task task;
+    private Task task;
 
     @FXML
     private ComboBox cbListConference;
@@ -55,12 +55,7 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
     @FXML
     public void updateTask() throws IOException, InstantiationException, IllegalAccessException {
         String idConference = cbListConference.getValue().toString().split("-")[0];
-        cbListTask.setVisible(true);
-
-        if (cbListTask.getItems().size() > 0) {
-            cbListTask.getProperties().clear();
-
-        }
+        cbListTask.setDisable(false);
 
         String allTask = new ControllerApi().get("task/getAllTaskForConference/" + idConference);
         Task[] tabTask = new Gson().fromJson(allTask, Task[].class);
@@ -82,20 +77,24 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
     public void initialisationForm(ActionEvent event) throws InstantiationException, IllegalAccessException {
         tfTitle.clear();
         tfTime.clear();
-        String idConference = cbListConference.getValue().toString().split("-")[0];
 
-        String idTask = cbListTask.getValue().toString().split("-")[0];
-        String url = "task/getTaskById/" + idTask + "/" + idConference;
+        if (cbListTask.getItems().size() != 0) {
 
-        if (btnDelete.isVisible()) {
-            btnUpdate.setVisible(false);
-        } else {
-            btnUpdate.setVisible(true);
+            String idConference = cbListConference.getValue().toString().split("-")[0];
+
+            String idTask = cbListTask.getValue().toString().split("-")[0];
+            String url = "task/getTaskById/" + idTask + "/" + idConference;
+
+            if (btnDelete.isVisible()) {
+                btnUpdate.setVisible(false);
+            } else {
+                btnUpdate.setVisible(true);
+            }
+            task = (Task) new ControllerAnnotation().getBean(url, this.getClass(), Task.class);
+
+            tfTitle.setText(task.getTitle());
+            tfTime.setText(task.getDuration());
         }
-        task = (Task) new ControllerAnnotation().getBean(url, this.getClass(), Task.class);
-
-        tfTitle.setText(task.getTitle());
-        tfTime.setText(task.getDuration());
 
     }
 
@@ -103,7 +102,7 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
     @FXML
     public void updateDataBase() throws IOException {
         try {
-            if( tfTime.getText().isEmpty() || tfTitle.getText().isEmpty() ){
+            if (tfTime.getText().isEmpty() || tfTitle.getText().isEmpty()) {
                 new AlertMessage().notificationAndWait("Tous les champs ne sont pas correctes");
                 return;
             }
@@ -113,8 +112,11 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
             String jsonTask = new Gson().toJson(task, Task.class);
 
             new ControllerApi().put("task/updateTask/" + task.getId(), jsonTask);
+            cbListTask.getItems().clear();
             updateTask();
-            new AlertMessage().notificationAndWait("La tâche " +task.getTitle() + " a été mis à jour");
+            tfTitle.clear();
+            tfTime.clear();
+            new AlertMessage().notificationAndWait("La tâche " + task.getTitle() + " a été mis à jour");
 
         } catch (InstantiationException e) {
             e.printStackTrace();
@@ -136,9 +138,11 @@ public class UpdateTask extends ControllerInitConference implements Initializabl
         tfTitle.clear();
         tfTime.clear();
 
-        if(code == 200){
+        if (code == 200) {
             new AlertMessage().notificationAndWait("La tâche " + task.getTitle() + " a été supprimé");
-        }else{
+            tfTitle.clear();
+            tfTime.clear();
+        } else {
             new AlertMessage().notificationAndWait("La tâche " + task.getTitle() + " n'a pas été supprimé");
 
         }

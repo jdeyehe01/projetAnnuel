@@ -71,7 +71,7 @@
       </Menu>
       <Menu mnemonicParsing="false" text="Profile">
          <items>
-            <MenuItem fx:id="logOutItem" mnemonicParsing="false" text="Se déconnecter" />
+            <MenuItem fx:id="logOutItem" mnemonicParsing="false" onAction="#logout" text="Se déconnecter" />
          </items>
       </Menu>
    </menus>
